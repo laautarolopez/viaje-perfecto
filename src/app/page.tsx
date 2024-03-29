@@ -3,6 +3,8 @@ import lakeBg from '../../public/images/moreno-lake.jpg'
 import { MdHotel, MdInsertPhoto, MdChecklistRtl } from "react-icons/md";
 import { FaPlane, FaCar, FaFolder } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 export default function Home() {
   return (
@@ -50,6 +52,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <Calendar
+          className='text-black'
+          defaultValue={[new Date(2024, 2, 22), new Date(2024, 2, 26)]}
+        />
       </main>
       <footer></footer>
     </div>
