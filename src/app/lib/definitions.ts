@@ -22,3 +22,13 @@ export type Hospedaje = {
     direccion: string;
     viaje: string;
 };
+
+export type Vuelo = {
+    id: string;
+    numero: string;
+    fecha_partida: string;
+    direccion_partida: string;
+    fecha_llegada: string;
+    direccion_llegada: string;
+    viaje: string;
+};
