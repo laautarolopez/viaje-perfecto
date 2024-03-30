@@ -1,6 +1,7 @@
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import NextTripCard from './components/NextTripCard'
+import CheckList from '@/components/CheckList';
 
 export default function Home() {
   return (
@@ -14,11 +15,11 @@ export default function Home() {
       <main>
         <NextTripCard />
         <Calendar
-          className="text-white rounded-3xl !w-full !bg-green-900"
+          className="text-white rounded-3xl !w-full !bg-green-900 overflow-hidden"
           defaultValue={[new Date(2024, 2, 22), new Date(2024, 2, 26)]}
         />
+        <CheckList />
       </main>
-      <footer></footer>
     </div>
   )
 }
