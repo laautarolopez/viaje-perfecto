@@ -1,7 +1,10 @@
-import Calendar from 'react-calendar'
+import React, { Suspense } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import NextTripCard from './components/NextTripCard'
-import CheckList from '@/components/CheckList';
+import CheckList from '@/components/CheckList'
+import CardCalendar from '@/app/components/CardCalendar'
+
+const Calendar = React.lazy(() => import('@/app/components/CardCalendar'))
 
 export default function Home() {
   return (
@@ -14,10 +17,9 @@ export default function Home() {
       </header>
       <main>
         <NextTripCard />
-        <Calendar
-          className="text-white rounded-3xl !w-full !bg-green-900 overflow-hidden"
-          defaultValue={[new Date(2024, 2, 22), new Date(2024, 2, 26)]}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <CardCalendar />
+        </Suspense>
         <CheckList />
       </main>
     </div>
