@@ -25,7 +25,7 @@ const Vuelo = () => (
                     <p>16/05/24 - 22:00hs</p>
                 </div>
             </div>
-            <hr className="relative text-green-300 m-2" />
+            <hr className="relative border-green-300 m-2" />
             <div className="flex flex-col relative ps-2 pe-2 pt-2 pb-3">
                 <div className="flex flex-row items-center">
                     <FaPlaneArrival className="text-green-300 me-5 w-6 h-6" />

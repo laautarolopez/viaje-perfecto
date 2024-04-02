@@ -24,7 +24,7 @@ const Vuelos = () => (
                 <p className="mt-5">Vuelos</p>
             </div>
             <Vuelo />
-            <hr className="relative text-green-300 mt-10" />
+            <hr className="relative border-green-300 mt-10" />
             <Vuelo />
         </div>
     </>

@@ -32,12 +32,12 @@ const IconsRow = ({ activeIcon }: { activeIcon: string }) => (
         iconWidth="w-5" iconHeight="h-5" />
     </div>
     <div className="flex flex-row mt-2">
-      <div className={cx("relative me-5 rounded-xl bg-orange-500 w-10 h-2", activeIcon !== 'hospedaje' ? 'bg-transparent' : '')}></div>
-      <div className={cx("relative me-5 rounded-xl bg-blue-600 w-10 h-2", activeIcon !== 'vuelos' ? 'bg-transparent' : '')}></div>
-      <div className={cx("relative me-5 rounded-xl bg-green-400 w-10 h-2", activeIcon !== 'auto' ? 'bg-transparent' : '')}></div>
-      <div className={cx("relative me-5 rounded-xl bg-yellow-400 w-10 h-2", activeIcon !== 'fotos' ? 'bg-transparent' : '')}></div>
-      <div className={cx("relative me-5 rounded-xl bg-neutral-400 w-10 h-2", activeIcon !== 'checklist' ? 'bg-transparent' : '')}></div>
-      <div className={cx("relative me-5 rounded-xl bg-violet-600 w-10 h-2", activeIcon !== 'archivos' ? 'bg-transparent' : '')}></div>
+      <div className={cx("relative me-5 rounded-xl w-10 h-2", {'bg-orange-500' : activeIcon === 'hospedaje'})}></div>
+      <div className={cx("relative me-5 rounded-xl w-10 h-2", {'bg-blue-600' : activeIcon === 'vuelos'})}></div>
+      <div className={cx("relative me-5 rounded-xl w-10 h-2", {'bg-green-400' : activeIcon === 'auto'})}></div>
+      <div className={cx("relative me-5 rounded-xl w-10 h-2", {'bg-yellow-400' : activeIcon === 'fotos'})}></div>
+      <div className={cx("relative me-5 rounded-xl w-10 h-2", {'bg-neutral-400' : activeIcon === 'checklist'})}></div>
+      <div className={cx("relative me-5 rounded-xl w-10 h-2", {'bg-violet-600' : activeIcon === 'archivos'})}></div>
     </div>
   </>
 )
