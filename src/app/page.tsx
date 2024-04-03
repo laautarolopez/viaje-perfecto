@@ -9,8 +9,7 @@ import { fetchNextTrip } from './lib/services/trips'
 const Calendar = React.lazy(() => import('@/app/components/CardCalendar'))
 
 export default async function Home() {
-  const { name, end_date, id, image, initial_date, user_id } =
-    await fetchNextTrip()
+  const { name, end_date, id, image, initial_date, user_id } = await fetchNextTrip()
 
   return (
     <div className="p-5">
