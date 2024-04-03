@@ -26,10 +26,9 @@ export type Hospedaje = {
 export type Fly = {
   id: string
   fly_number: string
-  initial_date: string
-  end_date: string
-  fecha_fin: string
   arrival_address: string
+  arrival_date: string
+  departure_date: string
   departure_address: string
   trip_id: string
 }

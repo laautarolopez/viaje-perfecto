@@ -12,3 +12,13 @@ export const fetchNextTrip = async () => {
   })
   return trip
 }
+
+export const fetchTripById = async (tripID: string) => {
+  const trip = await apiService<Trip>({
+    hostname: 'http://localhost:3000/api', //pasar a variable de entorno
+    pathname: 'trips',
+    method: 'GET',
+    headers: { trip_id: tripID }
+  })
+  return trip
+}
