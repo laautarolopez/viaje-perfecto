@@ -18,7 +18,7 @@ export default async function Home() {
         <DaysToTravel initialDate={initial_date} />
       </header>
       <main>
-        <NextTripCard name={name} />
+        <NextTripCard name={name} tripId={id} />
         <Suspense fallback={<div>Loading...</div>}>
           <CardCalendar initialDate={initial_date} endDate={end_date} />
         </Suspense>

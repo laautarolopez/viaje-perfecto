@@ -2,7 +2,7 @@ import { BiWorld } from 'react-icons/bi'
 import Icons from './Icons'
 import CardBg from './CardBg'
 
-const NextTripCard = ({ name }: { name: string }) => {
+const NextTripCard = ({ name, tripId }: { name: string, tripId: string }) => {
   return (
     <div className="p-5 mb-5 relative rounded-xl overflow-hidden">
       <CardBg />
@@ -10,7 +10,7 @@ const NextTripCard = ({ name }: { name: string }) => {
         <h2 className="relative text-3xl font-bold">{name}</h2>
         <BiWorld className="relative w-9 h-9" />
       </div>
-      <Icons />
+      <Icons tripId={tripId} />
     </div>
   )
 }
