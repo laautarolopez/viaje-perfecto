@@ -22,7 +22,7 @@ export default async function Home() {
         <Suspense fallback={<div>Loading...</div>}>
           <CardCalendar initialDate={initial_date} endDate={end_date} />
         </Suspense>
-        <CheckList />
+        <CheckList initial_date={initial_date} tripId={id} />
       </main>
     </div>
   )
