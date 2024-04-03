@@ -1,18 +1,21 @@
 import IconButton from '@/components/IconButton'
 import { MdHotel, MdInsertPhoto, MdChecklistRtl } from 'react-icons/md'
 import { FaPlane, FaCar, FaFolder } from 'react-icons/fa'
+import Link from 'next/link'
 
-const Icons = () => (
+const Icons = ({ tripId }: { tripId: string }) => (
   <>
     <div className="flex flex-row mt-5">
       <IconButton Icon={MdHotel} 
         iconContainerClassName="bg-orange-500" 
         containerWidth="w-16" containerHeight="h-16"
         iconWidth="w-7" iconHeight="h-7" />
-      <IconButton Icon={FaPlane}
-        iconContainerClassName="bg-blue-600"
-        containerWidth="w-16" containerHeight="h-16"
-        iconWidth="w-7" iconHeight="h-7" />
+      <Link href={tripId + '/vuelos'}>
+        <IconButton Icon={FaPlane}
+          iconContainerClassName="bg-blue-600"
+          containerWidth="w-16" containerHeight="h-16"
+          iconWidth="w-7" iconHeight="h-7" />
+      </Link>
       <IconButton Icon={FaCar}
         iconContainerClassName="bg-green-400"
         containerWidth="w-16" containerHeight="h-16"

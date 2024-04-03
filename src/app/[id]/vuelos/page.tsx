@@ -5,11 +5,12 @@ import IconButton from '@/components/IconButton'
 import { FaPlane } from 'react-icons/fa'
 import Vuelo from './components/Vuelo'
 import { fetchFlys } from '@/app/lib/services/flys'
-import { fetchNextTrip } from '@/app/lib/services/trips'
+import { fetchTripById } from '@/app/lib/services/trips'
 
-const Vuelos = async () => {
-    const { nextTripInitialDate, flys } = await fetchFlys()
-    const { initialDate } = await fetchNextTrip()
+const Vuelos = async ({ params }: { params: { id: string } }) => {
+    const tripId = params.id;
+    const flys = await fetchFlys(tripId)
+    const { initial_date } = await fetchTripById(tripId)
 
     return (
         <>
@@ -19,7 +20,7 @@ const Vuelos = async () => {
                     <h2 className="relative text-4xl font-bold">Sur Argentino</h2>
                 </div>
                 <IconsRow activeIcon="vuelos" />
-                <DaysToTravel className="relative mt-5" initialDate={initialDate} />
+                <DaysToTravel className="relative mt-5" initialDate={initial_date} />
             </div>
             <div className="p-5 pt-0">
                 <div className="flex flex-row items-center">
@@ -29,9 +30,19 @@ const Vuelos = async () => {
                         iconWidth="w-5" iconHeight="h-5" />
                     <p className="mt-5">Vuelos</p>
                 </div>
-                <Vuelo />
-                <hr className="relative border-green-300 mt-10" />
-                <Vuelo />
+                {flys.map(fly =>
+                    <>
+                        <Vuelo
+                            key={fly.id}
+                            fly_number={fly.fly_number}
+                            departure_address={fly.departure_address}
+                            departure_date={fly.departure_date}
+                            arrival_address={fly.arrival_address}
+                            arrival_date={fly.arrival_date}
+                        />
+                        <hr className="relative border-green-300 mt-10" />
+                    </>
+                )}
             </div>
         </>
     )
