@@ -3,11 +3,9 @@ import { MdAirplaneTicket, MdPlace, MdAccessTime } from 'react-icons/md'
 import FlightBg from './flightBg'
 import { Fly } from '@/app/lib/types'
 import { format, parseISO } from 'date-fns';
-import BlobForm from '@/components/BlobForm';
+import Blob from '@/components/Blob';
 
-type VueloProps = Omit<Fly, 'id' | 'trip_id'>;
-
-const Vuelo = ({fly_number, departure_address, departure_date, arrival_address, arrival_date}: VueloProps) => {
+const Vuelo = ({id, fly_number, departure_address, departure_date, arrival_address, arrival_date, trip_id}: Fly) => {
     const departure_dateParse = parseISO(departure_date);
     const departure_formattedDate = format(departure_dateParse, 'dd/MM/yyyy');
     const departure_formattedTime = format(departure_dateParse, 'HH:mm');
@@ -58,7 +56,7 @@ const Vuelo = ({fly_number, departure_address, departure_date, arrival_address, 
                 <p className="font-bold text-xl">Archivos adjuntos</p>
                 <FaChevronDown className="text-green-300 me-5 w-6 h-6" />
             </div>
-            <BlobForm />
+            <Blob trip_id={trip_id} fly_id={id} />
         </>
     )
 }
