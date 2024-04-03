@@ -1,6 +1,6 @@
-import CardBg from '../../components/CardBg';
-import IconsRow from '@/components/IconsRow';
-import DaysToTravel from '@/components/DaysToTravel';
+import CardBg from '../../components/CardBg'
+import IconsRow from '@/components/IconsRow'
+import DaysToTravel from '@/components/DaysToTravel'
 import IconButton from '@/components/IconButton'
 import { FaPlane } from 'react-icons/fa'
 import Vuelo from './components/Vuelo'
@@ -37,4 +37,4 @@ const Vuelos = async () => {
     )
 }
 
-export default Vuelos;
+export default Vuelos

@@ -1,18 +1,18 @@
 const { db } = require('@vercel/postgres')
-const { users, trips } = require('../app/lib/placeholder-data.js')
+const { users, trips, flys } = require('../app/lib/placeholder-data.js')
 const bcrypt = require('bcrypt')
 
 async function seed(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
 
+    await client.sql`DROP TABLE IF EXISTS flys`
+
     // Eliminar la tabla "trips" si existe
     await client.sql`DROP TABLE IF EXISTS trips`
-    console.log(`Dropped "trips" table`)
 
     // Eliminar la tabla "users" si existe
     await client.sql`DROP TABLE IF EXISTS users`
-    console.log(`Dropped "users" table`)
 
     // Crear la tabla "users" si no existe
     const createUsersTable = await client.sql`
@@ -37,6 +37,28 @@ async function seed(client) {
     `
     console.log(`Created "trips" table`)
 
+    const createFlysTable = await client.sql`
+        CREATE TABLE flys (
+            id UUID PRIMARY KEY,
+            fly_number TEXT NOT NULL,
+            arrival_address TEXT NOT NULL,
+            departure_date TIMESTAMP NOT NULL,
+            arrival_date TIMESTAMP NOT NULL,
+            departure_address TEXT NOT NULL,
+            trip_id UUID REFERENCES trips(id)
+        );`
+
+    // export type Fly = {
+    //   id: string
+    //   fly_number: string
+    //   arrival_address: string
+    //   arrival_date: string
+    //   departure_date: string
+    //   departure_address: string
+    //   trip_id: string
+    // }
+    //inlcude time on dates
+
     // Insertar datos en la tabla "users"
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
@@ -48,7 +70,6 @@ async function seed(client) {
                 `
       })
     )
-    console.log(`Seeded ${insertedUsers.length} users`)
 
     const insertedTrips = await Promise.all(
       trips.map(async (trip) => {
@@ -59,12 +80,24 @@ async function seed(client) {
         `
       })
     )
+
+    const insertedFlys = await Promise.all(
+      flys.map(async (fly) => {
+        return client.sql`
+            INSERT INTO flys (id, fly_number, arrival_address, departure_date, arrival_date, departure_address, trip_id)
+            VALUES (${fly.id}, ${fly.fly_number}, ${fly.arrival_address}, ${fly.departure_date}, ${fly.arrival_date}, ${fly.departure_address}, ${fly.trip_id})
+            ON CONFLICT (id) DO NOTHING;
+        `
+      })
+    )
     // Return created tables and seeded users
     return {
       createUsersTable,
       createTripsTable,
+      createFlysTable,
       users: insertedUsers,
-      trips: insertedTrips
+      trips: insertedTrips,
+      flys: insertedFlys
     }
   } catch (error) {
     console.error('Error seeding users:', error)
