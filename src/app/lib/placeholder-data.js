@@ -1,5 +1,6 @@
-export const user1ID = '410544b2-4001-4271-9855-fec4b6a6442a'
-export const trip4ID = '004544b2-4001-4271-9855-fec4b6a6442a'
+const user1ID = '410544b2-4001-4271-9855-fec4b6a6442a'
+const trip2ID = '002544b2-4001-4271-9855-fec4b6a6442a'
+const trip4ID = '004544b2-4001-4271-9855-fec4b6a6442a'
 
 const users = [
   {
@@ -64,8 +65,47 @@ const flys = [
     trip_id: trip4ID
   }
 ]
+
+// const checklist = {
+//   id: '001544b3-4001-4271-9855-fec4b6a6442a',
+//   notes: notes,
+//   trip_id: trip2ID
+// }
+
+const notes = [
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442b',
+    description: 'Tengo mi documento',
+    is_checked: true,
+    create_date: '2023-12-24T14:00:00',
+    trip_id: trip4ID
+  },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442c',
+    description: 'Agarre mi billetera y plata',
+    is_checked: true,
+    create_date: '2023-12-24T14:10:00',
+    trip_id: trip4ID
+  },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442d',
+    description: 'Agarre mi licencia de conducir',
+    is_checked: true,
+    create_date: '2023-12-24T14:20:00',
+    trip_id: trip4ID
+  },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442e',
+    description: 'Agarre mi pasaporte',
+    is_checked: false,
+    create_date: '2023-12-24T14:30:00',
+    trip_id: trip4ID
+  }
+]
+
 module.exports = {
   users,
   trips,
-  flys
+  flys,
+  notes
 }

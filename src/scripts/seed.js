@@ -1,11 +1,15 @@
 const { db } = require('@vercel/postgres')
-const { users, trips, flys } = require('../app/lib/placeholder-data.js')
+const { users, trips, flys, notes } = require('../app/lib/placeholder-data.js')
 const bcrypt = require('bcrypt')
 
 async function seed(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
 
+    // Eliminar la tabla "notes" si existe
+    await client.sql`DROP TABLE IF EXISTS notes`
+
+    // Eliminar la tabla "flys" si existe
     await client.sql`DROP TABLE IF EXISTS flys`
 
     // Eliminar la tabla "trips" si existe
@@ -46,7 +50,20 @@ async function seed(client) {
             arrival_date TIMESTAMP NOT NULL,
             departure_address TEXT NOT NULL,
             trip_id UUID REFERENCES trips(id)
-        );`
+        );`  
+
+    console.log(`Created "flys" table`)
+
+    const createNotesTable = await client.sql`
+      CREATE TABLE notes (
+          id UUID PRIMARY KEY,
+          description TEXT NOT NULL,
+          is_checked BOOLEAN NOT NULL,
+          create_date TIMESTAMP NOT NULL,
+          trip_id UUID REFERENCES trips(id)
+      );`
+
+    console.log(`Created "notes" table`)
 
     // export type Fly = {
     //   id: string
@@ -90,14 +107,27 @@ async function seed(client) {
         `
       })
     )
+
+    const insertedNotes = await Promise.all(
+      notes.map(async (note) => {
+        return client.sql`
+            INSERT INTO notes (id, description, is_checked, create_date, trip_id)
+            VALUES (${note.id}, ${note.description}, ${note.is_checked}, ${note.create_date}, ${note.trip_id})
+            ON CONFLICT (id) DO NOTHING;
+        `
+      })
+    )
+
     // Return created tables and seeded users
     return {
       createUsersTable,
       createTripsTable,
       createFlysTable,
+      createNotesTable,
       users: insertedUsers,
       trips: insertedTrips,
-      flys: insertedFlys
+      flys: insertedFlys,
+      notes: insertedNotes
     }
   } catch (error) {
     console.error('Error seeding users:', error)
