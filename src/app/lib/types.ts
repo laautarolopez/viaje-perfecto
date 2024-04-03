@@ -32,3 +32,17 @@ export type Fly = {
   departure_address: string
   trip_id: string
 }
+
+// export type CheckList = {
+//   id: string
+//   notes: [Note]
+//   trip_id: string
+// }
+
+export type Note = {
+  id: string
+  description: string
+  is_checked: boolean
+  create_date: string
+  trip_id: string
+}
