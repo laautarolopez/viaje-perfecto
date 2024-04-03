@@ -34,11 +34,13 @@ const Vuelos = async ({ params }: { params: { id: string } }) => {
                     <>
                         <Vuelo
                             key={fly.id}
+                            id={fly.id}
                             fly_number={fly.fly_number}
                             departure_address={fly.departure_address}
                             departure_date={fly.departure_date}
                             arrival_address={fly.arrival_address}
                             arrival_date={fly.arrival_date}
+                            trip_id={tripId}
                         />
                         <hr className="relative border-green-300 mt-10" />
                     </>
