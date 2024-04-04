@@ -3,15 +3,13 @@ import { revalidatePath } from 'next/cache';
 import BlobForm from './BlobForm';
  
 const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) => {
-  async function uploadFile(formData: FormData) {
+  async function uploadFile(file: File) {
     'use server';
-    const file = formData.get('file') as File;
     const filePath = `${trip_id}/${fly_id}/${file.name}`;
     const blob = await put(filePath, file, {
       access: 'public',
     });
-    revalidatePath('/');
-    console.log(blob)
+    revalidatePath(`${trip_id}/vuelos`);
     return blob;
   }
  

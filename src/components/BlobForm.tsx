@@ -1,11 +1,17 @@
 "use client"
 import { useState } from "react"
-import { FaFileUpload, FaUpload } from "react-icons/fa";
+import { FaFileUpload } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import IconButton from './IconButton';
 
-const BlobForm = ({ action }) => {
+const BlobForm = ({ action }: any) => {
     const [file, setFile] = useState<File | null>(null);
     const [isOpen, setIsOpen] = useState(false)
+
+    const uploadFile = async () => {
+        await action(file)
+        setIsOpen(false)
+    }
 
     return(
         <>
@@ -16,15 +22,17 @@ const BlobForm = ({ action }) => {
     
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-full sm:my-8 sm:align-middle sm:max-w-lg">
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <form action={action}>
+                        <form>
                             {file
                             ? <>
-                                <div className="flex flex-row items-center gap-10 p-2 overflow-hidden text-black">
-                                    <FaFileUpload />
-                                    {file.name}
+                                <div className="flex flex-row items-center p-2 overflow-hidden text-black">
+                                    <div className="w-4/5 pe-2">{file.name}</div>
+                                    <div className="w-1/5 flex items-center justify-center">
+                                        <MdDeleteForever className="w-3/5 h-3/5 text-red-600 hover:text-red-700 hover:cursor-pointer max-w-8 max-h-8" onClick={() => setFile(null)} />
+                                    </div>
                                 </div>
                                 <div className="ps-5 pe-5">
-                                    <button type="submit" className="mt-3 w-full rounded-md border border-transparent shadow-sm px-2 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" onClick={() => setIsOpen(false)}>
+                                    <button className="mt-3 w-full rounded-md border border-transparent shadow-sm px-2 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" onClick={uploadFile}>
                                         Subir
                                     </button>
                                 </div>

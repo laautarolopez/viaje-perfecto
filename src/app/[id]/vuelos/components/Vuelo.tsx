@@ -4,6 +4,7 @@ import FlightBg from './flightBg'
 import { Fly } from '@/app/lib/types'
 import { format, parseISO } from 'date-fns';
 import Blob from '@/components/Blob';
+import ListBlobs from '@/components/ListBlobs';
 
 const Vuelo = ({id, fly_number, departure_address, departure_date, arrival_address, arrival_date, trip_id}: Fly) => {
     const departure_dateParse = parseISO(departure_date);
@@ -57,6 +58,7 @@ const Vuelo = ({id, fly_number, departure_address, departure_date, arrival_addre
                 <FaChevronDown className="text-green-300 me-5 w-6 h-6" />
             </div>
             <Blob trip_id={trip_id} fly_id={id} />
+            <ListBlobs folder={`${trip_id}/${id}`} />
         </>
     )
 }
