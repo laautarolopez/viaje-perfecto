@@ -10,14 +10,14 @@ import { fetchTripById } from '@/app/lib/services/trips'
 const Vuelos = async ({ params }: { params: { id: string } }) => {
     const tripId = params.id;
     const flys = await fetchFlys(tripId)
-    const { initial_date } = await fetchTripById(tripId)
+    const { name, initial_date } = await fetchTripById(tripId)
 
     return (
         <>
             <div className="p-5 relative overflow-hidden">
                 <CardBg />
                 <div className="flex flex-row mt-3">
-                    <h2 className="relative text-4xl font-bold">Sur Argentino</h2>
+                    <h2 className="relative text-4xl font-bold">{name}</h2>
                 </div>
                 <IconsRow activeIcon="vuelos" />
                 <DaysToTravel className="relative mt-5" initialDate={initial_date} />
