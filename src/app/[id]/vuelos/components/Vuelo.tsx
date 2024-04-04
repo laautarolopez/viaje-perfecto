@@ -58,7 +58,7 @@ const Vuelo = ({id, fly_number, departure_address, departure_date, arrival_addre
                 <FaChevronDown className="text-green-300 me-5 w-6 h-6" />
             </div>
             <Blob trip_id={trip_id} fly_id={id} />
-            <ListBlobs folder={`${trip_id}/${id}`} />
+            {/* <ListBlobs folder={`${trip_id}/${id}`} /> */}
         </>
     )
 }
