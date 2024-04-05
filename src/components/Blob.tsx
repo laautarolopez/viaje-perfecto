@@ -36,7 +36,7 @@ const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) =>
         </div>
       </form>
       {/* <hr className="relative border-green-300 mt-10" /> */}
-      {files.blobs.map((file) => (
+      {files && files.blobs.map((file) => (
           <FileBlob 
             filename={file.pathname.slice(folder.length+1)} 
             download={file.downloadUrl}
