@@ -1,5 +1,6 @@
 import { put, list } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation'
 import FileBlob from './FileBlob';
  
 const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) => {
@@ -11,7 +12,8 @@ const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) =>
       access: 'public',
       addRandomSuffix: false
     });
-    revalidatePath(`/${trip_id}/vuelos`);
+    revalidatePath(`${trip_id}/vuelos`)
+    redirect('vuelos')
     return blob;
   }
 
@@ -36,7 +38,8 @@ const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) =>
         </div>
       </form>
       {/* <hr className="relative border-green-300 mt-10" /> */}
-      {files && files.blobs.map((file) => (
+      {files && files.blobs.sort((fileA, fileB) => fileA.uploadedAt.getTime() - fileB.uploadedAt.getTime())
+          .map((file) => (
           <FileBlob 
             filename={file.pathname.slice(folder.length+1)} 
             download={file.downloadUrl}
