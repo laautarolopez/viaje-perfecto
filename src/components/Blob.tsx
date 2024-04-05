@@ -7,7 +7,7 @@ const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) =>
   async function uploadFile(formData: FormData) {
     'use server';
     const file = formData.get('file') as File;
-    const filePath = `${trip_id}/${fly_id}/${file.name}`;
+    const filePath = `${trip_id}/vuelos/${fly_id}/${file.name}`;
     const blob = await put(filePath, file, {
       access: 'public',
       addRandomSuffix: false
@@ -18,13 +18,13 @@ const Blob = async ({ trip_id, fly_id }: { trip_id: string, fly_id: string }) =>
   }
 
   async function allFiles() {
-    const folder = `${trip_id}/${fly_id}`
+    const folder = `${trip_id}/vuelos/${fly_id}`
     const blobs = await list({prefix: folder})
     return blobs;
   }
 
   const files = await allFiles()
-  const folder = `${trip_id}/${fly_id}`
+  const folder = `${trip_id}/vuelos/${fly_id}`
 
   return (
     <>
