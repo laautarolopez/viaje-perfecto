@@ -34,8 +34,10 @@ Como usuario  quiero ver la informacion de los vuelos relacionados al proximo vi
 Como usuario quiero administrar los archivos mas importantes de cada vuelo relacionado al viaje.
 - El usuario entra a la home.
 - El sistema le muestra el proximo viaje con su menu de navegacion.
-- El usuario navega hasta el vuelo deseado y clickea en agregragar, agregar o modificar archivo.
-- El sistema agrega, modifica o elimina el archivo.
+- El usuario clickea en el boton de los vuelos.
+- El sistema le muestra la pantalla de los vuelos y todas su respectiva informacion.
+- El usuario navega hasta el vuelo deseado y clickea en agregar o borrar un archivo.
+- El sistema agrega o elimina el archivo.
 
 
 Diagrama de arquitectura:
