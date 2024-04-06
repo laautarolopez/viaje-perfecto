@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server'
 //next trip endpoint
 export async function GET(request: Request) {
   const userId = request.headers.get('user_id')
-  // const userId = request.query.userid;
 
   try {
     const data =
