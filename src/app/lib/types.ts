@@ -13,6 +13,8 @@ export type Trip = {
   image: string
 }
 
+export type NextTripInfo = Trip & Partial<DepartureInfo>
+
 export type Hospedaje = {
   id: string
   nombre: string
@@ -23,13 +25,16 @@ export type Hospedaje = {
   trip_id: string
 }
 
-export type Fly = {
+export type DepartureInfo = {
+  departure_date: string
+  departure_address: string
+}
+
+export type Fly = DepartureInfo & {
   id: string
   fly_number: string
   arrival_address: string
   arrival_date: string
-  departure_date: string
-  departure_address: string
   trip_id: string
 }
 
