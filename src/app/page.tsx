@@ -6,11 +6,19 @@ import CardCalendar from '@/app/components/CardCalendar'
 import DaysToTravel from '@/components/DaysToTravel'
 import { fetchNextTrip } from './lib/services/trips'
 import Dates from './components/Dates'
-
-const Calendar = React.lazy(() => import('@/app/components/CardCalendar'))
+import AirportTip from './components/AirportTip'
 
 export default async function Home() {
-  const { name, end_date, id, image, initial_date, user_id } = await fetchNextTrip()
+  const {
+    name,
+    end_date,
+    id,
+    image,
+    initial_date,
+    user_id,
+    departure_address,
+    departure_date
+  } = await fetchNextTrip()
 
   return (
     <div className="p-5">
@@ -24,7 +32,11 @@ export default async function Home() {
         <Suspense fallback={<div>Loading...</div>}>
           <CardCalendar initialDate={initial_date} endDate={end_date} />
         </Suspense>
-        <CheckList initial_date={initial_date} tripId={id} />
+        <AirportTip
+          departure_address={departure_address}
+          departure_date={departure_date}
+        />
+        <CheckList tripId={id} />
       </main>
     </div>
   )
