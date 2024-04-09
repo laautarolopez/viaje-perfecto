@@ -19,7 +19,7 @@ const AirportTip = ({
     <div className="flex gap-5 mt-10">
       <MdTipsAndUpdates className="w-8 h-8 text-green-300 flex-shrink-0" />
       <p className="font-bold">
-        Te sugerimos llegar al destino {departure_address} a las{' '}
+        Te sugerimos llegar al <span className='italic'>'{departure_address}'</span> a las{' '}
         <span className="text-green-300 font-bold">{formattedHour}hs</span>
       </p>
     </div>
