@@ -13,3 +13,13 @@ export async function GET(request: Request) {
     throw new Error('There is no checklist available.')
   }
 }
+
+export async function PATCH(request: Request) {
+  const noteID = request.headers.get('note_id')
+  try {
+    await sql`UPDATE notes SET is_checked = NOT is_checked WHERE id = ${noteID}`
+    return NextResponse.json({ message: 'Note updated' })
+  } catch (error) {
+    throw new Error('Note not found.')
+  }
+}
