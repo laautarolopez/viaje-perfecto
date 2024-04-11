@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import NextTripCard from './components/NextTripCard'
-import CheckList from '@/components/CheckList'
+import CheckListContainer from '@/components/checklist/CheckListContainer'
 import CardCalendar from '@/app/components/CardCalendar'
 import DaysToTravel from '@/components/DaysToTravel'
 import { fetchNextTrip } from './lib/services/trips'
@@ -36,7 +36,7 @@ export default async function Home() {
           departure_address={departure_address}
           departure_date={departure_date}
         />
-        <CheckList tripId={id} />
+        <CheckListContainer tripId={id} />
       </main>
     </div>
   )

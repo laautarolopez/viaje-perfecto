@@ -48,6 +48,6 @@ export type Note = {
   id: string
   description: string
   is_checked: boolean
-  create_date: string
+  created_date: string
   trip_id: string
 }
