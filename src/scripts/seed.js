@@ -31,7 +31,7 @@ async function seed(client) {
     // Crear la tabla "trips" si no existe, image va a ser  de tipo BLOB
     const createTripsTable = await client.sql`
         CREATE TABLE trips (
-            id UUID PRIMARY KEY,
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             user_id UUID REFERENCES users(id),
             name TEXT NOT NULL,
             initial_date DATE NOT NULL,
@@ -43,23 +43,23 @@ async function seed(client) {
 
     const createFlysTable = await client.sql`
         CREATE TABLE flys (
-            id UUID PRIMARY KEY,
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             fly_number TEXT NOT NULL,
             arrival_address TEXT NOT NULL,
             departure_date TIMESTAMP NOT NULL,
             arrival_date TIMESTAMP NOT NULL,
             departure_address TEXT NOT NULL,
             trip_id UUID REFERENCES trips(id)
-        );`  
+        );`
 
     console.log(`Created "flys" table`)
 
     const createNotesTable = await client.sql`
       CREATE TABLE notes (
-          id UUID PRIMARY KEY,
+          id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
           description TEXT NOT NULL,
-          is_checked BOOLEAN NOT NULL,
-          create_date TIMESTAMP NOT NULL,
+          is_checked BOOLEAN NOT NULL DEFAULT FALSE,
+          created_date TIMESTAMP NOT NULL DEFAULT NOW(),
           trip_id UUID REFERENCES trips(id)
       );`
 
@@ -111,8 +111,8 @@ async function seed(client) {
     const insertedNotes = await Promise.all(
       notes.map(async (note) => {
         return client.sql`
-            INSERT INTO notes (id, description, is_checked, create_date, trip_id)
-            VALUES (${note.id}, ${note.description}, ${note.is_checked}, ${note.create_date}, ${note.trip_id})
+            INSERT INTO notes (id, description, is_checked,created_date, trip_id)
+            VALUES (${note.id}, ${note.description}, ${note.is_checked},${note.created_date}, ${note.trip_id})
             ON CONFLICT (id) DO NOTHING;
         `
       })

@@ -47,7 +47,7 @@ const trips = [
 
 const flys = [
   {
-    id: '001544b2-4001-4271-9855-fec4b6a644221a',
+    id: '002544b9-4001-4271-9855-fec4b6a6442a',
     fly_number: 'AR123',
     departure_address: 'Aeropuerto Ezeiza, Buenos Aires',
     departure_date: '2024-04-15T00:00:00',
@@ -86,28 +86,28 @@ const notes = [
     id: '001544b3-4001-4271-9855-fec4b6a6442b',
     description: 'Tengo mi documento',
     is_checked: true,
-    create_date: '2023-12-24T14:00:00',
+    created_date: '2023-12-24T14:00:00',
     trip_id: trip4ID
   },
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442c',
     description: 'Agarre mi billetera y plata',
     is_checked: true,
-    create_date: '2023-12-24T14:10:00',
+    created_date: '2023-12-24T14:10:00',
     trip_id: trip4ID
   },
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442d',
     description: 'Agarre mi licencia de conducir',
     is_checked: true,
-    create_date: '2023-12-24T14:20:00',
+    created_date: '2023-12-24T14:20:00',
     trip_id: trip4ID
   },
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442e',
     description: 'Agarre mi pasaporte',
     is_checked: false,
-    create_date: '2023-12-24T14:30:00',
+    created_date: '2023-12-24T14:30:00',
     trip_id: trip4ID
   }
 ]

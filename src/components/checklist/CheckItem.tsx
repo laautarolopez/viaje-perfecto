@@ -1,4 +1,4 @@
-import Checkbox from '@/components/Checkbox'
+import Checkbox from '@/components/checklist/Checkbox'
 import { Note } from '@/app/lib/types'
 
 const CheckItem = (note: Note) => {
