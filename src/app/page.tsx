@@ -7,6 +7,7 @@ import DaysToTravel from '@/components/DaysToTravel'
 import { fetchNextTrip } from './lib/services/trips'
 import Dates from './components/Dates'
 import AirportTip from './components/AirportTip'
+import FutureTrips from './components/FutureTrips'
 
 export default async function Home() {
   const {
@@ -37,6 +38,7 @@ export default async function Home() {
           departure_date={departure_date}
         />
         <CheckListContainer tripId={id} />
+        <FutureTrips />
       </main>
     </div>
   )
