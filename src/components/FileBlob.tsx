@@ -1,7 +1,7 @@
 'use client'
 import { FaFileDownload, FaTrashAlt } from 'react-icons/fa'
 
-import { deleteFile } from '@/app/actions/actions'
+import { deleteFile } from '@/app/actions/blobActions'
 
 const FileBlob = ({
   filename,

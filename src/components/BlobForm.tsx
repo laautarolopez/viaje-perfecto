@@ -3,13 +3,14 @@ import { useState } from "react"
 import { FaFileUpload } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import IconButton from './IconButton';
+import { uploadFile } from '@/app/actions/blobActions'
 
-const BlobForm = () => {
+const BlobForm = ({trip_id, fly_id}: {trip_id: string, fly_id: string}) => {
     const [file, setFile] = useState<File | null>(null);
     const [isOpen, setIsOpen] = useState(false)
 
     return(
-        <>
+        <form action="" className="mb-10">
             {isOpen
             ? <div className="fixed z-10 inset-0 overflow-y-auto top-48" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                 <div className="flex items-end justify-center pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -25,7 +26,10 @@ const BlobForm = () => {
                                     </div>
                                 </div>
                                 <div className="ps-5 pe-5">
-                                    <button type="submit" className="mt-3 w-full rounded-md border border-transparent shadow-sm px-2 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                    <button type="submit" className="mt-3 w-full rounded-md border border-transparent shadow-sm px-2 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                    onClick={async () => {
+                                        await uploadFile(file, trip_id, fly_id)
+                                    }}>
                                         Subir
                                     </button>
                                 </div>
@@ -60,7 +64,7 @@ const BlobForm = () => {
                 <FaUpload />
                 {file.name}
             </button> */}
-        </>
+        </form>
     )
 }
 
