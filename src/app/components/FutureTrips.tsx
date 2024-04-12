@@ -5,7 +5,7 @@ const FutureTrips = async () => {
     let future_trips = await fetchNextTrips()
 
     // Elimina el primer elemento de future_trips(para no mostrar el próximo viaje ya mostrado)
-    // future_trips = future_trips.length > 0 ? future_trips.slice(1) : [];
+    future_trips = future_trips.length > 0 ? future_trips.slice(1) : [];
 
     return (
         <div className="mt-16">
