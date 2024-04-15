@@ -1,35 +1,35 @@
-const { db } = require('@vercel/postgres')
+const { query, end } = require('../app/lib/db.js');
 const { users, trips, flys, notes } = require('../app/lib/placeholder-data.js')
 const bcrypt = require('bcrypt')
 
-async function seed(client) {
+async function seed() {
   try {
-    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
+    await query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`)
 
     // Eliminar la tabla "notes" si existe
-    await client.sql`DROP TABLE IF EXISTS notes`
+    await query(`DROP TABLE IF EXISTS notes`)
 
     // Eliminar la tabla "flys" si existe
-    await client.sql`DROP TABLE IF EXISTS flys`
+    await query(`DROP TABLE IF EXISTS flys`)
 
     // Eliminar la tabla "trips" si existe
-    await client.sql`DROP TABLE IF EXISTS trips`
+    await query(`DROP TABLE IF EXISTS trips`)
 
     // Eliminar la tabla "users" si existe
-    await client.sql`DROP TABLE IF EXISTS users`
+    await query(`DROP TABLE IF EXISTS users`)
 
     // Crear la tabla "users" si no existe
-    const createUsersTable = await client.sql`
+    const createUsersTable = await query(`
             CREATE TABLE IF NOT EXISTS users (
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
                 username TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL
             );
-        `
+        `)
     console.log(`Created "users" table`)
 
     // Crear la tabla "trips" si no existe, image va a ser  de tipo BLOB
-    const createTripsTable = await client.sql`
+    const createTripsTable = await query(`
         CREATE TABLE trips (
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             user_id UUID REFERENCES users(id),
@@ -38,10 +38,10 @@ async function seed(client) {
             end_date DATE NOT NULL,
             image TEXT NOT NULL
         );
-    `
+    `)
     console.log(`Created "trips" table`)
 
-    const createFlysTable = await client.sql`
+    const createFlysTable = await query(`
         CREATE TABLE flys (
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             fly_number TEXT NOT NULL,
@@ -50,18 +50,18 @@ async function seed(client) {
             arrival_date TIMESTAMP NOT NULL,
             departure_address TEXT NOT NULL,
             trip_id UUID REFERENCES trips(id)
-        );`
+        );`)
 
     console.log(`Created "flys" table`)
 
-    const createNotesTable = await client.sql`
+    const createNotesTable = await query(`
       CREATE TABLE notes (
           id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
           description TEXT NOT NULL,
           is_checked BOOLEAN NOT NULL DEFAULT FALSE,
           created_date TIMESTAMP NOT NULL DEFAULT NOW(),
           trip_id UUID REFERENCES trips(id)
-      );`
+      );`)
 
     console.log(`Created "notes" table`)
 
@@ -80,41 +80,41 @@ async function seed(client) {
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10)
-        return client.sql`
+        return query(`
                     INSERT INTO users (id, username, password)
-                    VALUES (${user.id}, ${user.username}, ${hashedPassword})
+                    VALUES ($1, $2, $3)
                     ON CONFLICT (id) DO NOTHING;
-                `
+                `, [user.id, user.username, hashedPassword])
       })
     )
 
     const insertedTrips = await Promise.all(
       trips.map(async (trip) => {
-        return client.sql`
+        return query(`
             INSERT INTO trips (id, user_id, name, initial_date, end_date, image)
-            VALUES (${trip.id}, ${trip.user_id}, ${trip.name}, ${trip.initial_date}, ${trip.end_date}, ${trip.image})
+            VALUES ($1, $2, $3, $4, $5, $6)
             ON CONFLICT (id) DO NOTHING;
-        `
+        `, [trip.id, trip.user_id, trip.name, trip.initial_date, trip.end_date, trip.image])
       })
     )
 
     const insertedFlys = await Promise.all(
       flys.map(async (fly) => {
-        return client.sql`
+        return query(`
             INSERT INTO flys (id, fly_number, arrival_address, departure_date, arrival_date, departure_address, trip_id)
-            VALUES (${fly.id}, ${fly.fly_number}, ${fly.arrival_address}, ${fly.departure_date}, ${fly.arrival_date}, ${fly.departure_address}, ${fly.trip_id})
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             ON CONFLICT (id) DO NOTHING;
-        `
+        `, [fly.id, fly.fly_number, fly.arrival_address, fly.departure_date, fly.arrival_date, fly.departure_address, fly.trip_id])
       })
     )
 
     const insertedNotes = await Promise.all(
       notes.map(async (note) => {
-        return client.sql`
+        return query(`
             INSERT INTO notes (id, description, is_checked,created_date, trip_id)
-            VALUES (${note.id}, ${note.description}, ${note.is_checked},${note.created_date}, ${note.trip_id})
+            VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT (id) DO NOTHING;
-        `
+        `, [note.id, note.description, note.is_checked,note.created_date, note.trip_id])
       })
     )
 
@@ -136,11 +136,8 @@ async function seed(client) {
 }
 
 async function main() {
-  const client = await db.connect()
-
-  await seed(client)
-
-  await client.end()
+  await seed()
+  await end()
 }
 
 main().catch((err) => {
