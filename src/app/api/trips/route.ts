@@ -1,11 +1,11 @@
-import { sql } from '@vercel/postgres'
+import { query } from '@/app/lib/db'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   const trip_id = request.headers.get('trip_id')
 
   try {
-    const data = await sql`SELECT * FROM trips WHERE id = ${trip_id}`
+    const data = await query(`SELECT * FROM trips WHERE id = $1`, [trip_id])
     const trip = data.rows[0]
     return NextResponse.json(trip)
   } catch (error) {

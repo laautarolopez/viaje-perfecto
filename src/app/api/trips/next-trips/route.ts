@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres'
+import { query } from '@/app/lib/db'
 import { NextResponse } from 'next/server'
 
 //next trips endpoint
@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const userId = request.headers.get('user_id')
   try {
     const data =
-        await sql`SELECT * FROM trips WHERE initial_date > NOW() AND user_id = ${userId} ORDER BY initial_date ASC`
+        await query(`SELECT * FROM trips WHERE initial_date > NOW() AND user_id = $1 ORDER BY initial_date ASC`, [userId])
     const trips = data.rows
 
     return NextResponse.json(trips)
