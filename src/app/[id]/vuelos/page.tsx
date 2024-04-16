@@ -23,14 +23,11 @@ const Vuelos = async ({ params }: { params: { id: string } }) => {
         <DaysToTravel className="relative mt-5" initialDate={initial_date} />
       </div>
       <div className="p-5 pt-0">
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center gap-5 font-bold text-xl">
           <IconButton
             Icon={FaPlane}
-            iconContainerClassName="bg-blue-600"
-            containerWidth="w-10"
-            containerHeight="h-10"
-            iconWidth="w-5"
-            iconHeight="h-5"
+            iconContainerClassName="bg-blue-600 w-10 h-10"
+            iconClassName="w-5 h-5"
           />
           <p className="mt-5">Vuelos</p>
         </div>
