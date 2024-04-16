@@ -3,7 +3,7 @@ import { MdAirplaneTicket, MdPlace, MdAccessTime } from 'react-icons/md'
 import FlightBg from './flightBg'
 import { Fly } from '@/app/lib/types'
 import { format, parseISO } from 'date-fns'
-import Blob from '@/components/Blob'
+import Blob from '@/components/blob/Blob'
 
 const Vuelo = ({
   id,
@@ -69,7 +69,7 @@ const Vuelo = ({
         </div>
       </div>
       <div className="flex flex-row items-center mt-10 justify-between">
-        <p className="font-bold text-xl">Archivos adjuntos</p>
+        <p className="font-bold text-xl mb-5">Archivos adjuntos</p>
         {/* <FaChevronDown className="text-green-300 me-5 w-6 h-6" /> */}
       </div>
       <Blob trip_id={trip_id} fly_id={id} />

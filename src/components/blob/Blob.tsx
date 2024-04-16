@@ -1,5 +1,5 @@
 import { list } from '@vercel/blob'
-import FileBlob from './FileBlob'
+import FileBlob from '../FileBlob'
 import BlobForm from './BlobForm'
 
 const Blob = async ({
@@ -9,7 +9,6 @@ const Blob = async ({
   trip_id: string
   fly_id: string
 }) => {
-  
   async function allFiles() {
     const folder = `${trip_id}/vuelos/${fly_id}`
     const blobs = await list({ prefix: folder })
@@ -21,7 +20,6 @@ const Blob = async ({
 
   return (
     <>
-      <BlobForm trip_id={trip_id} fly_id={fly_id} />
       {files &&
         files.blobs
           .sort(
@@ -36,6 +34,7 @@ const Blob = async ({
               deleteFilePath={file.url}
             />
           ))}
+      <BlobForm trip_id={trip_id} fly_id={fly_id} />
     </>
   )
 }
