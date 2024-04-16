@@ -1,4 +1,4 @@
-import { FaPlaneDeparture, FaPlaneArrival, FaChevronDown } from 'react-icons/fa'
+import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa'
 import { MdAirplaneTicket, MdPlace, MdAccessTime } from 'react-icons/md'
 import FlightBg from './flightBg'
 import { Fly } from '@/app/lib/types'
@@ -67,10 +67,6 @@ const Vuelo = ({
             </p>
           </div>
         </div>
-      </div>
-      <div className="flex flex-row items-center mt-10 justify-between">
-        <p className="font-bold text-xl mb-5">Archivos adjuntos</p>
-        {/* <FaChevronDown className="text-green-300 me-5 w-6 h-6" /> */}
       </div>
       <Blob trip_id={trip_id} fly_id={id} />
     </>

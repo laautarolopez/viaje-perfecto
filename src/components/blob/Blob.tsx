@@ -1,18 +1,17 @@
-import { list } from '@vercel/blob'
-import FileBlob from '../FileBlob'
 import BlobForm from './BlobForm'
+import { ListBlobResultBlob, list } from '@vercel/blob'
+import BlobFiles from './BlobFiles'
 
-const Blob = async ({
-  trip_id,
-  fly_id
-}: {
+type BlobProps = {
   trip_id: string
   fly_id: string
-}) => {
+}
+
+const Blob = async ({ trip_id, fly_id }: BlobProps) => {
   async function allFiles() {
     const folder = `${trip_id}/vuelos/${fly_id}`
     const blobs = await list({ prefix: folder })
-    return blobs
+    return blobs.blobs
   }
 
   const files = await allFiles()
@@ -20,20 +19,7 @@ const Blob = async ({
 
   return (
     <>
-      {files &&
-        files.blobs
-          .sort(
-            (fileA, fileB) =>
-              fileA.uploadedAt.getTime() - fileB.uploadedAt.getTime()
-          )
-          .map((file) => (
-            <FileBlob
-              key={file.url}
-              filename={file.pathname.slice(folder.length + 1)}
-              download={file.downloadUrl}
-              deleteFilePath={file.url}
-            />
-          ))}
+      <BlobFiles files={files} folder={folder} />
       <BlobForm trip_id={trip_id} fly_id={fly_id} />
     </>
   )

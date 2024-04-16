@@ -26,11 +26,13 @@ const BlobModal: FC<BlobModalProps> = ({
         <BlogBG />
         <div className="inline-block align-bottom rounded-lg text-left overflow-hidden shadow-xl transform transition-all w-full sm:my-8 sm:align-middle sm:max-w-lg">
           <div className="bg-green-900 h-[144px] grid items-end px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            {file && (
+            {file ? (
               <BlobFile
                 fileName={file.name}
                 onDeleteClick={() => setFile(null)}
               />
+            ) : (
+              <p className="justify-self-center">Agrega un archivo</p>
             )}
             <BlobInput
               disabled={pending}
@@ -41,6 +43,7 @@ const BlobModal: FC<BlobModalProps> = ({
           </div>
           <div className="bg-green-900 px-4 py-3 flex gap-3">
             <button
+              disabled={pending || !file}
               type="submit"
               className="rounded-lg p-4 w-2/3 font-bold border-green-600 bg-green-300 text-green-900"
             >
