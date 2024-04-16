@@ -11,14 +11,12 @@ import BlobModal from './BlobModal'
 
 const BlobForm = ({ trip_id, fly_id }: { trip_id: string; fly_id: string }) => {
   const [file, setFile] = useState<File | null>(null)
-  const [showNoFileError, setShowNoFileError] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [pending, startTransition] = useTransition()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!file) {
-      setShowNoFileError(true)
       return
     }
     const form = new FormData()
