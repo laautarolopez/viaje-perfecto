@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import cx from 'classnames'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cx(inter.className, 'bg-gray-700 text-white')}>
+      <body className={cx(inter.className, 'bg-gray-700 text-white mb-20')}>
         {children}
+        <Footer />
       </body>
     </html>
   )
