@@ -57,7 +57,10 @@ const BlobModal: FC<BlobModalProps> = ({
             <button
               type="button"
               className="rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300"
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                setFile(null)
+                setShowModal(false)
+              }}
               disabled={pending}
             >
               Cancelar
