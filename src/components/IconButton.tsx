@@ -5,22 +5,32 @@ type IconButtonProps = {
   iconContainerClassName?: string
   iconClassName?: string
   onClick?: () => void
+  showUnderline?: boolean
+  color?: string
 }
 
 const IconButton = ({
   Icon,
   iconContainerClassName,
   iconClassName,
-  onClick
+  onClick,
+  color,
+  showUnderline = false
 }: IconButtonProps) => (
-  <div
-    onClick={onClick}
-    className={cx(
-      'flex justify-center items-center mt-5 rounded-xl relative hover:cursor-pointer hover:opacity-90',
-      iconContainerClassName
+  <div className="grid gap-2">
+    <div
+      onClick={onClick}
+      className={cx(
+        'flex justify-center items-center mt-5 rounded-xl relative hover:cursor-pointer hover:opacity-90',
+        iconContainerClassName,
+        color
+      )}
+    >
+      <Icon className={cx(iconClassName)} />
+    </div>
+    {showUnderline && (
+      <div className={cx('relative rounded-xl w-10 h-2', color)}></div>
     )}
-  >
-    <Icon className={cx(iconClassName)} />
   </div>
 )
 
