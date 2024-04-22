@@ -21,7 +21,7 @@ export type Hospedaje = {
   start_date: string
   end_date: string
   phone: string
-  adress: string
+  address: string
   price_per_night: number
   paid: number
   trip_id: string
