@@ -17,12 +17,13 @@ export type NextTripInfo = Trip & Partial<DepartureInfo>
 
 export type Hospedaje = {
   id: string
-  nombre: string
-  fecha_inicio: string
-  fecha_fin: string
+  name: string
+  start_date: string
+  end_date: string
   phone: string
-  direccion: string
+  adress: string
   price_per_night: number
+  paid: number
   trip_id: string
 }
 
