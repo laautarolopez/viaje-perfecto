@@ -19,7 +19,7 @@ const Vuelos = async ({ params }: { params: { id: string } }) => {
         <div className="flex flex-row mt-3">
           <h2 className="relative text-4xl font-bold">{name}</h2>
         </div>
-        <IconsRow activeIcon="vuelos" />
+        <IconsRow activeIcon="vuelos" tripId={tripId} />
         <DaysToTravel className="relative mt-5" initialDate={initial_date} />
       </div>
       <div className="p-5 pt-0">
