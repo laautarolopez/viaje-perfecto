@@ -20,8 +20,9 @@ export type Hospedaje = {
   nombre: string
   fecha_inicio: string
   fecha_fin: string
-  imagen: string
+  phone: string
   direccion: string
+  price_per_night: number
   trip_id: string
 }
 
