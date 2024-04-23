@@ -3,7 +3,7 @@ import IconsRow from '@/components/IconsRow'
 import DaysToTravel from '@/components/DaysToTravel'
 import IconButton from '@/components/IconButton'
 import { MdHotel } from 'react-icons/md'
-// import Hospedaje from './components/Hospedaje'
+import Hospedaje from './components/Hospedaje'
 import { fetchHospedajes } from '@/app/lib/services/hospedajes'
 import { fetchTripById } from '@/app/lib/services/trips'
 
@@ -31,20 +31,21 @@ const Hospedajes = async ({ params }: { params: { id: string } }) => {
                     />
                     <p className="mt-5">Hospedajes</p>
                 </div>
-                {/* {hospedajes.map((hospedaje) => (
-                <div key={fly.id}>
-                    <Hospedaje
-                    id={fly.id}
-                    fly_number={fly.fly_number}
-                    departure_address={fly.departure_address}
-                    departure_date={fly.departure_date}
-                    arrival_address={fly.arrival_address}
-                    arrival_date={fly.arrival_date}
-                    trip_id={tripId}
-                    />
-                    <hr className="relative border-green-300 mt-10" />
-                </div>
-                ))} */}
+                {/* {hospedajes.map((hospedaje) => ( */}
+                    <div key={hospedajes[0].id}>
+                        <Hospedaje
+                            id={hospedajes[0].id}
+                            name={hospedajes[0].name}
+                            start_date={hospedajes[0].start_date}
+                            end_date={hospedajes[0].end_date}
+                            phone={hospedajes[0].phone}
+                            address={hospedajes[0].address}
+                            price_per_night={hospedajes[0].price_per_night}
+                            paid={hospedajes[0].paid}
+                            trip_id={tripId}
+                        />
+                    </div>
+                {/* ))} */}
             </div>
         </>
     )
