@@ -1,7 +1,8 @@
-import { MdPinDrop } from "react-icons/md";
+import { MdPinDrop, MdAlarmOn, MdAlarmOff, MdEventAvailable, MdEventBusy, MdAdd, MdRemove } from "react-icons/md";
 import { FaWhatsapp, FaWaze } from "react-icons/fa";
+import { FaCircleDollarToSlot } from "react-icons/fa6";
 import { Hospedaje as HospedajeType } from '@/app/lib/types'
-import { format, parseISO } from 'date-fns'
+import { format, parseISO, differenceInDays } from 'date-fns'
 import Blob from '@/components/blob/Blob'
 
 const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_night, paid, trip_id }: HospedajeType) => {
@@ -11,6 +12,8 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
   const end_dateParse = parseISO(end_date)
   const end_formattedDate = format(end_dateParse, 'dd/MM/yyyy')
   const end_formattedTime = format(end_dateParse, 'HH:mm')
+  const nights = differenceInDays(end_dateParse, start_dateParse)
+  const total = nights * price_per_night
 
   return (
     <>
@@ -34,6 +37,48 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
           </div>
           <span className='text-green-300'>Comenzar</span>
         </a>
+      </div>
+      <div className="grid grid-cols-2 gap-5 mt-10">
+        <div className="flex flex-col">
+          <span className="font-bold text-green-300 text-lg">Check In:</span>
+          <div className="flex items-center mt-2">
+            <MdAlarmOn className="text-green-300 w-7 h-7 me-2" />
+            <span className="font-bold">{start_formattedTime}hs</span>
+          </div>
+          <div className="flex items-center mt-2">
+            <MdEventAvailable className="text-green-300 w-7 h-7 me-2" />
+            <span className="font-bold">{start_formattedDate}</span>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <span className="font-bold text-green-300 text-lg">Check Out:</span>
+          <div className="flex items-center mt-2">
+            <MdAlarmOff className="text-green-300 w-7 h-7 me-2" />
+            <span className="font-bold">{end_formattedTime}hs</span>
+          </div>
+          <div className="flex items-center mt-2">
+            <MdEventBusy className="text-green-300 w-7 h-7 me-2" />
+            <span className="font-bold">{end_formattedDate}</span>
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-12 w-full mt-10 bg-cyan-900 p-4 rounded-xl">
+        <div className="col-span-1"></div>
+        <div className="col-span-8">Cantidad de noches:</div>
+        <div className="col-span-3">{nights}</div>
+        <div className="col-span-1"></div>
+        <div className="col-span-8">Precio por noche:</div>
+        <div className="col-span-3">{price_per_night}</div>
+        <div className="col-span-1 text-green-300 flex items-center"><MdRemove className="w-5 h-5" /></div>
+        <div className="col-span-8">Precio total:</div>
+        <div className="col-span-3">${total}</div>
+        <div className="col-span-1 text-green-300 flex items-center mt-3"><MdAdd className="w-5 h-5" /></div>
+        <div className="col-span-8 mt-3">Pagado:</div>
+        <div className="col-span-3 mt-3">${paid}</div>
+        <hr className="col-span-12 w-full border-green-300 mt-5" />
+        <div className="col-span-1 text-green-300 flex items-center mt-5"><FaCircleDollarToSlot className='w-5 h-5' /></div>
+        <div className="col-span-8 text-lg ps-1 mt-5">Saldo a abonar: </div>
+        <div className="col-span-3 text-lg font-bold mt-5">${total - paid}</div>
       </div>
       <Blob trip_id={trip_id} fly_id={id} />
     </>
