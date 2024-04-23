@@ -25,21 +25,25 @@ const IconsRow = ({ activeIcon, tripId }: { activeIcon: string, tripId: string }
           Icon={FaCar}
           iconContainerClassName="bg-green-400 w-10 h-10"
           iconClassName="w-5 h-5"
+          url={base_url + '/auto'}
         />
         <IconButton
           Icon={MdInsertPhoto}
           iconContainerClassName="bg-yellow-400 w-10 h-10"
           iconClassName="w-5 h-5"
+          url={base_url + '/fotos'}
         />
         <IconButton
           Icon={MdChecklistRtl}
           iconContainerClassName="bg-neutral-400 w-10 h-10"
           iconClassName="w-5 h-5"
+          url={base_url + '/checklist'}
         />
         <IconButton
           Icon={FaFolder}
           iconContainerClassName="bg-violet-600 w-10 h-10"
           iconClassName="w-5 h-5"
+          url={base_url + '/archivos'}
         />
       </div>
       <div className="flex flex-row gap-5 mt-2">
