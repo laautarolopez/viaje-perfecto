@@ -18,32 +18,28 @@ const trips = [
     user_id: user1ID,
     name: 'Miami',
     initial_date: '2023-12-24',
-    end_date: '2023-12-31',
-    image: 'image1.jpg'
+    end_date: '2023-12-31'
   },
   {
     id: trip2ID,
     user_id: user1ID,
     name: 'Mar del plata',
     initial_date: '2024-12-24',
-    end_date: '2024-12-31',
-    image: 'image2.jpg'
+    end_date: '2024-12-31'
   },
   {
     id: trip3ID,
     user_id: user1ID,
     name: 'Mendoza',
     initial_date: '2024-02-24',
-    end_date: '2024-03-07',
-    image: 'image3.jpg'
+    end_date: '2024-03-07'
   },
   {
     id: trip4ID,
     user_id: user1ID,
     name: 'Sur argentino',
     initial_date: '2024-05-15',
-    end_date: '2024-05-25',
-    image: 'image4.jpg'
+    end_date: '2024-05-25'
   }
 ]
 
