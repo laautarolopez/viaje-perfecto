@@ -42,7 +42,7 @@ const Vuelos = async ({ params }: { params: { id: string } }) => {
         ))}
         <Link
           href={`/${tripId}/vuelos/agregar`}
-          className="mt-10 text-center box-content rounded-lg p-4 w-full font-bold border-green-600 bg-green-300 text-green-900"
+          className="mt-10 text-center box-border rounded-lg p-4 w-full font-bold border-green-600 bg-green-300 text-green-900"
         >
           Agregar vuelo
         </Link>{' '}

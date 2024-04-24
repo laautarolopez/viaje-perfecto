@@ -10,7 +10,6 @@ export type Trip = {
   name: string
   initial_date: string
   end_date: string
-  image: string
 }
 
 export type NextTripInfo = Trip & Partial<DepartureInfo>
