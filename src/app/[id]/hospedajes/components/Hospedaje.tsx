@@ -31,7 +31,7 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
           </div>
           <span className='text-green-300'>{phone}</span>
         </a>
-        <a className="flex items-center justify-center mt-5 border border-green-300 rounded-xl px-5 py-2" href={"https://google.com/maps/search/" + name} target='_blank'>
+        <a className="flex items-center justify-center mt-5 border border-green-300 rounded-xl px-5 py-2" href={"https://google.com/maps/search/" + name + address} target='_blank'>
           <div className="flex justify-center items-center relative text-green-300 w-5 h-5 me-3">
               <FaWaze className='w-5 h-5' />
           </div>
@@ -68,7 +68,7 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
         <div className="col-span-3">{nights}</div>
         <div className="col-span-1"></div>
         <div className="col-span-8">Precio por noche:</div>
-        <div className="col-span-3">{price_per_night}</div>
+        <div className="col-span-3">${price_per_night}</div>
         <div className="col-span-1 text-green-300 flex items-center"><MdRemove className="w-5 h-5" /></div>
         <div className="col-span-8">Precio total:</div>
         <div className="col-span-3">${total}</div>
