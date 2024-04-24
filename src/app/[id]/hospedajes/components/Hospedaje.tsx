@@ -80,7 +80,7 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
         <div className="col-span-8 text-lg ps-1 mt-5">Saldo a abonar: </div>
         <div className="col-span-3 text-lg font-bold mt-5">${total - paid}</div>
       </div>
-      <Blob trip_id={trip_id} fly_id={id} />
+      <Blob trip_id={trip_id} folder={`${trip_id}/hospedajes/${id}`} />
     </>
   )
 }

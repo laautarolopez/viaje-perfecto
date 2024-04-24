@@ -44,6 +44,7 @@ const BlobFiles = ({ files, folder }: BlobFilesProps) => {
               filename={getFileName(file)}
               download={file.downloadUrl}
               deleteFilePath={file.url}
+              folder={folder}
             />
           ))}
     </>
