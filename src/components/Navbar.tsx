@@ -17,7 +17,7 @@ const Navbar = async ({
       <div className="flex flex-row mt-3">
         <h2 className="relative text-4xl font-bold">{name}</h2>
       </div>
-      <IconsRow activeIcon={section} />
+      <IconsRow activeIcon={section} tripId={tripId} />
       <DaysToTravel className="relative mt-5" initialDate={initial_date} />
     </nav>
   )

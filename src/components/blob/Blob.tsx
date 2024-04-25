@@ -4,23 +4,21 @@ import BlobFiles from './BlobFiles'
 
 type BlobProps = {
   trip_id: string
-  fly_id: string
+  folder: string
 }
 
-const Blob = async ({ trip_id, fly_id }: BlobProps) => {
+const Blob = async ({ trip_id, folder }: BlobProps) => {
   async function allFiles() {
-    const folder = `${trip_id}/vuelos/${fly_id}`
     const blobs = await list({ prefix: folder })
     return blobs.blobs
   }
 
   const files = await allFiles()
-  const folder = `${trip_id}/vuelos/${fly_id}`
 
   return (
     <>
       <BlobFiles files={files} folder={folder} />
-      <BlobForm trip_id={trip_id} fly_id={fly_id} />
+      <BlobForm folder={folder} />
     </>
   )
 }

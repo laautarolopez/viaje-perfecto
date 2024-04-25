@@ -5,11 +5,13 @@ import { deleteFile } from '@/app/actions/blobActions'
 const FileBlob = ({
   filename,
   download,
-  deleteFilePath
+  deleteFilePath,
+  folder
 }: {
   filename: string
   download: string
   deleteFilePath: string
+  folder: string
 }) => (
   <div className="flex bg-cyan-900 items-center px-2 border border-green-300 text-green-300 rounded-xl w-100 h-10 mb-5 overflow-hidden truncate">
     <div className="w-5/6 overflow-hidden">{filename}</div>
@@ -20,7 +22,7 @@ const FileBlob = ({
       <button
         className="w-5 h-5 max-w-5 max-h-5 flex items-center justify-center"
         onClick={async () => {
-          await deleteFile(deleteFilePath)
+          await deleteFile(deleteFilePath, folder)
         }}
       >
         <FaTrashAlt className="w-5 h-5 max-w-5 max-h-5" />

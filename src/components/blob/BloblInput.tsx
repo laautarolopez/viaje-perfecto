@@ -18,11 +18,9 @@ const BlobInput = ({ onInputChange, disabled }: BlobInputProps) => (
       disabled={disabled}
     />
     <label htmlFor="file-to-upload">
-      <IconButton
-        Icon={FaFileUpload}
-        iconContainerClassName="bg-transparent border border-dashed border-green-300 text-green-300 w-100 h-10"
-        iconClassName="h-10"
-      />
+      <div className='flex justify-center items-center mt-5 rounded-xl relative hover:cursor-pointer hover:opacity-90 bg-transparent border border-dashed border-green-300 text-green-300 w-100 h-10'>
+        <FaFileUpload className='h-10' />
+      </div>
     </label>
   </>
 )
