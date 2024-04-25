@@ -31,21 +31,21 @@ const Hospedajes = async ({ params }: { params: { id: string } }) => {
                     />
                     <p className="mt-5">Hospedajes</p>
                 </div>
-                {/* {hospedajes.map((hospedaje) => ( */}
-                    <div key={hospedajes[0].id}>
+                {hospedajes.map((hospedaje) => (
+                    <div key={hospedaje.id}>
                         <Hospedaje
-                            id={hospedajes[0].id}
-                            name={hospedajes[0].name}
-                            start_date={hospedajes[0].start_date}
-                            end_date={hospedajes[0].end_date}
-                            phone={hospedajes[0].phone}
-                            address={hospedajes[0].address}
-                            price_per_night={hospedajes[0].price_per_night}
-                            paid={hospedajes[0].paid}
+                            id={hospedaje.id}
+                            name={hospedaje.name}
+                            start_date={hospedaje.start_date}
+                            end_date={hospedaje.end_date}
+                            phone={hospedaje.phone}
+                            address={hospedaje.address}
+                            price_per_night={hospedaje.price_per_night}
+                            paid={hospedaje.paid}
                             trip_id={tripId}
                         />
                     </div>
-                {/* ))} */}
+                ))}
             </div>
         </>
     )
