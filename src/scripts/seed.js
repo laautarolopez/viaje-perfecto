@@ -141,16 +141,6 @@ async function seed() {
       })
     )
 
-    const insertedHospedajes = await Promise.all(
-      hospedajes.map(async (hospedaje) => {
-        return query(`
-            INSERT INTO hospedajes (id, name, start_date, end_date, phone, address, price_per_night, paid, trip_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-            ON CONFLICT (id) DO NOTHING;
-        `, [hospedaje.id, hospedaje.name, hospedaje.start_date, hospedaje.end_date, hospedaje.phone, hospedaje.address, hospedaje.price_per_night, hospedaje.paid, hospedaje.trip_id])
-      })
-    )
-
     const insertedNotes = await Promise.all(
       notes.map(async (note) => {
         return query(`

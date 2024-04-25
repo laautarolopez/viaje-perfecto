@@ -47,7 +47,7 @@ const AgregarVuevloPage = async ({ params }: { params: { id: string } }) => {
           <div className="flex gap-3 mt-3 ">
             <Button type="submit">Agregar vuelo</Button>
             <Link
-              className="rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300"
+              className="rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300 text-center"
               href={`/${tripId}/vuelos`}
             >
               Cancelar

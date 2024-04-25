@@ -17,7 +17,7 @@ const Vuelos = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Navbar tripId={tripId} section="vuelos" />
-      <div className="grid p-5 pt-0">
+      <div className="flex flex-col p-5 pt-0">
         <div className="flex flex-row items-center gap-5 font-bold text-xl">
           <IconButton
             Icon={FaPlane}

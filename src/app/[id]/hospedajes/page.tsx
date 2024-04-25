@@ -44,6 +44,7 @@ const Hospedajes = async ({ params }: { params: { id: string } }) => {
                             paid={hospedaje.paid}
                             trip_id={tripId}
                         />
+                        <hr className="relative border-green-300 mt-10" />
                     </div>
                 ))}
             </div>

@@ -44,7 +44,7 @@ export default async function Home() {
           className="mt-10 text-center box-border rounded-lg p-4 w-full font-bold border-green-600 bg-green-300 text-green-900"
         >
           Agregar viaje
-        </Link>{' '}
+        </Link>
       </main>
     </div>
   )
