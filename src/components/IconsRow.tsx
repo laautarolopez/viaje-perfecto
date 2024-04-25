@@ -14,7 +14,7 @@ const IconsRow = ({ activeIcon, tripId }: { activeIcon: string, tripId: string }
         iconClassName="w-5 h-5"
         url={base_url + '/hospedajes'}
         color="bg-orange-500"
-        showUnderline={activeIcon === 'hospedajes'}
+        showUnderline={activeIcon === 'hospedaje'}
       />
       <IconButton
         Icon={FaPlane}
