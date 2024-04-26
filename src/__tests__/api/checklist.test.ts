@@ -1,5 +1,4 @@
-const host = "http://localhost:3000"
-const trip_id = '004544b2-4001-4271-9855-fec4b6a6442a'
+import { host, trip4_id } from "../config.test"
 const note_id = '001544b3-4001-4271-9855-fec4b6a6442e'
 
 const fetchChecklist = async (method: string, trip_id?: string, note_id?: string, url?: string) => {
@@ -25,8 +24,8 @@ test("Obtener checklist sin mandarle el trip_id", async () => {
     expect(cant_notes).toBe(0)
 })
 
-test("Obtener checklist de un vuelo", async () => {
-    const response = await fetchChecklist("GET", trip_id)
+test("Obtener checklist de un viaje", async () => {
+    const response = await fetchChecklist("GET", trip4_id)
     const data = await response.json()
     const cant_notes = data.length
     
