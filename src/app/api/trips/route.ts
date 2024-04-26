@@ -7,7 +7,12 @@ export async function GET(request: Request) {
   try {
     const data = await query(`SELECT * FROM trips WHERE id = $1`, [trip_id])
     const trip = data.rows[0]
-    return NextResponse.json(trip)
+    
+    if(trip) {
+      return NextResponse.json(trip)
+    } else {
+      return NextResponse.json({ error: 'There is no trip with that id.' })
+    }
   } catch (error) {
     throw new Error('There is no trip with that id.')
   }
