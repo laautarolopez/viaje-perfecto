@@ -1,6 +1,7 @@
 'use client'
 import { createFlight } from '@/app/actions/flights'
 import Button from '@/components/Button/Button'
+import Form from '@/components/Form/Form'
 import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -29,32 +30,12 @@ const AgregarVuevloPage = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Navbar tripId={tripId} section="vuelos" />
-      <div className="p-5">
-        <h2 className="text-2xl font-bold mb-2">Agregar nuevo vuelo</h2>
-        <form className="grid gap-4" action={handleSubmitAction}>
-          {inputs.map(({ key, label, type }) => (
-            <div key={key} className="grid gap-1">
-              <label htmlFor={key}>{label}</label>
-              <input
-                className="text-green-900 border border-green-900 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-300"
-                type={type}
-                id={key}
-                name={key}
-                required
-              />
-            </div>
-          ))}
-          <div className="flex gap-3 mt-3 ">
-            <Button type="submit">Agregar vuelo</Button>
-            <Link
-              className="rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300 text-center"
-              href={`/${tripId}/vuelos`}
-            >
-              Cancelar
-            </Link>
-          </div>
-        </form>
-      </div>
+      <Form
+        onSubmit={handleSubmitAction}
+        inputs={inputs}
+        onCancelUrl="/"
+        title="Agregar nuevo vuelo"
+      />
     </>
   )
 }
