@@ -1,7 +1,6 @@
 import IconButton from '@/components/IconButton'
 import { MdHotel, MdInsertPhoto, MdChecklistRtl } from 'react-icons/md'
 import { FaPlane, FaCar, FaFolder } from 'react-icons/fa'
-import Link from 'next/link'
 
 const Icons = ({ tripId }: { tripId: string }) => (
   <>
@@ -10,14 +9,14 @@ const Icons = ({ tripId }: { tripId: string }) => (
         Icon={MdHotel}
         iconContainerClassName="bg-orange-500 w-16 h-16"
         iconClassName="w-7 h-7"
+        url={tripId + '/hospedajes'}
       />
-      <Link href={tripId + '/vuelos'}>
-        <IconButton
-          Icon={FaPlane}
-          iconContainerClassName="bg-blue-600 w-16 h-16"
-          iconClassName="w-7 h-7"
-        />
-      </Link>
+      <IconButton
+        Icon={FaPlane}
+        iconContainerClassName="bg-blue-600 w-16 h-16"
+        iconClassName="w-7 h-7"
+        url={tripId + '/vuelos'}
+      />
       <IconButton
         Icon={FaCar}
         iconContainerClassName="bg-green-400 w-16 h-16"

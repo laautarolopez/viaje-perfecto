@@ -68,7 +68,7 @@ const flys = [
     departure_address: 'Aeropuerto Esquel',
     departure_date: '2024-05-25T14:00:00',
     arrival_address: 'Aeropuerto Ezeiza, Buenos Aires',
-    arrival_date: '2024-05-24T16:15:00',
+    arrival_date: '2024-05-25T16:15:00',
     trip_id: trip4ID
   },
   {
@@ -127,11 +127,57 @@ const flys = [
   }
 ]
 
-// const checklist = {
-//   id: '001544b3-4001-4271-9855-fec4b6a6442a',
-//   notes: notes,
-//   trip_id: trip2ID
-// }
+const hospedajes = [
+  // {
+  //   id: '001544b3-4001-4271-9855-fec4b6a6442a',
+  //   name: 'Hotel Hilton',
+  //   address: 'Miami, Florida',
+  //   phone: '123456789',
+  //   check_in_date: '2023-12-24T14:00:00',
+  //   check_out_date: '2023-12-31T10:00:00',
+  //   trip_id: trip1ID
+  // },
+  // {
+  //   id: '001544b3-4001-4271-9855-fec4b6a6442b',
+  //   name: 'Hotel Costa Galana',
+  //   address: 'Mar del Plata, Buenos Aires',
+  //   phone: '123456789',
+  //   check_in_date: '2024-12-24T14:00:00',
+  //   check_out_date: '2024-12-31T10:00:00',
+  //   trip_id: trip2ID
+  // },
+  // {
+  //   id: '001544b3-4001-4271-9855-fec4b6a6442c',
+  //   name: 'Hotel Diplomatic',
+  //   address: 'Mendoza, Mendoza',
+  //   phone: '123456789',
+  //   check_in_date: '2024-02-24T14:00:00',
+  //   check_out_date: '2024-03-07T10:00:00',
+  //   trip_id: trip3ID
+  // },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442d',
+    name: 'Hotel Llao Llao',
+    start_date: '2024-05-15T08:00:00',
+    end_date: '2024-05-19T08:00:00',
+    phone: '1194428530',
+    address: 'Av. Ezequiel Bustillo Km. 25, Bariloche, Río Negro',
+    price_per_night: 30000,
+    paid: 0,
+    trip_id: trip4ID
+  },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442e',
+    name: 'Sol del sur',
+    start_date: '2024-05-19T10:00:00',
+    end_date: '2024-05-25T10:00:00',
+    phone: '1123441147',
+    address: '9 de Julio 1086, Esquel, Chubut',
+    price_per_night: 25000,
+    paid: 10000,
+    trip_id: trip4ID
+  }
+]
 
 const notes = [
   {
@@ -168,5 +214,6 @@ module.exports = {
   users,
   trips,
   flys,
+  hospedajes,
   notes
 }

@@ -4,12 +4,9 @@ import { upload } from '@/app/actions/blobActions'
 import { useState, useTransition } from 'react'
 import IconButton from '../IconButton'
 import { FaFileUpload } from 'react-icons/fa'
-import BlogBG from './BlobBG'
-import BlobFile from './BlobFile'
-import BlobInput from './BloblInput'
 import BlobModal from './BlobModal'
 
-const BlobForm = ({ trip_id, fly_id }: { trip_id: string; fly_id: string }) => {
+const BlobForm = ({ folder }: { folder: string }) => {
   const [file, setFile] = useState<File | null>(null)
   const [showModal, setShowModal] = useState(false)
   const [pending, startTransition] = useTransition()
@@ -21,8 +18,7 @@ const BlobForm = ({ trip_id, fly_id }: { trip_id: string; fly_id: string }) => {
     }
     const form = new FormData()
     form.append('file-to-upload', file)
-    form.append('trip_id', trip_id)
-    form.append('fly_id', fly_id)
+    form.append('folder', folder)
 
     startTransition(async () => {
       await upload(form)
@@ -40,12 +36,9 @@ const BlobForm = ({ trip_id, fly_id }: { trip_id: string; fly_id: string }) => {
           setShowModal={setShowModal}
         />
       )}
-      <IconButton
-        Icon={FaFileUpload}
-        iconContainerClassName="bg-transparent border border-dashed border-green-300 text-green-300 w-100 h-10"
-        iconClassName="h-10"
-        onClick={() => setShowModal(true)}
-      />
+      <div className='flex justify-center items-center mt-5 rounded-xl relative hover:cursor-pointer hover:opacity-90 bg-transparent border border-dashed border-green-300 text-green-300 w-100 h-10' onClick={() => setShowModal(true)}>
+        <FaFileUpload className='h-10' />
+      </div>
     </form>
   )
 }

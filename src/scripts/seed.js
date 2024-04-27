@@ -1,5 +1,5 @@
-const { query, end } = require('../app/lib/db.js')
-const { users, trips, flys, notes } = require('../app/lib/placeholder-data.js')
+const { query, end } = require('../app/lib/db.js');
+const { users, trips, flys, hospedajes, notes } = require('../app/lib/placeholder-data.js')
 const bcrypt = require('bcrypt')
 
 async function seed() {
@@ -11,6 +11,9 @@ async function seed() {
 
     // Eliminar la tabla "flys" si existe
     await query(`DROP TABLE IF EXISTS flys`)
+
+    // Eliminar la tabla "hospedajes" si existe
+    await query(`DROP TABLE IF EXISTS hospedajes`)
 
     // Eliminar la tabla "trips" si existe
     await query(`DROP TABLE IF EXISTS trips`)
@@ -53,6 +56,21 @@ async function seed() {
 
     console.log(`Created "flys" table`)
 
+    const createHospedajesTable = await query(`
+        CREATE TABLE hospedajes (
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+            name TEXT NOT NULL,
+            start_date TIMESTAMP NOT NULL,
+            end_date TIMESTAMP NOT NULL,
+            phone TEXT NOT NULL,
+            address TEXT NOT NULL,
+            price_per_night NUMERIC NOT NULL,
+            paid NUMERIC DEFAULT 0,
+            trip_id UUID REFERENCES trips(id)
+        );`)
+
+    console.log(`Created "hospedajes" table`)
+
     const createNotesTable = await query(`
       CREATE TABLE notes (
           id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -63,17 +81,6 @@ async function seed() {
       );`)
 
     console.log(`Created "notes" table`)
-
-    // export type Fly = {
-    //   id: string
-    //   fly_number: string
-    //   arrival_address: string
-    //   arrival_date: string
-    //   departure_date: string
-    //   departure_address: string
-    //   trip_id: string
-    // }
-    //inlcude time on dates
 
     // Insertar datos en la tabla "users"
     const insertedUsers = await Promise.all(
@@ -124,11 +131,20 @@ async function seed() {
       })
     )
 
+    const insertedHospedajes = await Promise.all(
+      hospedajes.map(async (hospedaje) => {
+        return query(`
+            INSERT INTO hospedajes (id, name, start_date, end_date, phone, address, price_per_night, paid, trip_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+            ON CONFLICT (id) DO NOTHING;
+        `, [hospedaje.id, hospedaje.name, hospedaje.start_date, hospedaje.end_date, hospedaje.phone, hospedaje.address, hospedaje.price_per_night, hospedaje.paid, hospedaje.trip_id])
+      })
+    )
+
     const insertedNotes = await Promise.all(
       notes.map(async (note) => {
-        return query(
-          `
-            INSERT INTO notes (id, description, is_checked,created_date, trip_id)
+        return query(`
+            INSERT INTO notes (id, description, is_checked, created_date, trip_id)
             VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT (id) DO NOTHING;
         `,
@@ -148,10 +164,12 @@ async function seed() {
       createUsersTable,
       createTripsTable,
       createFlysTable,
+      createHospedajesTable,
       createNotesTable,
       users: insertedUsers,
       trips: insertedTrips,
       flys: insertedFlys,
+      hospedajes: insertedHospedajes,
       notes: insertedNotes
     }
   } catch (error) {
