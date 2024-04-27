@@ -48,7 +48,8 @@ test("Obtener viaje por id sin enviarle el id", async () => {
 })
 
 test("Obtener viaje por id enviandole un id que no existe", async () => {
-    const response = await fetchTripById("GET", '000544b2-4001-4271-9855-fec4b6a6442a')
+    const id_inexistente = '000544b2-4001-4271-9855-fec4b6a6442a'
+    const response = await fetchTripById("GET", id_inexistente)
     const data = await response.json()
 
     expect(data.error).toBe("There is no trip with that id.")
