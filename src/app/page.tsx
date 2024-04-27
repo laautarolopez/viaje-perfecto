@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import NextTripCard from './components/NextTripCard'
 import CheckListContainer from '@/components/checklist/CheckListContainer'
