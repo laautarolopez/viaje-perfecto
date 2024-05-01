@@ -14,17 +14,16 @@ const AgregarViajePage = async ({ params }: { params: { id: string } }) => {
 
   const handleSubmitAction = async (formData: FormData) => {
     formData.append('user_id', USER_ID)
-    await createTrip(formData)
+    return await createTrip(formData)
   }
+
   return (
-    <>
-      <Form
-        onSubmit={handleSubmitAction}
-        inputs={inputs}
-        onCancelUrl="/"
-        title="Agregar nuevo viaje"
-      />
-    </>
+    <Form
+      onSubmit={handleSubmitAction}
+      inputs={inputs}
+      onCancelUrl="/"
+      title="Agregar nuevo viaje"
+    />
   )
 }
 

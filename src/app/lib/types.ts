@@ -4,12 +4,15 @@ export type User = {
   password: string
 }
 
-export type Trip = {
-  id: string
+export type TripBasicInfo = {
   user_id: string
   name: string
   initial_date: string
   end_date: string
+}
+
+export type Trip = TripBasicInfo & {
+  id: string
 }
 
 export type NextTripInfo = Trip & Partial<DepartureInfo>

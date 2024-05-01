@@ -1,10 +1,7 @@
 'use client'
 import { createFlight } from '@/app/actions/flights'
-import Button from '@/components/Button/Button'
 import Form from '@/components/Form/Form'
 import Navbar from '@/components/Navbar'
-import Link from 'next/link'
-import { redirect } from 'next/navigation'
 
 type Input = {
   key: string
@@ -25,7 +22,8 @@ const AgregarVuevloPage = async ({ params }: { params: { id: string } }) => {
 
   const handleSubmitAction = async (formData: FormData) => {
     formData.append('trip_id', tripId)
-    await createFlight(formData)
+    const response = await createFlight(formData)
+    return response
   }
   return (
     <>
