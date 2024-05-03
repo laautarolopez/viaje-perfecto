@@ -34,12 +34,15 @@ export type DepartureInfo = {
   departure_address: string
 }
 
-export type Fly = DepartureInfo & {
-  id: string
+export type FlightBasicInfo = DepartureInfo & {
   fly_number: string
   arrival_address: string
   arrival_date: string
   trip_id: string
+}
+
+export type Flight = FlightBasicInfo & {
+  id: string
 }
 
 // export type CheckList = {

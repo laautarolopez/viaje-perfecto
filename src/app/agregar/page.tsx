@@ -1,30 +1,17 @@
-'use client'
-import { USER_ID } from '../lib/services/trips'
-import { createTrip } from '../actions/trips'
-import Form, { Input } from '@/components/Form/Form'
+import { UUID } from 'crypto'
+import { getTripById } from '../actions/trips'
+import TripForm from './components/TripForm'
+import { isUUID } from '../utils/utils'
 
-const inputs: Input[] = [
-  { key: 'name', label: 'Nombre del viaje', type: 'text' },
-  { key: 'initial_date', label: 'Fecha de inicio', type: 'date' },
-  { key: 'end_date', label: 'Fecha de fin', type: 'date' }
-]
+const AgregarViajePage = async ({
+  searchParams
+}: {
+  searchParams: { tripId?: string }
+}) => {
+  const tripId = searchParams?.tripId
+  const trip = isUUID(tripId) ? await getTripById(tripId) : null
 
-const AgregarViajePage = async ({ params }: { params: { id: string } }) => {
-  const tripId = params.id
-
-  const handleSubmitAction = async (formData: FormData) => {
-    formData.append('user_id', USER_ID)
-    return await createTrip(formData)
-  }
-
-  return (
-    <Form
-      onSubmit={handleSubmitAction}
-      inputs={inputs}
-      onCancelUrl="/"
-      title="Agregar nuevo viaje"
-    />
-  )
+  return <TripForm trip={trip} />
 }
 
 export default AgregarViajePage

@@ -2,34 +2,89 @@
 import { query } from '@/app/lib/db'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { TripBasicInfo } from '../lib/types'
+import { TripBasicInfo, Trip } from '../lib/types'
+import { UUID } from 'crypto'
 
-export async function createTrip(formData: FormData) {
-  const tripFromForm = Object.fromEntries(formData.entries()) as TripBasicInfo
+export type RawTrip = {
+  id: UUID
+  user_id: UUID
+  name: string
+  initial_date: Date
+  end_date: Date
+}
 
-  const { user_id, name, initial_date, end_date } = tripFromForm
+export async function createTrip(newTrip: TripBasicInfo) {
+  const { user_id, name, initial_date, end_date } = newTrip
 
-  try {
-    const initialDate = new Date(initial_date)
-    const endDate = new Date(end_date)
-
-    if (initialDate > endDate) {
-      return {
-        message: 'La fecha de inicio no puede ser mayor a la fecha de fin'
-      }
-    }
-
-    await query(
-      `
+  const { isValid, message } = validateTrip(newTrip)
+  if (isValid) {
+    try {
+      await query(
+        `
             INSERT INTO trips ( user_id, name, initial_date, end_date)
             VALUES ($1, $2, $3, $4)
             ON CONFLICT (id) DO NOTHING;
         `,
-      [user_id, name, initial_date, end_date]
-    )
-  } catch (error) {
-    console.log('🚀 ~ createTrip ~ error:', error)
+        [user_id, name, initial_date, end_date]
+      )
+    } catch (error) {
+      console.log('🚀 ~ createTrip ~ error:', error)
+    }
+    revalidatePath(`/`)
+    redirect(`/`)
+  } else {
+    return { message }
   }
-  revalidatePath(`/`)
-  redirect(`/`)
+}
+
+export async function updateTrip(trip: Trip) {
+  const { id, name, initial_date, end_date } = trip
+
+  const { isValid, message } = validateTrip(trip)
+  if (isValid) {
+    try {
+      await query(
+        `
+              UPDATE trips
+              SET name = $1, initial_date = $2, end_date = $3
+              WHERE id = $4
+          `,
+        [name, initial_date, end_date, id]
+      )
+    } catch (error) {
+      console.log('🚀 ~ updateTrip ~ error:', error)
+    }
+    revalidatePath(`/`)
+    redirect(`/`)
+  } else {
+    return { message }
+  }
+}
+
+export async function getTripById(id: UUID): Promise<Trip> {
+  const res = await query(
+    `
+    SELECT * FROM trips WHERE id = $1
+    `,
+    [id]
+  )
+  const rawTrip = res.rows[0] as unknown as RawTrip
+  const trip = {
+    ...rawTrip,
+    initial_date: rawTrip.initial_date.toISOString().split('T')[0],
+    end_date: rawTrip.end_date.toISOString().split('T')[0]
+  }
+
+  return trip
+}
+
+function validateTrip(trip: TripBasicInfo) {
+  const { initial_date, end_date } = trip
+  const initialDate = new Date(initial_date)
+  const endDate = new Date(end_date)
+
+  return {
+    isValid: initialDate < endDate,
+    message: 'La fecha de inicio no puede ser mayor a la fecha de fin'
+  }
 }

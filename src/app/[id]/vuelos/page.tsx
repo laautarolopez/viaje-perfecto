@@ -45,7 +45,7 @@ const Vuelos = async ({ params }: { params: { id: string } }) => {
           className="mt-10 text-center box-border rounded-lg p-4 w-full font-bold border-green-600 bg-green-300 text-green-900"
         >
           Agregar vuelo
-        </Link>{' '}
+        </Link>
       </div>
     </>
   )

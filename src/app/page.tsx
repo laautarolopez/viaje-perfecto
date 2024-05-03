@@ -25,7 +25,12 @@ export default async function Home() {
     <div className="p-5">
       <header className="pb-5">
         <h1 className="text-4xl font-bold mb-5">Tu próximo viaje</h1>
-        <DaysToTravel initialDate={initial_date} />
+        <div className="flex justify-between items-center">
+          <DaysToTravel initialDate={initial_date} />
+          <Link href={`/agregar?tripId=${id}`} className="text-green-300">
+            Editar viaje
+          </Link>
+        </div>
       </header>
       <main className="grid">
         <NextTripCard name={name} tripId={id} />
