@@ -5,7 +5,7 @@ type ButtonProps = {
   type: 'button' | 'submit' | 'reset'
   className?: string
   onClick?: () => void
-  isLoading?: boolean
+  isLoading: boolean
 }
 const Button = ({
   children,
