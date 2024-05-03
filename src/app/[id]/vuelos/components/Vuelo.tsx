@@ -1,9 +1,10 @@
 import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa'
 import { MdAirplaneTicket, MdPlace, MdAccessTime } from 'react-icons/md'
 import FlightBg from './flightBg'
-import { Fly } from '@/app/lib/types'
+import { Flight } from '@/app/lib/types'
 import { format, parseISO } from 'date-fns'
 import Blob from '@/components/blob/Blob'
+import Link from 'next/link'
 
 const Vuelo = ({
   id,
@@ -13,7 +14,7 @@ const Vuelo = ({
   arrival_address,
   arrival_date,
   trip_id
-}: Fly) => {
+}: Flight) => {
   const departure_dateParse = parseISO(departure_date)
   const departure_formattedDate = format(departure_dateParse, 'dd/MM/yyyy')
   const departure_formattedTime = format(departure_dateParse, 'HH:mm')
@@ -67,6 +68,14 @@ const Vuelo = ({
             </p>
           </div>
         </div>
+      </div>
+      <div className="flex justify-end mt-2">
+        <Link
+          href={`/${trip_id}/vuelos/agregar?flightId=${id}`}
+          className="text-green-300"
+        >
+          Editar vuelo
+        </Link>
       </div>
       <Blob trip_id={trip_id} folder={`${trip_id}/vuelos/${id}`} />
     </>

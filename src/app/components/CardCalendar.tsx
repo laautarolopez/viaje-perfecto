@@ -1,14 +1,17 @@
 'use client'
 
 import Calendar from 'react-calendar'
+import { parseDate } from '../utils/utils'
 
 type CardCalendarProps = {
   initialDate: string
   endDate: string
 }
+
 const CardCalendar = ({ initialDate, endDate }: CardCalendarProps) => {
-  const initialDateParsed = new Date(initialDate)
-  const endDateParsed = new Date(endDate)
+  const initialDateParsed = parseDate(initialDate)
+  const endDateParsed = parseDate(endDate)
+
   return (
     <div className="pointer-events-none relative">
       <p className="absolute top-2 left-3">
