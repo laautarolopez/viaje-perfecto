@@ -28,7 +28,7 @@ it("Se obtienen 4 notas de una checklist al buscar las del viaje Sur argentino",
         const cant_notes = data.length
         
         expect(response.status).toBe(200);
-        expect(cant_notes).toBe(5)
+        expect(cant_notes).toBe(4)
       },
     });
 });
