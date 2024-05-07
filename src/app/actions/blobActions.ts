@@ -4,7 +4,7 @@ import { del, put } from '@vercel/blob'
 import { revalidatePath } from 'next/cache'
 
 const revalidate = (folder: string) => {
-  const folders = folder.split('/');
+  const folders = folder.split('/')
   const trip_id = folders[0]
   const categoria = folders[1]
 

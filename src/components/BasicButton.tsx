@@ -6,7 +6,7 @@ type ButtonProps = {
   type: string
 }
 
-const Button = ({ text, onClick, type }: ButtonProps) => {
+const BasicButton = ({ text, onClick, type }: ButtonProps) => {
   return (
     <button
       type="submit"
@@ -18,4 +18,4 @@ const Button = ({ text, onClick, type }: ButtonProps) => {
   )
 }
 
-export default Button
+export default BasicButton

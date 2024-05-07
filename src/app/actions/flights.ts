@@ -3,7 +3,7 @@ import { query } from '@/app/lib/db'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { FlightBasicInfo, Flight, Trip } from '../lib/types'
-import { QueryResultBase } from 'pg'
+import { del, list } from '@vercel/blob'
 
 type RawFlight = {
   id: string
@@ -175,4 +175,26 @@ function validateFlight({
   }
 
   return { isValid: true, message: '' }
+}
+
+export async function deleteFlight({
+  flightId,
+  tripId
+}: {
+  flightId: string
+  tripId: string
+}) {
+  const files = await list({ prefix: `${tripId}/vuelos/${flightId}` })
+  files.blobs.forEach(async (file) => {
+    await del(file.url)
+  })
+
+  await query(
+    `
+    DELETE FROM flys WHERE id = $1
+    `,
+    [flightId]
+  )
+
+  revalidatePath(`/`)
 }
