@@ -2,6 +2,7 @@ import { FC } from 'react'
 import BlogBG from './BlobBG'
 import BlobFile from './BlobFile'
 import BlobInput from './BloblInput'
+import Button from '../Button/Button'
 interface BlobModalProps {
   file: File | null
   setFile: React.Dispatch<React.SetStateAction<File | null>>
@@ -42,18 +43,14 @@ const BlobModal: FC<BlobModalProps> = ({
             />
           </div>
           <div className="bg-green-900 px-4 py-3 flex gap-3">
-            <button
+            <Button
               disabled={pending || !file}
+              isLoading={pending}
               type="submit"
               className="rounded-lg p-4 w-2/3 font-bold border-green-600 bg-green-300 text-green-900"
             >
-              {pending ? (
-                <div className="animate-spin rounded-full mx-auto h-7 w-7 border-b-2 border-green-900" />
-              ) : (
-                'Confirmar'
-              )}
-            </button>
-
+              Confirmar
+            </Button>
             <button
               type="button"
               className="rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300"

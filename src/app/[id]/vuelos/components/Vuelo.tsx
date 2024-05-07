@@ -1,10 +1,11 @@
-import { FaPlaneDeparture, FaPlaneArrival } from 'react-icons/fa'
+import { FaPlaneDeparture, FaPlaneArrival, FaEdit } from 'react-icons/fa'
 import { MdAirplaneTicket, MdPlace, MdAccessTime } from 'react-icons/md'
 import FlightBg from './flightBg'
 import { Flight } from '@/app/lib/types'
 import { format, parseISO } from 'date-fns'
 import Blob from '@/components/blob/Blob'
 import Link from 'next/link'
+import DeleteElement from './DeleteElement'
 
 const Vuelo = ({
   id,
@@ -69,13 +70,14 @@ const Vuelo = ({
           </div>
         </div>
       </div>
-      <div className="flex justify-end mt-2">
+      <div className="flex justify-end gap-4 mt-2">
         <Link
           href={`/${trip_id}/vuelos/agregar?flightId=${id}`}
           className="text-green-300"
         >
-          Editar vuelo
+          <FaEdit className="text-green-300 w-5 h-5 max-w-5 max-h-5" />
         </Link>
+        <DeleteElement tripId={trip_id} flightId={id} />
       </div>
       <Blob trip_id={trip_id} folder={`${trip_id}/vuelos/${id}`} />
     </>

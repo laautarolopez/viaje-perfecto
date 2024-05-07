@@ -1,6 +1,6 @@
 'use client'
-import Button from './Button'
+import BasicButton from './BasicButton'
 
-const AddNoteButton = () => <Button type="submit" text="+ Agregar nota" />
+const AddNoteButton = () => <BasicButton type="submit" text="+ Agregar nota" />
 
 export default AddNoteButton
