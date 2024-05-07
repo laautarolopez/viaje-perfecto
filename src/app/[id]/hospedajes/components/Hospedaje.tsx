@@ -18,7 +18,7 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
   return (
     <>
       <div className="font-bold text-2xl mt-10 text-center">{name}</div>
-      <div className="flex items-center mt-10">
+      <div className="flex items-center mt-16">
         <div className="flex justify-center items-center relative text-green-300 w-10 h-10 me-5">
             <MdPinDrop className='w-10 h-10' />
         </div>
@@ -80,7 +80,7 @@ const Hospedaje = ({id, name, start_date, end_date, phone, address, price_per_ni
         <div className="col-span-8 text-lg ps-1 mt-5">Saldo a abonar: </div>
         <div className="col-span-3 text-lg font-bold mt-5">${total - paid}</div>
       </div>
-      <Blob trip_id={trip_id} folder={`${trip_id}/hospedajes/${id}`} />
+      {/* <Blob trip_id={trip_id} folder={`${trip_id}/hospedajes/${id}`} /> */}
     </>
   )
 }
