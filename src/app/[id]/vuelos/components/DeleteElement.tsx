@@ -1,17 +1,14 @@
 'use client'
 
-import { deleteFlight } from '@/app/actions/flights'
-import Button from '@/components/Button/Button'
 import Modal from '@/components/Modal/Modal'
 import { useState } from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
 
 type DeleteElementProps = {
-  flightId: string
-  tripId: string
+  deleteElement: () => void
 }
 
-const DeleteElement = ({ flightId, tripId }: DeleteElementProps) => {
+const DeleteElement = ({ deleteElement }: DeleteElementProps) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false)
 
   return (
@@ -26,7 +23,7 @@ const DeleteElement = ({ flightId, tripId }: DeleteElementProps) => {
       {showConfirmationModal && (
         <Modal
           onConfirm={() => {
-            deleteFlight({ flightId, tripId })
+            deleteElement()
             setShowConfirmationModal(false)
           }}
           onCancel={() => setShowConfirmationModal(false)}

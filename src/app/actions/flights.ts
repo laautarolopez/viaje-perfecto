@@ -196,5 +196,5 @@ export async function deleteFlight({
     [flightId]
   )
 
-  revalidatePath(`/`)
+  revalidatePath(`/${tripId}/vuelos`)
 }
