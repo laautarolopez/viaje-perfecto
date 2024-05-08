@@ -6,6 +6,7 @@ import { format, parseISO } from 'date-fns'
 import Blob from '@/components/blob/Blob'
 import Link from 'next/link'
 import DeleteElement from './DeleteElement'
+import { deleteFlight } from '@/app/actions/flights'
 
 const Vuelo = ({
   id,
@@ -77,7 +78,12 @@ const Vuelo = ({
         >
           <FaEdit className="text-green-300 w-5 h-5 max-w-5 max-h-5" />
         </Link>
-        <DeleteElement tripId={trip_id} flightId={id} />
+        <DeleteElement
+          deleteElement={async () => {
+            'use server'
+            await deleteFlight({ flightId: id, tripId: trip_id })
+          }}
+        />
       </div>
       <Blob trip_id={trip_id} folder={`${trip_id}/vuelos/${id}`} />
     </>

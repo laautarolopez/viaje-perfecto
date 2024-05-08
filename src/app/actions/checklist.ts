@@ -5,15 +5,19 @@ import { Note } from '../lib/types'
 import { revalidatePath } from 'next/cache'
 
 export async function fetchChecklist(tripId: string): Promise<Note[]> {
-  const data =
-    await query('SELECT * FROM notes WHERE trip_id = $1 ORDER BY created_date ASC', [tripId])
+  const data = await query(
+    'SELECT * FROM notes WHERE trip_id = $1 ORDER BY created_date ASC',
+    [tripId]
+  )
 
   return notesFromRows(data.rows)
 }
 
 export async function toggleChecklistItem(noteId: string): Promise<void> {
   try {
-    await query('UPDATE notes SET is_checked = NOT is_checked WHERE id = $1', [noteId])
+    await query('UPDATE notes SET is_checked = NOT is_checked WHERE id = $1', [
+      noteId
+    ])
   } catch (error) {
     revalidatePath('/')
   } finally {
@@ -28,7 +32,10 @@ export async function addChecklistItem({
   description: string
   tripId: string
 }): Promise<void> {
-  await query('INSERT INTO notes (description, trip_id) VALUES ($1, $2)', [description, tripId])
+  await query('INSERT INTO notes (description, trip_id) VALUES ($1, $2)', [
+    description,
+    tripId
+  ])
   revalidatePath('/')
 }
 
@@ -40,4 +47,13 @@ function notesFromRows(rows: QueryResultRow[]): Note[] {
     created_date: row.created_date,
     trip_id: row.trip_id
   }))
+}
+
+export async function deleteNote({
+  noteId
+}: {
+  noteId: string
+}): Promise<void> {
+  await query('DELETE FROM notes WHERE id = $1', [noteId])
+  revalidatePath('/')
 }
