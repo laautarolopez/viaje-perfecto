@@ -8,7 +8,7 @@
     "start": "set TZ=America/Argentina/Buenos_Aires && next start",
     "lint": "next lint",
     "seed": "node -r dotenv/config ./src/scripts/seed.js",
-    "test": "cross-env NODE_ENV=test jest --silent --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --verbose --silent --detectOpenHandles",
     "coverage": "jest --collect-coverage"
   },
   "dependencies": {
