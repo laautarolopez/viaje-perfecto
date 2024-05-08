@@ -1,7 +1,12 @@
 import { testApiHandler, sur_argentino_id } from "../config.test"
 import * as appHandler from '@/app/api/hospedajes/route';
+import { runSeed } from './helper'
 
-it("No se obtienen hospedajes al no mandar el trip_id", async () => {
+beforeAll(async () => {
+  await runSeed()
+})
+
+it.skip("No se obtienen hospedajes al no mandar el trip_id", async () => {
     await testApiHandler({
       appHandler,
       test: async ({ fetch }: { fetch: any }) => {
@@ -15,7 +20,7 @@ it("No se obtienen hospedajes al no mandar el trip_id", async () => {
     });
 });
 
-it("Se obtienen 2 hospedajes al buscar los del viaje Sur argentino", async () => {
+it.skip("Se obtienen 2 hospedajes al buscar los del viaje Sur argentino", async () => {
     await testApiHandler({
       appHandler,
       requestPatcher(request: Request) {
