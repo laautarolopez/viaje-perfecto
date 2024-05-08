@@ -1,7 +1,12 @@
 import { apiHandler, sur_argentino_id } from "../config.test"
 import * as checklistHandler from '@/app/api/checklist/route';
 import * as checklistIdHandler from '@/app/api/checklist/id/route';
+import { runSeed } from './helper'
 const note_id = '001544b3-4001-4271-9855-fec4b6a6442e'
+
+beforeAll(async () => {
+  await runSeed()
+})
 
 it("No se obtienen checklist al no mandar el trip_id", async () => {
     await apiHandler(checklistHandler, "GET", {}, async (response: any) => {
