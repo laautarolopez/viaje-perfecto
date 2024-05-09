@@ -3,9 +3,9 @@ import IconsRow from '@/components/IconsRow'
 import DaysToTravel from '@/components/DaysToTravel'
 import IconButton from '@/components/IconButton'
 import { MdHotel } from 'react-icons/md'
-import Hospedaje from './components/Hospedaje'
 import { fetchHospedajes } from '@/app/lib/services/hospedajes'
 import { fetchTripById } from '@/app/lib/services/trips'
+import Carousel from './components/Carousel'
 
 const Hospedajes = async ({ params }: { params: { id: string } }) => {
     const tripId = params.id
@@ -31,7 +31,8 @@ const Hospedajes = async ({ params }: { params: { id: string } }) => {
                     />
                     <p className="mt-5">Hospedajes</p>
                 </div>
-                {hospedajes.map((hospedaje) => (
+                <Carousel hospedajes={hospedajes} tripId={tripId} />
+                {/* {hospedajes.map((hospedaje) => (
                     <div key={hospedaje.id}>
                         <Hospedaje
                             id={hospedaje.id}
@@ -46,7 +47,7 @@ const Hospedajes = async ({ params }: { params: { id: string } }) => {
                         />
                         <hr className="relative border-green-300 mt-10" />
                     </div>
-                ))}
+                ))} */}
             </div>
         </>
     )

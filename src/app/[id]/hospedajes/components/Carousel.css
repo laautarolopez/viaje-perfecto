@@ -1,0 +1,30 @@
+.swiper {
+    z-index: 0 !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    top: calc(2.5rem + (1.5rem / 2)) !important;
+    color: rgb(120 236 151) !important;
+}
+
+.swiper-pagination {
+    top: calc(2.5rem + 1.5rem + 25px) !important;
+    height: fit-content !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: rgb(120 236 151) !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.swiper-pagination-bullet {
+    background-color: rgb(120 236 151) !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.swiper-button-prev:after, .swiper-button-next:after {
+    font-weight: bold !important;
+}

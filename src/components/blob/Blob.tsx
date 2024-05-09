@@ -1,19 +1,26 @@
+'use client'
+
 import BlobForm from './BlobForm'
-import { ListBlobResultBlob, list } from '@vercel/blob'
+import { ListBlobResultBlob } from '@vercel/blob'
+import { allFiles } from '@/app/actions/blobActions'
 import BlobFiles from './BlobFiles'
+import { useEffect, useState } from 'react'
 
 type BlobProps = {
   trip_id: string
   folder: string
 }
 
-const Blob = async ({ trip_id, folder }: BlobProps) => {
-  async function allFiles() {
-    const blobs = await list({ prefix: folder })
-    return blobs.blobs
-  }
+const Blob = ({ folder }: BlobProps) => {
+  const [files, setFiles] = useState<ListBlobResultBlob[]>([])
+  useEffect(() => {
+    const fetchFiles = async () => {
+      const blobs = await allFiles(folder)
+      setFiles(blobs)
+    }
 
-  const files = await allFiles()
+    fetchFiles()
+  }, [])
 
   return (
     <>
