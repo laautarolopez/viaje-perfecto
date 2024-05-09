@@ -1,6 +1,6 @@
 'use server'
 
-import { del, put } from '@vercel/blob'
+import { list, del, put } from '@vercel/blob'
 import { revalidatePath } from 'next/cache'
 
 const revalidate = (folder: string) => {
@@ -9,6 +9,11 @@ const revalidate = (folder: string) => {
   const categoria = folders[1]
 
   revalidatePath(`${trip_id}/${categoria}`)
+}
+
+export async function allFiles(folder: string) {
+  const blobs = await list({ prefix: folder })
+  return blobs.blobs
 }
 
 export async function deleteFile(filePath: string, folder: string) {
