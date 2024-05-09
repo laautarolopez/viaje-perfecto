@@ -15,6 +15,7 @@ const Carousel = ( { hospedajes, tripId }: { hospedajes: HospedajesType[], tripI
             modules={[Navigation, Pagination]}
             navigation={true}
             pagination={{clickable: true}}
+            spaceBetween={50}
         >
             {hospedajes.map((hospedaje) => (
                 <SwiperSlide key={hospedaje.id}>
