@@ -20,7 +20,7 @@ const Blob = ({ folder }: BlobProps) => {
     }
 
     fetchFiles()
-  }, [])
+  }, [files])
 
   return (
     <>
