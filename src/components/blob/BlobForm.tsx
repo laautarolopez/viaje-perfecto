@@ -6,7 +6,7 @@ import IconButton from '../IconButton'
 import { FaFileUpload } from 'react-icons/fa'
 import BlobModal from './BlobModal'
 
-const BlobForm = ({ folder }: { folder: string }) => {
+const BlobForm = ({ folder, fetchFiles }: { folder: string, fetchFiles: () => Promise<void> }) => {
   const [file, setFile] = useState<File | null>(null)
   const [showModal, setShowModal] = useState(false)
   const [pending, startTransition] = useTransition()
@@ -24,6 +24,7 @@ const BlobForm = ({ folder }: { folder: string }) => {
       await upload(form)
       setShowModal(false)
       setFile(null)
+      await fetchFiles()
     })
   }
   return (

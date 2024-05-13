@@ -8,9 +8,10 @@ import cx from 'classnames'
 type BlobFilesProps = {
   files: ListBlobResultBlob[]
   folder: string
+  fetchFiles: () => Promise<void>
 }
 
-const BlobFiles = ({ files, folder }: BlobFilesProps) => {
+const BlobFiles = ({ files, folder, fetchFiles }: BlobFilesProps) => {
   const [showFiles, setShowFiles] = useState(false)
 
   const toogleShowFiles = () => setShowFiles(!showFiles)
@@ -45,6 +46,7 @@ const BlobFiles = ({ files, folder }: BlobFilesProps) => {
               download={file.downloadUrl}
               deleteFilePath={file.url}
               folder={folder}
+              fetchFiles={fetchFiles}
             />
           ))}
     </>

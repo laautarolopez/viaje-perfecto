@@ -13,19 +13,20 @@ type BlobProps = {
 
 const Blob = ({ folder }: BlobProps) => {
   const [files, setFiles] = useState<ListBlobResultBlob[]>([])
-  useEffect(() => {
-    const fetchFiles = async () => {
-      const blobs = await allFiles(folder)
-      setFiles(blobs)
-    }
 
+  const fetchFiles = async () => {
+    const blobs = await allFiles(folder)
+    setFiles(blobs)
+  }
+
+  useEffect(() => {
     fetchFiles()
-  }, [files])
+  }, [])
 
   return (
     <>
-      <BlobFiles files={files} folder={folder} />
-      <BlobForm folder={folder} />
+      <BlobFiles files={files} folder={folder} fetchFiles={fetchFiles} />
+      <BlobForm folder={folder} fetchFiles={fetchFiles} />
     </>
   )
 }
