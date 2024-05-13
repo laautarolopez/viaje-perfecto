@@ -1,6 +1,7 @@
 'use client'
 import { FaFileDownload, FaTrashAlt } from 'react-icons/fa'
 import { deleteFile } from '@/app/actions/blobActions'
+import DeleteElement from '@/app/[id]/vuelos/components/DeleteElement'
 
 const FileBlob = ({
   filename,
@@ -21,7 +22,7 @@ const FileBlob = ({
       <a href={download} className=" flex items-center justify-center">
         <FaFileDownload className="w-5 h-5 max-w-5 max-h-5" />
       </a>
-      <button
+      {/* <button
         className="w-5 h-5 max-w-5 max-h-5 flex items-center justify-center"
         onClick={async () => {
           await deleteFile(deleteFilePath, folder)
@@ -29,7 +30,14 @@ const FileBlob = ({
         }}
       >
         <FaTrashAlt className="w-5 h-5 max-w-5 max-h-5" />
-      </button>
+      </button> */}
+      <DeleteElement
+          deleteElement={async () => {
+            await deleteFile(deleteFilePath, folder)
+            await fetchFiles()
+          }}
+          trashStyles={'w-5 h-5 max-w-5 max-h-5 flex items-center justify-center'}
+      />
     </div>
   </div>
 )

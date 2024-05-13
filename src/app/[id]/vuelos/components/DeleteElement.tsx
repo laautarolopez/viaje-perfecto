@@ -6,9 +6,10 @@ import { FaTrashAlt } from 'react-icons/fa'
 
 type DeleteElementProps = {
   deleteElement: () => void
+  trashStyles?: string
 }
 
-const DeleteElement = ({ deleteElement }: DeleteElementProps) => {
+const DeleteElement = ({ deleteElement, trashStyles }: DeleteElementProps) => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(false)
 
   return (
@@ -18,7 +19,7 @@ const DeleteElement = ({ deleteElement }: DeleteElementProps) => {
         className="bg-transparent"
         onClick={() => setShowConfirmationModal(true)}
       >
-        <FaTrashAlt className="text-green-300 w-4 h-4 max-w-4 max-h-4" />
+        <FaTrashAlt className={trashStyles ? trashStyles : "text-green-300 w-4 h-4 max-w-4 max-h-4"} />
       </button>
       {showConfirmationModal && (
         <Modal
