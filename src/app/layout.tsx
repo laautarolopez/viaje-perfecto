@@ -18,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cx(inter.className, 'bg-gray-700 text-white mb-20')}>
+      <body
+        id="modals-root"
+        className={cx(inter.className, 'bg-gray-700 text-white mb-20')}
+      >
         {children}
         <Footer />
       </body>

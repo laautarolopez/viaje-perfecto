@@ -3,22 +3,30 @@ import BlogBG from './BlobBG'
 import BlobFile from './BlobFile'
 import BlobInput from './BloblInput'
 import Button from '../Button/Button'
+import { createPortal } from 'react-dom'
 interface BlobModalProps {
   file: File | null
   setFile: React.Dispatch<React.SetStateAction<File | null>>
   pending: boolean
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 const BlobModal: FC<BlobModalProps> = ({
   file,
   setFile,
   pending,
-  setShowModal
+  setShowModal,
+  onSubmit
 }) => {
-  return (
-    <div
-      className="fixed z-10 inset-0 overflow-y-auto top-48"
+  const modalRoot = document.getElementById('modals-root')
+  if (!modalRoot) {
+    throw new Error("Could not find element with id 'modals-root'")
+  }
+  return createPortal(
+    <form
+      onSubmit={onSubmit}
+      className="fixed z-10 w-[100vw] h-[100vh] overflow-y-auto top-48"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -65,7 +73,8 @@ const BlobModal: FC<BlobModalProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </form>,
+    modalRoot
   )
 }
 
