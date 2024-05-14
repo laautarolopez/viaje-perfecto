@@ -1,6 +1,7 @@
 import { useTransition } from 'react'
 import Button from '../Button/Button'
 import BlogBG from '../blob/BlobBG'
+import { createPortal } from 'react-dom'
 
 type ModalProps = {
   onConfirm: () => void
@@ -10,7 +11,11 @@ type ModalProps = {
 
 const Modal = ({ onConfirm, onCancel, children }: ModalProps) => {
   const [pending, setTransition] = useTransition()
-  return (
+  const modalRoot = document.getElementById('modals-root')
+  if (!modalRoot) {
+    throw new Error("Could not find element with id 'modals-root'")
+  }
+  return createPortal(
     <div
       className="fixed z-10 inset-0 overflow-y-auto top-48"
       aria-labelledby="modal-title"
@@ -43,7 +48,8 @@ const Modal = ({ onConfirm, onCancel, children }: ModalProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    modalRoot
   )
 }
 
