@@ -1,6 +1,5 @@
 const { query, end } = require('../app/lib/db.js');
 const { users, trips, flys, hospedajes, notes } = require('../app/lib/placeholder-data.js')
-const bcrypt = require('bcrypt')
 
 async function seed() {
   try {
@@ -25,7 +24,7 @@ async function seed() {
     const createUsersTable = await query(`
             CREATE TABLE IF NOT EXISTS users (
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-                username TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL
             );
         `)
@@ -85,14 +84,13 @@ async function seed() {
     // Insertar datos en la tabla "users"
     const insertedUsers = await Promise.all(
       users.map(async (user) => {
-        const hashedPassword = await bcrypt.hash(user.password, 10)
         return query(
           `
-                    INSERT INTO users (id, username, password)
+                    INSERT INTO users (id, email, password)
                     VALUES ($1, $2, $3)
                     ON CONFLICT (id) DO NOTHING;
                 `,
-          [user.id, user.username, hashedPassword]
+          [user.id, user.email, user.password]
         )
       })
     )

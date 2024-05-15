@@ -22,7 +22,9 @@ export default async function Home() {
   } = await fetchNextTrip()
 
   return (
-    <div className="p-5">
+    <>
+    {id
+    ? <div className="p-5">
       <header className="pb-5">
         <h1 className="text-4xl font-bold mb-5">Tu próximo viaje</h1>
         <div className="flex justify-between items-center">
@@ -52,5 +54,20 @@ export default async function Home() {
         </Link>
       </main>
     </div>
+    : <div className="p-5">
+      <header className="pb-5">
+        <h1 className="text-4xl font-bold mb-5">No tienes viajes</h1>
+        <div className="flex justify-between items-center">
+          <Link
+            href={'/agregar'}
+            className="mt-10 text-center box-border rounded-lg p-4 w-full font-bold border-green-600 bg-green-300 text-green-900"
+          >
+            Agregar viaje
+          </Link>
+        </div>
+      </header>
+    </div>
+    }
+    </>
   )
 }

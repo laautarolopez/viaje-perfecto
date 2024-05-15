@@ -10,7 +10,7 @@ const trip4ID = '004544b2-4001-4271-9855-fec4b6a6442a'
 const users = [
   {
     id: user1ID,
-    username: 'lautaro',
+    email: 'prueba@gmail.com',
     password: '123456'
   }
 ]
@@ -234,7 +234,7 @@ export async function runSeed() {
       const createUsersTable = await query(`
               CREATE TABLE IF NOT EXISTS users (
                   id UUID PRIMARY KEY,
-                  username TEXT NOT NULL UNIQUE,
+                  email TEXT NOT NULL UNIQUE,
                   password TEXT NOT NULL
               );
           `)
@@ -297,11 +297,11 @@ export async function runSeed() {
           const hashedPassword = await bcrypt.hash(user.password, 10)
           return query(
             `
-                      INSERT INTO users (id, username, password)
+                      INSERT INTO users (id, email, password)
                       VALUES ($1, $2, $3)
                       ON CONFLICT (id) DO NOTHING;
                   `,
-            [user.id, user.username, hashedPassword]
+            [user.id, user.email, hashedPassword]
           )
         })
       )

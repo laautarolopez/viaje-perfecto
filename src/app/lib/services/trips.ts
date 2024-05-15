@@ -1,14 +1,15 @@
 import { NextTripInfo, Trip } from '../types'
 import { apiService } from './api'
+import { cookies } from 'next/headers'
 
-export const USER_ID = '410544b2-4001-4271-9855-fec4b6a6442a' //esta hardcodeado, deberia ser una variable de entorno
+// export const USER_ID = cookies().get('user_id')?.value
 
 export const fetchNextTrip = async () => {
   const trip = await apiService<NextTripInfo>({
     hostname: 'http://localhost:3000/api', //pasar a variable de entorno
     pathname: 'next-trip',
     method: 'GET',
-    headers: { user_id: USER_ID }
+    headers: { user_id: cookies().get('user_id')?.value }
   })
   return trip
 }
@@ -18,7 +19,7 @@ export const fetchNextTrips = async () => {
     hostname: 'http://localhost:3000/api/trips', //pasar a variable de entorno
     pathname: 'next-trips',
     method: 'GET',
-    headers: { user_id: USER_ID }
+    headers: { user_id: cookies().get('user_id')?.value }
   })
   return trips
 }
@@ -28,7 +29,7 @@ export const fetchTripById = async (tripID: string) => {
     hostname: 'http://localhost:3000/api', //pasar a variable de entorno
     pathname: 'trips',
     method: 'GET',
-    headers: { trip_id: tripID }
+    headers: { trip_id: tripID, user_id: cookies().get('user_id')?.value }
   })
   return trip
 }

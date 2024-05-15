@@ -6,14 +6,16 @@ import { RawTrip } from '@/app/actions/trips'
 
 //next trip endpoint
 export async function GET(request: Request) {
-  const userId = request.headers.get('user_id')
+  const user_id = request.headers.get('user_id')
 
   try {
     const nextTripData = (await query(
       `SELECT * FROM trips WHERE initial_date > NOW() AND user_id = $1 ORDER BY initial_date ASC LIMIT 1`,
-      [userId]
+      [user_id]
     )) as unknown as QueryResult<RawTrip>
     const nextTrip: RawTrip = nextTripData.rows[0]
+
+    if(!nextTrip) return NextResponse.json({id: undefined})
 
     const nextFlyData = (await query(
       `SELECT * FROM flys WHERE trip_id = $1 ORDER BY departure_date ASC LIMIT 1`,
@@ -29,6 +31,7 @@ export async function GET(request: Request) {
     }
     return NextResponse.json(nextTripResponse)
   } catch (error) {
+    console.log(error)
     throw new Error('There is no next trip available.')
   }
 }
