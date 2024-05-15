@@ -24,7 +24,7 @@ const RegisterForm = () => {
         onSubmit={(e: FieldValues) => {
           return Promise.resolve({ message: 'Register successful' })
         }}
-        title="Registrate a tu cuenta"
+        title="Regístra tu cuenta"
       />
     </FormProvider>
   )
