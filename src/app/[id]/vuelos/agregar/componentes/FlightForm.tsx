@@ -46,7 +46,7 @@ const FlightForm = ({ tripId, flight }: FlightFormProps) => {
       <Form
         onSubmit={handleSubmitAction}
         inputs={inputs}
-        onCancelUrl={`/${tripId}/vuelos`}
+        navigateUrl={`/${tripId}/vuelos`}
         title={`${flight ? 'Editar' : 'Agregar nuevo'} vuelo`}
         isEditing={!!flight}
       />

@@ -14,7 +14,9 @@ export type Input = {
 export type FormProps = {
   onSubmit: (formData: FieldValues) => Promise<{ message: string }>
   inputs: Input[]
-  onCancelUrl: string
+  submitButtonText?: string
+  navigateUrl: string
+  navigateText?: string
   title: string
   isEditing?: boolean
 }
@@ -29,7 +31,9 @@ const initialState: FormState = {
 const Form = ({
   onSubmit,
   inputs,
-  onCancelUrl,
+  submitButtonText,
+  navigateUrl,
+  navigateText,
   title,
   isEditing
 }: FormProps) => {
@@ -73,13 +77,17 @@ const Form = ({
         </p>
         <div className="flex gap-3 mt-3 ">
           <Button isLoading={pending} type="submit">
-            {isEditing ? 'Editar' : 'Agregar'}
+            {isEditing
+              ? 'Editar'
+              : submitButtonText
+              ? submitButtonText
+              : 'Agregar'}
           </Button>
           <Link
-            className="rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300"
-            href={onCancelUrl}
+            className="text-center rounded-lg border-2 border-green-300 p-4 w-1/3 text-green-300"
+            href={navigateUrl}
           >
-            Cancelar
+            {navigateText ? navigateText : 'Cancelar'}
           </Link>
         </div>
       </form>

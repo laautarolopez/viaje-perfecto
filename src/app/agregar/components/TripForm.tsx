@@ -37,7 +37,7 @@ const TripForm = ({ trip }: { trip?: Trip | null }) => {
       <Form
         onSubmit={handleSubmitAction}
         inputs={inputs}
-        onCancelUrl="/"
+        navigateUrl="/"
         title={`${trip ? 'Editar' : 'Agregar nuevo'} viaje`}
         isEditing={!!trip}
       />
