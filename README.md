@@ -14,7 +14,7 @@ Stack tecnológico:
 
 Casos de uso:
 
-![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/45bacb43-bf7e-4909-b93b-087d1963dfde)
+![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/05ada612-a316-4dcb-a62e-a440486e6f63)
 
 Referencias:
 - Verde: Nuevo caso de uso.
@@ -22,33 +22,33 @@ Referencias:
 - Blanco: Caso de uso existente.
   
 Como usuario quiero ver la informacion mas importante del proximo viaje.
-- El usuario entra a la home.
+- El usuario accede a su cuenta y entra a la home.
 - El sistema le muestra cual es su proximo viaje, cuantos dias le faltan para viajar, un calendario con las fechas y la duracion del viaje, una checklist con la informacion y recordatorios mas importande del mismo.
 
 Como usuario quiero administrar notas del próximo viaje.
-- El usuario entra a la home y navega hasta la checklist.
-- El usuario agrega una nueva nota o cambia el estado de una existente.
+- El usuario accede a su cuenta, entra a la home y navega hasta la checklist.
+- El usuario agrega una nueva nota, cambia el estado de una existente o la elimina.
 - El sistema agrega una nueva nota o camia el estado de una existente.
 
 Como usuario quiero administrar viajes.
-- El usuario entra a la home.
+- El usuario accede a su cuenta y entra a la home.
 - El usuario clickea en el boton para agregar o editar un viaje.
 - El sistema le muestra un formulario de agregado o edicion de un viaje.
 - El usuario completa o modifica el formulario.
 - El sistema agrega o edita un viaje.
 
 Como usuario quiero ver los futuros viajes programados.
-- El usuario entra a la home y navega hasta la seccion de futuros viajes.
+- El usuario accede a su cuenta, entra a la home y navega hasta la seccion de futuros viajes.
 - El sistema le muestra sus proximos viajes programados, con su respectivo nombre y fecha inicial.
 
 Como usuario  quiero ver la informacion de los vuelos relacionados al proximo viaje.
-- El usuario entra a la home.
+- El usuario accede a su cuenta y entra a la home.
 - El sistema le muestra el proximo viaje con su menu de navegacion.
 - El usuario clickea en el boton de los vuelos.
 - El sistema le muestra la pantalla de los vuelos y todas su respectiva informacion.
 
 Como usuario quiero administrar los archivos mas importantes de cada vuelo relacionado al viaje.
-- El usuario entra a la home.
+- El usuario accede a su cuenta y entra a la home.
 - El sistema le muestra el proximo viaje con su menu de navegacion.
 - El usuario clickea en el boton de los vuelos.
 - El sistema le muestra la pantalla de los vuelos y todas su respectiva informacion.
@@ -56,26 +56,32 @@ Como usuario quiero administrar los archivos mas importantes de cada vuelo relac
 - El sistema agrega o elimina el archivo.
 
 Como usuario quiero administrar vuelos de un viaje
+- El usuario accede a su cuenta y entra a la home.
 - El usuario navega hasta la seccion de vuelos de un viaje.
-- El usuario clickea en el boton para agregar o editar un vuelo del viaje.
-- El sistema le muestra un formulario de agregado o edicion de un vuelo del viaje.
-- El usuario completa o modifica el formulario.
-- El sistema agrega o edita un vuelo del viaje.
+- El usuario clickea en el boton para agregar, editar o eliminar un vuelo del viaje.
+- El sistema le muestra un formulario/modal de agregado, edicion o eliminacion de un vuelo del viaje.
+- El usuario completa/modifica el formulario; o confima la eliminacion.
+- El sistema agrega, edita o elimina un vuelo del viaje.
 
 Como usuario quiero ver detalles de los hospedajes relacionados al viaje.
-- El usuario entra a la home.
+- El usuario accede a su cuenta y entra a la home.
 - El sistema le muestra el proximo viaje con su menu de navegacion.
 - El usuario clickea en el boton de los hospedajes.
 - El sistema le muestra la pantalla de los hospedajes y todas su respectiva informacion.
 
 Como usuario quiero administrar archivos importantes en cada hospedaje.
-- El usuario entra a la home.
+- El usuario accede a su cuenta y entra a la home.
 - El sistema le muestra el proximo viaje con su menu de navegacion.
 - El usuario clickea en el boton de los hospedajes.
 - El sistema le muestra la pantalla de los hospedajes y todas su respectiva informacion.
 - El usuario navega hasta el hospedaje deseado y clickea en agregar o borrar un archivo.
 - El sistema agrega o elimina el archivo.
 
+Como usuario quiero hacer uso de mi cuenta para administrar mis viajes
+-  El usuario entra a la url de Viaje Perfecto.
+-  El sistema le muestra la pantalla de logueo.
+-  El usuario pone sus credenciales y accede o primero se registra y accede.
+-  El sistema le muestra la home
 
 Diagrama de arquitectura:
 
