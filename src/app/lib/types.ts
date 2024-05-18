@@ -1,7 +1,10 @@
-export type User = {
-  id: string
+export type UserCredentials = {
   email: string
   password: string
+}
+
+export type User = UserCredentials & {
+  id: string
 }
 
 export type TripBasicInfo = {
