@@ -46,7 +46,7 @@ it("Se obtiene un error al buscar un viaje por id inexistente", async () => {
 });
 
 it("Se obtienen el viaje Sur argentino al buscarlo por su id", async () => {
-  await apiHandler(tripsHandler, "GET", {'trip_id': sur_argentino_id}, async (response: any) => {
+  await apiHandler(tripsHandler, "GET", {'trip_id': sur_argentino_id, 'user_id': user1_id}, async (response: any) => {
     const data = await response.json();
     
     expect(data.id).toBe(sur_argentino_id)
