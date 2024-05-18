@@ -1,5 +1,7 @@
 'use client'
 
+import { signin } from '@/app/actions/auth'
+import { UserCredentials } from '@/app/lib/types'
 import Form, { Input } from '@/components/Form/Form'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
 
@@ -22,7 +24,8 @@ const LoginForm = () => {
         navigateText="Regístrate"
         submitButtonText="Iniciar sesión"
         onSubmit={(e: FieldValues) => {
-          return Promise.resolve({ message: 'Login successful' })
+          const { email, password } = e as UserCredentials
+          return signin(email, password)
         }}
         title="Accede a tu cuenta"
       />

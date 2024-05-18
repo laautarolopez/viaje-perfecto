@@ -1,5 +1,7 @@
 'use client'
 
+import { register } from '@/app/actions/auth'
+import { UserCredentials } from '@/app/lib/types'
 import Form, { Input } from '@/components/Form/Form'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
 
@@ -8,7 +10,7 @@ const inputs: Input[] = [
   { key: 'password', label: 'Contraseña', type: 'password' }
 ]
 const RegisterForm = () => {
-  const methods = useForm({
+  const methods = useForm<UserCredentials>({
     defaultValues: {
       email: '',
       password: ''
@@ -22,7 +24,8 @@ const RegisterForm = () => {
         navigateText="Acceder"
         submitButtonText="Registrarse"
         onSubmit={(e: FieldValues) => {
-          return Promise.resolve({ message: 'Register successful' })
+          const { email, password } = e as UserCredentials
+          return register(email, password)
         }}
         title="Regístra tu cuenta"
       />
