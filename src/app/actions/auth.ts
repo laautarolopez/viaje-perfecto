@@ -43,12 +43,12 @@ export async function register(
         message: 'El correo ya está registrado.'
       }
 
-    const newUser = await query(
+    const newUserResponse = await query(
       'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *',
       [email, password]
     )
 
-    cookies().set('user_id', newUser.id)
+    cookies().set('user_id', newUserResponse.rows[0].id)
   } catch (error) {
     console.log(error)
     return {
