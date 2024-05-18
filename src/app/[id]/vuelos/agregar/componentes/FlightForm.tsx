@@ -1,9 +1,7 @@
 'use client'
 
 import { createFlight, updateFlifht } from '@/app/actions/flights'
-import { createTrip } from '@/app/actions/trips'
-import { USER_ID } from '@/app/lib/services/trips'
-import { FlightBasicInfo, Flight, TripBasicInfo } from '@/app/lib/types'
+import { FlightBasicInfo, Flight } from '@/app/lib/types'
 import Form, { Input } from '@/components/Form/Form'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
 

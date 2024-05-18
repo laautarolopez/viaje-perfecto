@@ -72,9 +72,13 @@ const Form = ({
             />
           </div>
         ))}
-        <p className="text-green-300 mt-2 min-h-10">
+        {(state as FormState).message
+        ? <p className="bg-red-600 text-white p-2 font-bold mt-2 min-h-10 rounded-xl">
           {(state as FormState).message}
         </p>
+        : <p className="text-white font-bold mt-2 min-h-10 rounded-xl">
+      </p>
+        }
         <div className="flex gap-3 mt-3 ">
           <Button isLoading={pending} type="submit">
             {isEditing

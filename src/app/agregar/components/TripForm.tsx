@@ -1,7 +1,6 @@
 'use client'
 
 import { createTrip, getTripById, updateTrip } from '@/app/actions/trips'
-import { USER_ID } from '@/app/lib/services/trips'
 import { Trip, TripBasicInfo } from '@/app/lib/types'
 import Form, { Input } from '@/components/Form/Form'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
@@ -23,7 +22,7 @@ const TripForm = ({ trip }: { trip?: Trip | null }) => {
   })
 
   const handleSubmitAction = async (tripForm: FieldValues) => {
-    const updatedTrip = { ...tripForm, user_id: USER_ID } as TripBasicInfo
+    const updatedTrip = { ...tripForm } as TripBasicInfo
 
     if (trip) {
       return await updateTrip({ ...trip, ...updatedTrip })
