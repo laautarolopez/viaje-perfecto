@@ -224,6 +224,9 @@ export async function runSeed() {
       // Eliminar la tabla "hospedajes" si existe
       await query(`DROP TABLE IF EXISTS hospedajes`)
   
+      // Eliminar la tabla "viajes_compartidos" si existe
+      await query(`DROP TABLE IF EXISTS shared_trips`)
+
       // Eliminar la tabla "trips" si existe
       await query(`DROP TABLE IF EXISTS trips`)
   
@@ -251,6 +254,16 @@ export async function runSeed() {
           );
       `)
       console.log(`Created "trips" table`)
+
+      // Crear la tabla "shared_trips" si no existe, image va a ser  de tipo BLOB
+    const createSharedTripsTable = await query(`
+        CREATE TABLE shared_trips (
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+            trip_id UUID REFERENCES trips(id),
+            user_id UUID REFERENCES users(id)
+        );
+    `)
+    console.log(`Created "shared_trips" table`)
   
       const createFlysTable = await query(`
           CREATE TABLE flys (
@@ -374,6 +387,7 @@ export async function runSeed() {
       return {
         createUsersTable,
         createTripsTable,
+        createSharedTripsTable,
         createFlysTable,
         createHospedajesTable,
         createNotesTable,
