@@ -51,7 +51,7 @@ async function seed() {
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             trip_id UUID REFERENCES trips(id),
             user_id UUID REFERENCES users(id),
-            acepted BOOLEAN DEFAULT FALSE
+            accepted BOOLEAN DEFAULT FALSE
         );
     `)
     console.log(`Created "shared_trips" table`)
