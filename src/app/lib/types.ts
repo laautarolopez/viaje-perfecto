@@ -48,13 +48,15 @@ export type Flight = FlightBasicInfo & {
   id: string
 }
 
-export type SharedTripBasicInfo = {
+export type SharedTripCreateForm = {
   trip_id: string
-  user_id: string
+  user_email: string
 }
 
-export type SharedTrip = SharedTripBasicInfo & {
+export type SharedTrip = {
   id: string
+  trip_id: string
+  user_id: string
 }
 
 // export type CheckList = {
