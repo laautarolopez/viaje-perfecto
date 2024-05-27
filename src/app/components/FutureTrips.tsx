@@ -10,12 +10,15 @@ const FutureTrips = async () => {
   return (
     <div className="mt-16">
       <h1 className="text-2xl font-bold mb-6 ">Futuros viajes</h1>
-      <div className="grid grid-cols-2 gap-x-5">
-        {future_trips &&
-          future_trips.map((trip) => (
+      {future_trips.length === 0 ? (
+        <p className="text-green-200">No tienes viajes futuros</p>
+      ) : (
+        future_trips.map((trip) => (
+          <div className="grid grid-cols-2 gap-x-5">
             <FutureTripCard key={trip.id} trip={trip} />
-          ))}
-      </div>
+          </div>
+        ))
+      )}
     </div>
   )
 }

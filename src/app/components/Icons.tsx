@@ -1,6 +1,7 @@
 import IconButton from '@/components/IconButton'
 import { MdHotel, MdInsertPhoto, MdChecklistRtl } from 'react-icons/md'
 import { FaPlane, FaCar, FaFolder } from 'react-icons/fa'
+import { FaUserPlus } from 'react-icons/fa6'
 
 const Icons = ({ tripId }: { tripId: string }) => (
   <>
@@ -35,9 +36,10 @@ const Icons = ({ tripId }: { tripId: string }) => (
         iconClassName="w-7 h-7"
       />
       <IconButton
-        Icon={FaFolder}
-        iconContainerClassName="bg-violet-600 w-16 h-16"
+        Icon={FaUserPlus}
+        iconContainerClassName="bg-blue-900 w-16 h-16"
         iconClassName="w-7 h-7"
+        url={`${tripId}/compartir`}
       />
     </div>
   </>

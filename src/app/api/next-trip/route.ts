@@ -9,10 +9,13 @@ export async function GET(request: Request) {
   const user_id = request.headers.get('user_id')
 
   try {
-    const nextTripData = (await query(
-      `SELECT * FROM trips WHERE initial_date > NOW() AND user_id = $1 ORDER BY initial_date ASC LIMIT 1`,
-      [user_id]
-    )) as unknown as QueryResult<RawTrip>
+    const nextTripData = 
+        await query(`
+          SELECT trips.* FROM trips
+          LEFT JOIN shared_trips ON trips.id = shared_trips.trip_id
+          WHERE trips.initial_date > $1 AND (trips.user_id = $2 OR (shared_trips.user_id = $2 AND shared_trips.accepted = true))
+          ORDER BY initial_date ASC LIMIT 1
+        `, [new Date(), user_id]) as unknown as QueryResult<RawTrip>
     const nextTrip: RawTrip = nextTripData.rows[0]
 
     if(!nextTrip) return NextResponse.json({id: undefined})
