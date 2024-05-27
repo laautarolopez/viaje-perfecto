@@ -1,5 +1,6 @@
 const user1ID = '009544b2-4001-4271-9855-fec4b6a6442a'
 const user2ID = '009545b2-4001-4271-9855-fec4b6a6442a'
+const user3ID = '009546b2-4001-4271-9855-fec4b6a6442a'
 const trip1ID = '001544b2-4001-4271-9855-fec4b6a6442a'
 const trip2ID = '002544b2-4001-4271-9855-fec4b6a6442a'
 const trip3ID = '003544b2-4001-4271-9855-fec4b6a6442a'
@@ -14,6 +15,11 @@ const users = [
   {
     id: user2ID,
     email: 'prueba2@gmail.com',
+    password: '123456'
+  },
+  {
+    id: user3ID,
+    email: 'prueba3@gmail.com',
     password: '123456'
   }
 ]

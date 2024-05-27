@@ -1,5 +1,11 @@
-const { query, end } = require('../app/lib/db.js');
-const { users, trips, flys, hospedajes, notes } = require('../app/lib/placeholder-data.js')
+const { query, end } = require('../app/lib/db.js')
+const {
+  users,
+  trips,
+  flys,
+  hospedajes,
+  notes
+} = require('../app/lib/placeholder-data.js')
 
 async function seed() {
   try {
@@ -51,7 +57,8 @@ async function seed() {
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             trip_id UUID REFERENCES trips(id),
             user_id UUID REFERENCES users(id),
-            accepted BOOLEAN DEFAULT FALSE
+            accepted BOOLEAN DEFAULT FALSE,
+            UNIQUE(trip_id, user_id)
         );
     `)
     console.log(`Created "shared_trips" table`)
@@ -145,17 +152,31 @@ async function seed() {
 
     const insertedHospedajes = await Promise.all(
       hospedajes.map(async (hospedaje) => {
-        return query(`
+        return query(
+          `
             INSERT INTO hospedajes (id, name, start_date, end_date, phone, address, price_per_night, paid, trip_id)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             ON CONFLICT (id) DO NOTHING;
-        `, [hospedaje.id, hospedaje.name, hospedaje.start_date, hospedaje.end_date, hospedaje.phone, hospedaje.address, hospedaje.price_per_night, hospedaje.paid, hospedaje.trip_id])
+        `,
+          [
+            hospedaje.id,
+            hospedaje.name,
+            hospedaje.start_date,
+            hospedaje.end_date,
+            hospedaje.phone,
+            hospedaje.address,
+            hospedaje.price_per_night,
+            hospedaje.paid,
+            hospedaje.trip_id
+          ]
+        )
       })
     )
 
     const insertedNotes = await Promise.all(
       notes.map(async (note) => {
-        return query(`
+        return query(
+          `
             INSERT INTO notes (id, description, is_checked, created_date, trip_id)
             VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT (id) DO NOTHING;

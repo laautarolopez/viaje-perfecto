@@ -7,6 +7,12 @@ export type User = UserCredentials & {
   id: string
 }
 
+export type UserIdentification = { id: string; email: string }
+
+export type SharedUserWithStatus = UserIdentification & {
+  accepted: boolean
+}
+
 export type TripBasicInfo = {
   user_id: string
   name: string

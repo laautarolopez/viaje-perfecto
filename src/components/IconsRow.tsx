@@ -1,9 +1,14 @@
 import IconButton from '@/components/IconButton'
 import { MdHotel, MdInsertPhoto, MdChecklistRtl } from 'react-icons/md'
-import { FaPlane, FaCar, FaFolder } from 'react-icons/fa'
-import cx from 'classnames'
+import { FaPlane, FaCar, FaUserPlus } from 'react-icons/fa'
 
-const IconsRow = ({ activeIcon, tripId }: { activeIcon: string, tripId: string }) => {
+const IconsRow = ({
+  activeIcon,
+  tripId
+}: {
+  activeIcon: string
+  tripId: string
+}) => {
   const base_url = '/' + tripId
 
   return (
@@ -49,12 +54,12 @@ const IconsRow = ({ activeIcon, tripId }: { activeIcon: string, tripId: string }
         showUnderline={activeIcon === 'checklist'}
       />
       <IconButton
-        Icon={FaFolder}
-        iconContainerClassName="w-10 h-10"
+        Icon={FaUserPlus}
+        iconContainerClassName="bg-blue-900 w-10 h-10"
         iconClassName="w-5 h-5"
-        url={base_url + '/archivos'}
-        color="bg-violet-600"
-        showUnderline={activeIcon === 'archivos'}
+        color="bg-blue-900"
+        url={`${tripId}/compartir`}
+        showUnderline={activeIcon === 'compartir'}
       />
     </div>
   )
