@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { TripBasicInfo, Trip } from '../lib/types'
 import { UUID } from 'crypto'
+import { cookies } from 'next/headers'
 
 export type RawTrip = {
   id: UUID
@@ -14,14 +15,16 @@ export type RawTrip = {
 }
 
 export async function createTrip(newTrip: TripBasicInfo) {
-  const { user_id, name, initial_date, end_date } = newTrip
+  const user_id = cookies().get('user_id')?.value
+  
+  const { name, initial_date, end_date } = newTrip
 
   const { isValid, message } = validateTrip(newTrip)
   if (isValid) {
     try {
       await query(
         `
-            INSERT INTO trips ( user_id, name, initial_date, end_date)
+            INSERT INTO trips (user_id, name, initial_date, end_date)
             VALUES ($1, $2, $3, $4)
             ON CONFLICT (id) DO NOTHING;
         `,
