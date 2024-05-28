@@ -1,9 +1,10 @@
 'use client'
 
-import { createSharedTrip, getSharedUsers } from '@/app/actions/shared_trips'
+import { createSharedTrip } from '@/app/actions/shared_trips'
 import { SharedUserWithStatus } from '@/app/lib/types'
 import Form, { Input } from '@/components/Form/Form'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import SharedUser from './SharedUser'
 
 const inputs: Input[] = [
   { key: 'userEmail', label: 'Email del usuario', type: 'email' }
@@ -55,9 +56,7 @@ const ShareForm = ({ tripId, sharedUsers }: FlightFormProps) => {
         ) : (
           <ul>
             {confirmedUsers.map((user) => (
-              <li className="text-green-300" key={user.id}>
-                {user.email}
-              </li>
+              <SharedUser user={user} key={user.id} />
             ))}
           </ul>
         )}
@@ -71,9 +70,7 @@ const ShareForm = ({ tripId, sharedUsers }: FlightFormProps) => {
         ) : (
           <ul>
             {pendingUsers.map((user) => (
-              <li className="text-green-300" key={user.id}>
-                {user.email}
-              </li>
+              <SharedUser user={user} key={user.id} />
             ))}
           </ul>
         )}

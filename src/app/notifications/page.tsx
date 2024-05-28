@@ -12,9 +12,13 @@ export default async function Notifications() {
   return (
     <div className="py-10 px-5">
       <h1 className="text-4xl font-bold mb-5">Notificaciones</h1>
-      {tripsInvitations.map((invitation) => (
-        <Invitation invitation={invitation} key={invitation.sharedId} />
-      ))}
+      {tripsInvitations.length === 0 ? (
+        <p className="text-green-200">No tienes notificaciones pendientes</p>
+      ) : (
+        tripsInvitations.map((invitation) => (
+          <Invitation invitation={invitation} key={invitation.sharedId} />
+        ))
+      )}
     </div>
   )
 }

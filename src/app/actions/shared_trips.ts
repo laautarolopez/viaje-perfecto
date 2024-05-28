@@ -49,26 +49,10 @@ export async function createSharedTrip({
   return { message: '' }
 }
 
-export async function deleteSharedTrip(newSharedTrip: SharedTripBasicInfo) {
-  const { trip_id, user_id } = newSharedTrip
-
-  try {
-    await query(
-      'DELETE FROM shared_trips WHERE trip_id = $1 AND user_id = $2',
-      [trip_id, user_id]
-    )
-  } catch (error) {
-    console.log('🚀 ~ deleteSharedTrip ~ error:', error)
-  }
-
-  revalidatePath(`/`)
-  redirect(`/`)
-}
-
 export async function getSharedUsers(tripId: string) {
   const sharedUsersRes = await query(
     `
-        SELECT users.email, users.id, shared_trips.accepted
+        SELECT users.email, users.id, shared_trips.accepted, shared_trips.id as "sharedId"
         FROM shared_trips
         JOIN users ON shared_trips.user_id = users.id
         WHERE shared_trips.trip_id = $1
@@ -117,11 +101,22 @@ export async function acceptInvitation(sharedId: string) {
   revalidatePath(`/notifications`)
 }
 
-export async function rejectNotification(sharedId: string) {
+export async function deleteSharedTrip(sharedId: string) {
   try {
     await query('DELETE FROM shared_trips WHERE id = $1', [sharedId])
   } catch (error) {
-    console.log('🚀 ~ rejectNotification ~ error:', error)
+    console.log('🚀 ~ deleteSharedTrip ~ error:', error)
   }
   revalidatePath(`/notifications`)
+}
+
+export async function hasNotifications() {
+  const user_id = cookies().get('user_id')?.value
+  const tripsInvitationsRes = await query(
+    `SELECT COUNT(*) as count
+    FROM shared_trips
+    WHERE user_id = $1 AND accepted = false`,
+    [user_id]
+  )
+  return tripsInvitationsRes.rows[0].count > 0
 }

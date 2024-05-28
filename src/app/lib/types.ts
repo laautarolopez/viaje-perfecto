@@ -10,6 +10,7 @@ export type User = UserCredentials & {
 export type UserIdentification = { id: string; email: string }
 
 export type SharedUserWithStatus = UserIdentification & {
+  sharedId: string
   accepted: boolean
 }
 
