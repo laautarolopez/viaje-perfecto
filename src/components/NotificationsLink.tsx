@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { FaMailBulk } from 'react-icons/fa'
-import cx from 'classnames'
+import { MdNotifications, MdNotificationImportant } from 'react-icons/md'
 import { hasNotifications as hasNotificationsAction } from '@/app/actions/shared_trips'
 
 const NotificationsLink = async () => {
@@ -8,14 +7,9 @@ const NotificationsLink = async () => {
   return (
     <Link
       href="/notifications"
-      className={cx(
-        'flex justify-center items-center rounded-full h-12 w-12 hover:cursor-pointer hover:bg-cyan-800 transition-all',
-        {
-          'text-green-300': hasNotifications
-        }
-      )}
+      className='flex justify-center items-center rounded-full h-12 w-12 hover:cursor-pointer hover:bg-cyan-800 transition-all'
     >
-      <FaMailBulk className="w-7 h-7" />{' '}
+      {hasNotifications ? <MdNotificationImportant className="w-7 h-7" /> : <MdNotifications className="w-7 h-7" />}
     </Link>
   )
 }

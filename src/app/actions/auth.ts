@@ -59,6 +59,23 @@ export async function register(
   redirect('/')
 }
 
+export async function profile() {
+  const user_id = cookies().get('user_id')?.value
+
+  try {
+    const data = await query('SELECT * FROM users WHERE id = $1', [user_id])
+
+    if(!data.rows[0]) return { message: 'El usuario no existe' }
+
+    return data.rows[0]
+  } catch (error) {
+    console.log('🚀 ~ error:', error)
+    return {
+      message: 'Hubo un error obteniendo el perfil del usuario.'
+    }
+  }
+}
+
 export async function logout() {
   cookies().delete('user_id')
   redirect('/login')
