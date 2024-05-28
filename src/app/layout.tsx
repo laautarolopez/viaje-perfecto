@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import cx from 'classnames'
 import Footer from '@/components/Footer'
+import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +17,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const user_id = cookies().get('user_id')?.value
+
   return (
     <html lang="en">
       <body
@@ -23,7 +26,7 @@ export default function RootLayout({
         className={cx(inter.className, 'bg-gray-700 text-white mb-20')}
       >
         {children}
-        <Footer />
+        {user_id && <Footer />}
       </body>
     </html>
   )
