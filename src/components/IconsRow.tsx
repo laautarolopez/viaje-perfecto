@@ -58,7 +58,7 @@ const IconsRow = ({
         iconContainerClassName="bg-blue-900 w-10 h-10"
         iconClassName="w-5 h-5"
         color="bg-blue-900"
-        url={`${tripId}/compartir`}
+        url={base_url + '/compartir'}
         showUnderline={activeIcon === 'compartir'}
       />
     </div>

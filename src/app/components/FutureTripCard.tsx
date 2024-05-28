@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Trip } from '../lib/types'
 import FutureTripCardBg from './FutureTripCardBg'
 import { format, parseISO } from 'date-fns'
@@ -9,7 +10,7 @@ const FutureTripCard = ({ trip }: { trip: Trip }) => {
   const initial_formattedDate = format(initial_dateParsed, 'dd/MM/yyyy')
 
   return (
-    <div className="p-5 mb-5 relative rounded-xl overflow-hidden min-h-40">
+    <Link href={`${id}/hospedajes`} className="p-5 mb-5 relative rounded-xl overflow-hidden min-h-40">
       <FutureTripCardBg />
       <div className="flex flex-row flex-wrap justify-between">
         <h2 className="absolute font-bold top-5">{name}</h2>
@@ -18,7 +19,7 @@ const FutureTripCard = ({ trip }: { trip: Trip }) => {
           <div className="font-bold">{initial_formattedDate}</div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
