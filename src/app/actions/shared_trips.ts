@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { SharedTripBasicInfo, SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
+import { getClients } from '@/app/utils/clients'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -45,6 +46,16 @@ export async function createSharedTrip({
     }
     return { message: 'Error al compartir el viaje' }
   }
+
+  // NOTIFICATION
+  const clients: { [key: string]: any } = getClients();
+
+  if (clients[user_id]) {
+    clients[user_id].emit('NEW_TRIP', {user_id});
+    console.log('🚀 ~ createSharedTrip ~ clients[user_id]', clients[user_id])
+  }
+  // END NOTIFICATION
+
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
 }

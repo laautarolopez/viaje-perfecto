@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { cookies } from 'next/headers'
 import Notifications from '@/components/Notifications'
 import NotificationButton from '@/components/NotificationButton'
+import NotificationListener from '@/components/NotificationListener'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         className={cx(inter.className, 'bg-gray-700 text-white mb-20')}
       >
         <Notifications />
+        <NotificationListener user_id={user_id} />
         <NotificationButton />
         {children}
         {user_id && <Footer />}
