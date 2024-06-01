@@ -29,7 +29,7 @@ export default function RootLayout({
         className={cx(inter.className, 'bg-gray-700 text-white mb-20')}
       >
         <Notifications />
-        <NotificationListener user_id={user_id} />
+        {user_id && <NotificationListener user_id={user_id} />}
         <NotificationButton />
         {children}
         {user_id && <Footer />}
