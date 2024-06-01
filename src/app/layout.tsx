@@ -5,7 +5,6 @@ import cx from 'classnames'
 import Footer from '@/components/Footer'
 import { cookies } from 'next/headers'
 import Notifications from '@/components/Notifications'
-import NotificationButton from '@/components/NotificationButton'
 import NotificationListener from '@/components/NotificationListener'
 
 const inter = Inter({ subsets: ['latin'] })
