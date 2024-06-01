@@ -30,7 +30,6 @@ export default function RootLayout({
       >
         <Notifications />
         {user_id && <NotificationListener user_id={user_id} />}
-        <NotificationButton />
         {children}
         {user_id && <Footer />}
       </body>

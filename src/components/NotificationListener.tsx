@@ -14,6 +14,7 @@ const NotificationListener = ({ user_id }: {user_id: string | undefined}) => {
     socket.on('NEW_TRIP', (name) => {
       new Notification('Nuevo viaje compartido contigo', {
         body: `Se compartió un viaje contigo: *${name}*.`,
+        icon: '/images/logo.jpeg'
       });
     });
 
