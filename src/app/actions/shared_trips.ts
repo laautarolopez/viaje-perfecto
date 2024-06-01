@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { SharedTripBasicInfo, SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
-import { getClients } from '@/app/utils/clients'
+import io from 'socket.io-client'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -23,7 +23,7 @@ export async function createSharedTrip({
   if (!user_id) {
     return { message: `No se encontró un usuario con el email ${userEmail}` }
   }
-  const tripRes = await query('SELECT user_id FROM trips WHERE id = $1', [
+  const tripRes = await query('SELECT user_id, name FROM trips WHERE id = $1', [
     trip_id
   ])
   const trip_user_id = tripRes.rows[0]?.user_id
@@ -48,12 +48,8 @@ export async function createSharedTrip({
   }
 
   // NOTIFICATION
-  const clients: { [key: string]: any } = getClients();
-
-  if (clients[user_id]) {
-    clients[user_id].emit('NEW_TRIP', {user_id});
-    console.log('🚀 ~ createSharedTrip ~ clients[user_id]', clients[user_id])
-  }
+  const socket = io('http://localhost:3000');
+  socket.emit('emit_NEW_TRIP', {userId: user_id, name: tripRes.rows[0].name});
   // END NOTIFICATION
 
   revalidatePath(`/${trip_id}/compartir`)
