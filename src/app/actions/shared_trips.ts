@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { SharedTripBasicInfo, SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
-import io from 'socket.io-client'
+import { sendNotification } from './notifications'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -47,10 +47,7 @@ export async function createSharedTrip({
     return { message: 'Error al compartir el viaje' }
   }
 
-  // NOTIFICATION
-  const socket = io('http://localhost:3000');
-  socket.emit('emit_NEW_TRIP', {userId: user_id, name: tripRes.rows[0].name});
-  // END NOTIFICATION
+  sendNotification('emit_NEW_TRIP', {userId: user_id, name: tripRes.rows[0].name});
 
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
