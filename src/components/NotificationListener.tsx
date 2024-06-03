@@ -12,11 +12,15 @@ const NotificationListener = ({ user_id }: {user_id: string | undefined}) => {
     });
 
     socket.on('NEW_TRIP', (name) => {
-      new Notification('Nuevo viaje compartido contigo', {
-        body: `Se compartió un viaje contigo: *${name}*.`,
+      showNotification('Nuevo viaje compartido contigo', `Se compartió un viaje contigo: *${name}*.`)
+    });
+
+    const showNotification = (titulo: string, mensaje: string) => {
+      new Notification(titulo, {
+        body: mensaje,
         icon: '/images/logo.jpeg'
       });
-    });
+    }
 
     return () => {
       socket.disconnect();
