@@ -26,10 +26,26 @@ app.prepare().then(() => {
     });
 
     socket.on('emit_NEW_TRIP', async (data) => {
-      const {userId, name} = data;
-      const socket_id = await getNotificationSocket(userId);
+      const {user_id, name} = data;
+      const socket_id = await getNotificationSocket(user_id);
       if(socket_id) {
-        io.to(socket_id).emit('NEW_TRIP', name)
+        io.to(socket_id).emit('NEW_TRIP', {name})
+      }
+    });
+
+    socket.on('emit_ACCEPT_TRIP', async (data) => {
+      const {user_id, email, name} = data;
+      const socket_id = await getNotificationSocket(user_id);
+      if(socket_id) {
+        io.to(socket_id).emit('ACCEPT_TRIP', {email, name})
+      }
+    });
+
+    socket.on('emit_DECLINE_TRIP', async (data) => {
+      const {user_id, email, name} = data;
+      const socket_id = await getNotificationSocket(user_id);
+      if(socket_id) {
+        io.to(socket_id).emit('DECLINE_TRIP', {email, name})
       }
     });
   });
