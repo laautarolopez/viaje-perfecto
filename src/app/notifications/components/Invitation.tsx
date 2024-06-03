@@ -1,6 +1,6 @@
 'use client'
 
-import { acceptInvitation, deleteSharedTrip } from '@/app/actions/shared_trips'
+import { acceptInvitation, declineInvitation } from '@/app/actions/shared_trips'
 import Button from '@/components/Button/Button'
 import { useTransition } from 'react'
 
@@ -26,7 +26,7 @@ const Invitation = ({ invitation }: InvitationProps) => {
 
   const handleReject = async () => {
     setRejectTransition(async () => {
-      await deleteSharedTrip(sharedId)
+      await declineInvitation(sharedId)
     })
   }
 
