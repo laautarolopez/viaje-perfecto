@@ -23,6 +23,9 @@ async function seed() {
     // Eliminar la tabla "viajes_compartidos" si existe
     await query(`DROP TABLE IF EXISTS shared_trips`)
 
+    // Eliminar la tabla "notifications" si existe
+    await query(`DROP TABLE IF EXISTS notifications`)
+
     // Eliminar la tabla "trips" si existe
     await query(`DROP TABLE IF EXISTS trips`)
 
@@ -50,6 +53,16 @@ async function seed() {
         );
     `)
     console.log(`Created "trips" table`)
+
+    // Crear la tabla "notifications" si no existe, image va a ser  de tipo BLOB
+    const createNotificationsTable = await query(`
+        CREATE TABLE notifications (
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+            user_id UUID REFERENCES users(id),
+            socket_id TEXT NOT NULL
+        );
+    `)
+    console.log(`Created "notifications" table`)
 
     // Crear la tabla "shared_trips" si no existe, image va a ser  de tipo BLOB
     const createSharedTripsTable = await query(`
@@ -196,6 +209,7 @@ async function seed() {
     return {
       createUsersTable,
       createTripsTable,
+      createNotificationsTable,
       createSharedTripsTable,
       createFlysTable,
       createHospedajesTable,

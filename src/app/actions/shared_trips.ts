@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { SharedTripBasicInfo, SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
+import { sendNotification } from './notifications'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -22,7 +23,7 @@ export async function createSharedTrip({
   if (!user_id) {
     return { message: `No se encontró un usuario con el email ${userEmail}` }
   }
-  const tripRes = await query('SELECT user_id FROM trips WHERE id = $1', [
+  const tripRes = await query('SELECT user_id, name FROM trips WHERE id = $1', [
     trip_id
   ])
   const trip_user_id = tripRes.rows[0]?.user_id
@@ -45,6 +46,9 @@ export async function createSharedTrip({
     }
     return { message: 'Error al compartir el viaje' }
   }
+
+  sendNotification('emit_NEW_TRIP', {user_id: user_id, name: tripRes.rows[0].name});
+
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
 }
@@ -92,13 +96,36 @@ export async function getTripsInvitations(): Promise<
 
 export async function acceptInvitation(sharedId: string) {
   try {
-    await query('UPDATE shared_trips SET accepted = true WHERE id = $1', [
-      sharedId
-    ])
+    const shared_trip_res = await query('UPDATE shared_trips SET accepted = true WHERE id = $1 RETURNING *', [sharedId])
+    const shared_trip = shared_trip_res.rows[0]
+
+    const trip_res = await query('SELECT name, user_id FROM trips WHERE id = $1', [shared_trip.trip_id])
+    const trip = trip_res.rows[0]
+    const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
+    const user = user_res.rows[0]
+
+    sendNotification('emit_ACCEPT_TRIP', {user_id: trip.user_id, email: user.email, name: trip.name})
   } catch (error) {
     console.log('🚀 ~ acceptInvitation ~ error:', error)
   }
   revalidatePath(`/notifications`)
+}
+
+export async function declineInvitation(sharedId: string) {
+  try {
+    const shared_trip_res = await query('SELECT * FROM shared_trips WHERE id = $1', [sharedId])
+    const shared_trip = shared_trip_res.rows[0]
+    await deleteSharedTrip(sharedId)
+
+    const trip_res = await query('SELECT name, user_id FROM trips WHERE id = $1', [shared_trip.trip_id])
+    const trip = trip_res.rows[0]
+    const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
+    const user = user_res.rows[0]
+
+    sendNotification('emit_DECLINE_TRIP', {user_id: trip.user_id, email: user.email, name: trip.name})
+  } catch (error) {
+    console.log('🚀 ~ declineInvitation ~ error:', error)
+  }
 }
 
 export async function deleteSharedTrip(sharedId: string) {

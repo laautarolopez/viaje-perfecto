@@ -7,7 +7,6 @@ import Invitation from './components/Invitation'
 export default async function Notifications() {
   const tripsInvitations: TripsInvitationsResponse[] =
     await getTripsInvitations()
-  console.log('🚀 ~ Notifications ~ tripsInvitations:', tripsInvitations)
 
   return (
     <div className="py-10 px-5">
