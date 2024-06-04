@@ -4,11 +4,13 @@ type DaysToTravelProps = {
 }
 
 const DaysToTravel = ({ className, initialDate }: DaysToTravelProps) => {
-  const today = new Date()
+  const today = new Date(
+    new Date().toLocaleString('en-US', {
+      timeZone: 'America/Argentina/Buenos_Aires'
+    })
+  ) //esto puede romper, tuve que hacerlo porque tengo problemas con mi computadora con los dias! Chequear si a vos te funciona bien.
   const initialDateParsed = new Date(initialDate)
-  const daysToTravel = Math.floor(
-    (initialDateParsed.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-  )
+  const daysToTravel = Math.floor(initialDateParsed.getDate() - today.getDate())
   return (
     <div
       className={

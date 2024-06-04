@@ -1,61 +1,75 @@
-const { createServer } = require("node:http");
-const next = require("next")
-const { Server } = require("socket.io");
-const { createNotificationSocket, deleteNotificationSocket, getNotificationSocket } = require('./src/app/actions/sockets.js');
+const { createServer } = require('node:http')
+const next = require('next')
+const { Server } = require('socket.io')
+const {
+  createNotificationSocket,
+  deleteNotificationSocket,
+  getNotificationSocket
+} = require('./src/app/actions/sockets.js')
+const scheduleTasks = require('./cron-jobs')
 
-const dev = process.env.NODE_ENV !== "production";
-const hostname = "localhost";
-const port = 3000;
+const dev = process.env.NODE_ENV !== 'production'
+const hostname = 'localhost'
+const port = 3000
 // when using middleware `hostname` and `port` must be provided below
-const app = next({ dev, hostname, port });
-const handler = app.getRequestHandler();
+const app = next({ dev, hostname, port })
+const handler = app.getRequestHandler()
 
 app.prepare().then(() => {
-  const httpServer = createServer(handler);
+  const httpServer = createServer(handler)
+  const io = new Server(httpServer)
+  scheduleTasks()
 
-  const io = new Server(httpServer);
-
-  io.on("connection", (socket) => {
+  io.on('connection', (socket) => {
     socket.on('register', async (userId) => {
-      await createNotificationSocket(userId, socket.id);
-      console.log(`User ${userId} registered with socket id: ${socket.id}`);
-    });
+      await createNotificationSocket(userId, socket.id)
+
+      console.log(`User ${userId} registered with socket id: ${socket.id}`)
+    })
 
     socket.on('disconnect', async () => {
       await deleteNotificationSocket(socket.id)
-    });
+    })
 
     socket.on('emit_NEW_TRIP', async (data) => {
-      const {user_id, name} = data;
-      const socket_id = await getNotificationSocket(user_id);
-      if(socket_id) {
-        io.to(socket_id).emit('NEW_TRIP', {name})
+      const { user_id, name } = data
+      const socket_id = await getNotificationSocket(user_id)
+      if (socket_id) {
+        io.to(socket_id).emit('NEW_TRIP', { name })
       }
-    });
+    })
 
     socket.on('emit_ACCEPT_TRIP', async (data) => {
-      const {user_id, email, name} = data;
-      const socket_id = await getNotificationSocket(user_id);
-      if(socket_id) {
-        io.to(socket_id).emit('ACCEPT_TRIP', {email, name})
+      const { user_id, email, name } = data
+      const socket_id = await getNotificationSocket(user_id)
+      if (socket_id) {
+        io.to(socket_id).emit('ACCEPT_TRIP', { email, name })
       }
-    });
+    })
 
     socket.on('emit_DECLINE_TRIP', async (data) => {
-      const {user_id, email, name} = data;
-      const socket_id = await getNotificationSocket(user_id);
-      if(socket_id) {
-        io.to(socket_id).emit('DECLINE_TRIP', {email, name})
+      const { user_id, email, name } = data
+      const socket_id = await getNotificationSocket(user_id)
+      if (socket_id) {
+        io.to(socket_id).emit('DECLINE_TRIP', { email, name })
       }
-    });
-  });
+    })
+
+    socket.on('emit_SEVEN_DAYS_TO_TRAVEL', async (data) => {
+      const { user_id, tripName } = data
+      const socket_id = await getNotificationSocket(user_id)
+      if (socket_id) {
+        io.to(socket_id).emit('SEVEN_DAYS_TO_TRAVEL', { tripName })
+      }
+    })
+  })
 
   httpServer
-    .once("error", (err) => {
-      console.error(err);
-      process.exit(1);
+    .once('error', (err) => {
+      console.error(err)
+      process.exit(1)
     })
     .listen(port, () => {
-      console.log(`> Ready on http://${hostname}:${port}`);
-    });
-});
+      console.log(`> Ready on http://${hostname}:${port}`)
+    })
+})
