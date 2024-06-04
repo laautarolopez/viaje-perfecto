@@ -23,6 +23,10 @@ const NotificationListener = ({ user_id }: {user_id: string | undefined}) => {
       showNotification('La invitación fue rechazada', `El usuario ${email} rechazó tu invitación del viaje ${name}.`)
     })
 
+    socket.on('SEVEN_DAYS_TO_TRAVEL', ({tripName}) => {
+      showNotification('Faltan 7 días para tu viaje', `Prepara tus cosas que en falta poco para que comience ${tripName}`)
+    })
+
     const showNotification = (titulo: string, mensaje: string) => {
       new Notification(titulo, {
         body: mensaje,
