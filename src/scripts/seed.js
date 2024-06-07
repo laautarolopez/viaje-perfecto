@@ -26,6 +26,9 @@ async function seed() {
     // Eliminar la tabla "notifications" si existe
     await query(`DROP TABLE IF EXISTS notifications`)
 
+    // Eliminar la tabla "sockets" si existe
+    await query(`DROP TABLE IF EXISTS sockets`)
+
     // Eliminar la tabla "trips" si existe
     await query(`DROP TABLE IF EXISTS trips`)
 
@@ -54,12 +57,23 @@ async function seed() {
     `)
     console.log(`Created "trips" table`)
 
+    // Crear la tabla "sockets" si no existe, image va a ser  de tipo BLOB
+    const createSocketsTable = await query(`
+      CREATE TABLE sockets (
+          id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+          user_id UUID REFERENCES users(id),
+          socket_id TEXT NOT NULL
+      );
+  `)
+  console.log(`Created "sockets" table`)
+
     // Crear la tabla "notifications" si no existe, image va a ser  de tipo BLOB
     const createNotificationsTable = await query(`
         CREATE TABLE notifications (
             id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
             user_id UUID REFERENCES users(id),
-            socket_id TEXT NOT NULL
+            title TEXT NOT NULL,
+            message TEXT NOT NULL
         );
     `)
     console.log(`Created "notifications" table`)
@@ -209,6 +223,7 @@ async function seed() {
     return {
       createUsersTable,
       createTripsTable,
+      createSocketsTable,
       createNotificationsTable,
       createSharedTripsTable,
       createFlysTable,

@@ -49,7 +49,7 @@ export async function createSharedTrip({
 
   const name = tripRes.rows[0].name
 
-  sendNotification('emit_NEW_NOTIFICATION', {user_id: user_id, title: 'Nuevo viaje compartido contigo', message: `Se compartió un viaje contigo: *${name}*.`});
+  await sendNotification('emit_NEW_NOTIFICATION', {user_id: user_id, title: 'Nuevo viaje compartido contigo', message: `Se compartió un viaje contigo: *${name}*.`});
 
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
@@ -76,6 +76,12 @@ export type TripsInvitationsResponse = {
   tripId: string
   userEmail: string
   sharedId: string
+}
+
+export type NotificationsResponse = {
+  id: string
+  title: string
+  message: string
 }
 
 export async function getTripsInvitations(): Promise<
@@ -106,7 +112,7 @@ export async function acceptInvitation(sharedId: string) {
     const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
     const user = user_res.rows[0]
 
-    sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue aceptada', message: `El usuario ${user.email} aceptó tu invitación del viaje ${trip.name}.`})
+    await sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue aceptada', message: `El usuario ${user.email} aceptó tu invitación del viaje ${trip.name}.`})
   } catch (error) {
     console.log('🚀 ~ acceptInvitation ~ error:', error)
   }
@@ -127,7 +133,7 @@ export async function declineInvitation(sharedId: string) {
     const email = user.email
     const name = trip.name
 
-    sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue rechazada', message: `El usuario ${email} rechazó tu invitación del viaje ${name}.`})
+    await sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue rechazada', message: `El usuario ${email} rechazó tu invitación del viaje ${name}.`})
   } catch (error) {
     console.log('🚀 ~ declineInvitation ~ error:', error)
   }
