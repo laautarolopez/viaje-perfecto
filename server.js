@@ -31,35 +31,11 @@ app.prepare().then(() => {
       await deleteNotificationSocket(socket.id)
     })
 
-    socket.on('emit_NEW_TRIP', async (data) => {
-      const { user_id, name } = data
+    socket.on('emit_NEW_NOTIFICATION', async (data) => {
+      const { user_id, title, message } = data
       const socket_id = await getNotificationSocket(user_id)
       if (socket_id) {
-        io.to(socket_id).emit('NEW_TRIP', { name })
-      }
-    })
-
-    socket.on('emit_ACCEPT_TRIP', async (data) => {
-      const { user_id, email, name } = data
-      const socket_id = await getNotificationSocket(user_id)
-      if (socket_id) {
-        io.to(socket_id).emit('ACCEPT_TRIP', { email, name })
-      }
-    })
-
-    socket.on('emit_DECLINE_TRIP', async (data) => {
-      const { user_id, email, name } = data
-      const socket_id = await getNotificationSocket(user_id)
-      if (socket_id) {
-        io.to(socket_id).emit('DECLINE_TRIP', { email, name })
-      }
-    })
-
-    socket.on('emit_SEVEN_DAYS_TO_TRAVEL', async (data) => {
-      const { user_id, tripName } = data
-      const socket_id = await getNotificationSocket(user_id)
-      if (socket_id) {
-        io.to(socket_id).emit('SEVEN_DAYS_TO_TRAVEL', { tripName })
+        io.to(socket_id).emit('NEW_NOTIFICATION', { title, message })
       }
     })
   })

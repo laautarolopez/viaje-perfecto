@@ -47,7 +47,9 @@ export async function createSharedTrip({
     return { message: 'Error al compartir el viaje' }
   }
 
-  sendNotification('emit_NEW_TRIP', {user_id: user_id, name: tripRes.rows[0].name});
+  const name = tripRes.rows[0].name
+
+  sendNotification('emit_NEW_NOTIFICATION', {user_id: user_id, title: 'Nuevo viaje compartido contigo', message: `Se compartió un viaje contigo: *${name}*.`});
 
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
@@ -104,7 +106,7 @@ export async function acceptInvitation(sharedId: string) {
     const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
     const user = user_res.rows[0]
 
-    sendNotification('emit_ACCEPT_TRIP', {user_id: trip.user_id, email: user.email, name: trip.name})
+    sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue aceptada', message: `El usuario ${user.email} aceptó tu invitación del viaje ${trip.name}.`})
   } catch (error) {
     console.log('🚀 ~ acceptInvitation ~ error:', error)
   }
@@ -122,7 +124,10 @@ export async function declineInvitation(sharedId: string) {
     const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
     const user = user_res.rows[0]
 
-    sendNotification('emit_DECLINE_TRIP', {user_id: trip.user_id, email: user.email, name: trip.name})
+    const email = user.email
+    const name = trip.name
+
+    sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue rechazada', message: `El usuario ${email} rechazó tu invitación del viaje ${name}.`})
   } catch (error) {
     console.log('🚀 ~ declineInvitation ~ error:', error)
   }

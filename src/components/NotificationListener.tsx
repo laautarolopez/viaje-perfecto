@@ -11,21 +11,9 @@ const NotificationListener = ({ user_id }: {user_id: string | undefined}) => {
       socket.emit('register', user_id);
     });
 
-    socket.on('NEW_TRIP', ({name}) => {
-      showNotification('Nuevo viaje compartido contigo', `Se compartió un viaje contigo: *${name}*.`)
+    socket.on('NEW_NOTIFICATION', ({title, message}) => {
+      showNotification(title, message)
     });
-
-    socket.on('ACCEPT_TRIP', ({email, name}) => {
-      showNotification('La invitación fue aceptada', `El usuario ${email} aceptó tu invitación del viaje ${name}.`)
-    })
-
-    socket.on('DECLINE_TRIP', ({email, name}) => {
-      showNotification('La invitación fue rechazada', `El usuario ${email} rechazó tu invitación del viaje ${name}.`)
-    })
-
-    socket.on('SEVEN_DAYS_TO_TRAVEL', ({tripName}) => {
-      showNotification('Faltan 7 días para tu viaje', `Prepara tus cosas que en falta poco para que comience ${tripName}`)
-    })
 
     const showNotification = (titulo: string, mensaje: string) => {
       new Notification(titulo, {
