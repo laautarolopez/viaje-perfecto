@@ -1,11 +1,11 @@
 'use server'
 import { query } from '@/app/lib/db'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { SharedTripBasicInfo, SharedUserWithStatus } from '../lib/types'
+import { SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
-import { sendNotification } from './notifications'
+import { sendPushNotification } from './notifications'
+import { createNotification } from './notificationsQuerys'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -49,7 +49,15 @@ export async function createSharedTrip({
 
   const name = tripRes.rows[0].name
 
-  await sendNotification('emit_NEW_NOTIFICATION', {user_id: user_id, title: 'Nuevo viaje compartido contigo', message: `Se compartió un viaje contigo: *${name}*.`});
+  const notification = {
+    user_id,
+    title: 'Nuevo viaje compartido contigo',
+    message: `Se compartió un viaje contigo: *${name}*.`
+  }
+
+  await sendPushNotification('emit_NEW_NOTIFICATION', notification)
+
+  // await createNotification(notification)
 
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
@@ -104,15 +112,30 @@ export async function getTripsInvitations(): Promise<
 
 export async function acceptInvitation(sharedId: string) {
   try {
-    const shared_trip_res = await query('UPDATE shared_trips SET accepted = true WHERE id = $1 RETURNING *', [sharedId])
+    const shared_trip_res = await query(
+      'UPDATE shared_trips SET accepted = true WHERE id = $1 RETURNING *',
+      [sharedId]
+    )
     const shared_trip = shared_trip_res.rows[0]
 
-    const trip_res = await query('SELECT name, user_id FROM trips WHERE id = $1', [shared_trip.trip_id])
+    const trip_res = await query(
+      'SELECT name, user_id FROM trips WHERE id = $1',
+      [shared_trip.trip_id]
+    )
     const trip = trip_res.rows[0]
-    const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
+    const user_res = await query('SELECT email FROM users WHERE id = $1', [
+      shared_trip.user_id
+    ])
     const user = user_res.rows[0]
 
-    await sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue aceptada', message: `El usuario ${user.email} aceptó tu invitación del viaje ${trip.name}.`})
+    const notification = {
+      user_id: trip.user_id,
+      title: 'La invitación fue aceptada',
+      message: `El usuario ${user.email} aceptó tu invitación del viaje ${trip.name}.`
+    }
+
+    await sendPushNotification('emit_NEW_NOTIFICATION', notification)
+    await createNotification(notification)
   } catch (error) {
     console.log('🚀 ~ acceptInvitation ~ error:', error)
   }
@@ -121,19 +144,33 @@ export async function acceptInvitation(sharedId: string) {
 
 export async function declineInvitation(sharedId: string) {
   try {
-    const shared_trip_res = await query('SELECT * FROM shared_trips WHERE id = $1', [sharedId])
+    const shared_trip_res = await query(
+      'SELECT * FROM shared_trips WHERE id = $1',
+      [sharedId]
+    )
     const shared_trip = shared_trip_res.rows[0]
     await deleteSharedTrip(sharedId)
 
-    const trip_res = await query('SELECT name, user_id FROM trips WHERE id = $1', [shared_trip.trip_id])
+    const trip_res = await query(
+      'SELECT name, user_id FROM trips WHERE id = $1',
+      [shared_trip.trip_id]
+    )
     const trip = trip_res.rows[0]
-    const user_res = await query('SELECT email FROM users WHERE id = $1', [shared_trip.user_id])
+    const user_res = await query('SELECT email FROM users WHERE id = $1', [
+      shared_trip.user_id
+    ])
     const user = user_res.rows[0]
 
     const email = user.email
     const name = trip.name
 
-    await sendNotification('emit_NEW_NOTIFICATION', {user_id: trip.user_id, title: 'La invitación fue rechazada', message: `El usuario ${email} rechazó tu invitación del viaje ${name}.`})
+    const notification = {
+      user_id: trip.user_id,
+      title: 'La invitación fue rechazada',
+      message: `El usuario ${email} rechazó tu invitación del viaje ${name}.`
+    }
+    await sendPushNotification('emit_NEW_NOTIFICATION', notification)
+    await createNotification(notification)
   } catch (error) {
     console.log('🚀 ~ declineInvitation ~ error:', error)
   }
@@ -156,5 +193,14 @@ export async function hasNotifications() {
     WHERE user_id = $1 AND accepted = false`,
     [user_id]
   )
-  return tripsInvitationsRes.rows[0].count > 0
+
+  const notificationsRes = await query(
+    `SELECT COUNT(*) as count
+    FROM notifications
+    WHERE user_id = $1`,
+    [user_id]
+  )
+  return (
+    tripsInvitationsRes.rows[0].count > 0 || notificationsRes.rows[0].count > 0
+  )
 }
