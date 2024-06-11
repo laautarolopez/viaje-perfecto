@@ -1,10 +1,10 @@
 'use server'
-const io = require('socket.io-client')
+// const io = require('socket.io-client')
 const { query } = require('../../app/lib/db')
 
 const sendPushNotification = async (event, data) => {
-  const socket = io('http://localhost:3000')
-  socket.emit(event, data)
+  // const socket = io('http://localhost:3000')
+  // socket.emit(event, data)
 }
 
 const createNotification = async ({ user_id, title, message }) => {
