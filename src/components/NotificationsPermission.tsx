@@ -15,18 +15,7 @@ const NotificationsPermission = () => {
     }
   }, [])
 
-  const showNotification = (titulo: string, mensaje: string) => {
-    if (Notification.permission === 'granted') {
-      new Notification(titulo, {
-        body: mensaje,
-        icon: '/images/logo.jpeg'
-      })
-    } else {
-      console.log('No se han concedido permisos para mostrar notificaciones.')
-    }
-  }
-
-  return <></>
+  return null
 }
 
 export default NotificationsPermission
