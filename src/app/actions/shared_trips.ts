@@ -4,8 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
-import { sendPushNotification } from './notifications'
-import { createNotification } from './notificationsQuerys'
+import { sendNotification } from './notifications'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -55,9 +54,7 @@ export async function createSharedTrip({
     message: `Se compartió un viaje contigo: *${name}*.`
   }
 
-  await sendPushNotification('emit_NEW_NOTIFICATION', notification)
-
-  // await createNotification(notification)
+  await sendNotification(notification.user_id, notification.title, notification.message, false)
 
   revalidatePath(`/${trip_id}/compartir`)
   return { message: '' }
@@ -134,8 +131,7 @@ export async function acceptInvitation(sharedId: string) {
       message: `El usuario ${user.email} aceptó tu invitación del viaje ${trip.name}.`
     }
 
-    await sendPushNotification('emit_NEW_NOTIFICATION', notification)
-    await createNotification(notification)
+    await sendNotification(notification.user_id, notification.title, notification.message)
   } catch (error) {
     console.log('🚀 ~ acceptInvitation ~ error:', error)
   }
@@ -169,8 +165,7 @@ export async function declineInvitation(sharedId: string) {
       title: 'La invitación fue rechazada',
       message: `El usuario ${email} rechazó tu invitación del viaje ${name}.`
     }
-    await sendPushNotification('emit_NEW_NOTIFICATION', notification)
-    await createNotification(notification)
+    await sendNotification(notification.user_id, notification.title, notification.message)
   } catch (error) {
     console.log('🚀 ~ declineInvitation ~ error:', error)
   }
