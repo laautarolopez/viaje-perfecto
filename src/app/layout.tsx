@@ -5,7 +5,6 @@ import cx from 'classnames'
 import Footer from '@/components/Footer'
 import { cookies } from 'next/headers'
 import NotificationsPermission from '@/components/NotificationsPermission'
-import NotificationListener from '@/components/NotificationListener'
 import RegisterServiceWorker from '@/components/RegisterServiceWorker'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -28,9 +27,8 @@ export default function RootLayout({
         id="modals-root"
         className={cx(inter.className, 'bg-gray-700 text-white mb-20')}
       >
-        <RegisterServiceWorker />
+        {user_id && <RegisterServiceWorker/>}
         <NotificationsPermission />
-        {user_id && <NotificationListener user_id={user_id} />}
         {children}
         {user_id && <Footer />}
       </body>
