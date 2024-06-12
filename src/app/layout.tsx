@@ -27,7 +27,7 @@ export default function RootLayout({
         id="modals-root"
         className={cx(inter.className, 'bg-gray-700 text-white mb-20')}
       >
-        {user_id && <RegisterServiceWorker/>}
+        {user_id && <RegisterServiceWorker user_id={user_id}/>}
         <NotificationsPermission />
         {children}
         {user_id && <Footer />}
