@@ -5,20 +5,13 @@ import { query } from '../lib/db'
 
 export const createSubscriptions = async (user_id: string, endpoint: string, p256dh: string, auth: string) => {
   try {
-    const data = await query(
-      'SELECT * FROM subscriptions WHERE user_id = $1',
-      [user_id]
-    )
+    await query('DELETE FROM subscriptions WHERE endpoint = $1', [endpoint])
+
+    const data = await query('SELECT * FROM subscriptions WHERE user_id = $1',[user_id])
     if (data.rows.length > 0) {
-      await query(
-        'UPDATE subscriptions SET endpoint = $1, p256dh = $2, auth = $3 WHERE user_id = $4',
-        [endpoint, p256dh, auth, user_id]
-    )
+      await query('UPDATE subscriptions SET endpoint = $1, p256dh = $2, auth = $3 WHERE user_id = $4',[endpoint, p256dh, auth, user_id])
     } else {
-      await query(
-        'INSERT INTO subscriptions (user_id, endpoint, p256dh, auth) VALUES ($1, $2, $3, $4)',
-        [user_id, endpoint, p256dh, auth]
-      )
+      await query('INSERT INTO subscriptions (user_id, endpoint, p256dh, auth) VALUES ($1, $2, $3, $4)',[user_id, endpoint, p256dh, auth])
     }
   } catch (error) {
     console.log(error)
