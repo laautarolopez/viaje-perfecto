@@ -1,4 +1,4 @@
-import { getNotifications } from '../actions/notificationsQuerys'
+import { getNotifications } from '../actions/notifications'
 import {
   NotificationsResponse,
   TripsInvitationsResponse,

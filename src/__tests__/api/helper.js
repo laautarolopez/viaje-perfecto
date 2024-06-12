@@ -258,7 +258,7 @@ export async function runSeed() {
       // Crear la tabla "shared_trips" si no existe, image va a ser  de tipo BLOB
     const createSharedTripsTable = await query(`
         CREATE TABLE shared_trips (
-            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+            id UUID PRIMARY KEY,
             trip_id UUID REFERENCES trips(id),
             user_id UUID REFERENCES users(id),
             accepted BOOLEAN DEFAULT FALSE

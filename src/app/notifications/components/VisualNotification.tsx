@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteNotification } from '@/app/actions/notificationsQuerys'
+import { deleteNotification } from '@/app/actions/notifications'
 import Button from '@/components/Button/Button'
 import { useTransition } from 'react'
 

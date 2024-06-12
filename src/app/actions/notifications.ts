@@ -2,11 +2,30 @@
 import { query } from '@/app/lib/db'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { getSubscriptions } from './subscriptions'
+import * as webpush from 'web-push'
 
 export type CreateNotificationProps = {
   user_id: string
   title: string
   message: string
+}
+
+webpush.setVapidDetails(
+  'mailto:example@yourdomain.org',
+  `${process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY}`,
+  `${process.env.VAPID_PRIVATE_KEY}`
+)
+
+export const sendNotification = async (user_id: string, title: string, message: string, visualNotification: boolean = true) => {
+  const payload = JSON.stringify({ title, message })
+  try {
+    if(visualNotification) await createNotification({user_id, title, message})
+    const subscription = await getSubscriptions(user_id)
+    webpush.sendNotification(subscription, payload)
+  } catch (error) {
+    console.log(error, 'No se manda')
+  }
 }
 
 export const createNotification = async ({
