@@ -5,7 +5,7 @@ const user1ID = '410544b2-4001-4271-9855-fec4b6a6442a'
 const trip1ID = '001544b2-4001-4271-9855-fec4b6a6442a'
 const trip2ID = '002544b2-4001-4271-9855-fec4b6a6442a'
 const trip3ID = '003544b2-4001-4271-9855-fec4b6a6442a'
-const trip4ID = '004544b2-4001-4271-9855-fec4b6a6442a'
+export const trip4ID = '004544b2-4001-4271-9855-fec4b6a6442a'
 
 const users = [
   {
