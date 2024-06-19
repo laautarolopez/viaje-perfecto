@@ -34,7 +34,7 @@ const CheckList = ({ notes, tripId }: CheckListProps) => {
   }
 
   return (
-    <div className="flex flex-col mt-5 gap-5">
+    <div className="flex flex-col mt-5 gap-5" data-testid="checklist">
       {optimisticNotes.map((note: Note) => (
         <CheckItem key={note.id} {...note} />
       ))}
