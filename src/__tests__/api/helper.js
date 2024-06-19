@@ -182,7 +182,7 @@ const hospedajes = [
   }
 ]
 
-const notes = [
+export const notes = [
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442b',
     description: 'Tengo mi documento',
