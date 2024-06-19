@@ -4,7 +4,8 @@ import { sendNotification } from '../app/actions/notifications'
 
 export const job =
   cron.schedule('* * * * *', async () => {
-    console.log('-- Running cron job --')
+    const date = new Date()
+    console.log(`-- Running cron job at ${date} --`)
     const dias = 6
     const usersAndTrips = await getUsersFromTripsThatStartInDays(dias) // cambiar la fecha, es de prueba para que se ejecute el ejemplo
     usersAndTrips.forEach(async ({ user_id, name }: { user_id: string, name: string }) => {
