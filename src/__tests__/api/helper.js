@@ -1,7 +1,7 @@
 const { query, end } = require('../../app/lib/db.js');
 const bcrypt = require('bcrypt')
 
-const user1ID = '410544b2-4001-4271-9855-fec4b6a6442a'
+export const user1ID = '410544b2-4001-4271-9855-fec4b6a6442a'
 const trip1ID = '001544b2-4001-4271-9855-fec4b6a6442a'
 const trip2ID = '002544b2-4001-4271-9855-fec4b6a6442a'
 const trip3ID = '003544b2-4001-4271-9855-fec4b6a6442a'
