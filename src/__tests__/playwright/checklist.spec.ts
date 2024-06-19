@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { trip4ID, notes, user1ID } from '../api/helper';
+import { trip4ID, notes, user1ID, runSeed } from '../api/helper';
 
 async function setAuthCookie(page: Page) {
   const cookie = {
@@ -11,6 +11,10 @@ async function setAuthCookie(page: Page) {
 
   await page.context().addCookies([cookie]);
 }
+
+test.beforeAll(async () => {
+  await runSeed()
+})
 
 test.beforeEach(async ({ page }) => {
   await setAuthCookie(page);

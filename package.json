@@ -9,7 +9,7 @@
     "lint": "next lint",
     "seed": "node -r dotenv/config ./src/scripts/seed.js",
     "test": "cross-env NODE_ENV=test jest --verbose --silent --detectOpenHandles",
-    "test-front": "playwright test --quiet",
+    "test-front": "cross-env NODE_ENV=test playwright test --quiet",
     "coverage": "jest --collect-coverage"
   },
   "dependencies": {
