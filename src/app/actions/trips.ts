@@ -81,6 +81,22 @@ export async function getTripById(id: UUID): Promise<Trip> {
   return trip
 }
 
+export async function getAllMyTrips(): Promise<Trip[]> {
+  const user_id = cookies().get('user_id')?.value
+  const res = await query(`SELECT * FROM trips WHERE user_id = $1`,[user_id])
+  
+  const rawTrips = res.rows as RawTrip[]
+  const trips = rawTrips.map((rawTrip: RawTrip) => {
+    return {
+      ...rawTrip,
+      initial_date: rawTrip.initial_date.toISOString().split('T')[0],
+      end_date: rawTrip.end_date.toISOString().split('T')[0]
+    }
+  })
+
+  return trips
+}
+
 function validateTrip(trip: TripBasicInfo) {
   const { initial_date, end_date } = trip
   const initialDate = new Date(initial_date)
