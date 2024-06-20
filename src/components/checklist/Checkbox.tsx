@@ -21,12 +21,12 @@ const Checkbox = ({ noteID, isChecked }: CheckboxProps) => {
   }
 
   return (
-    <>
+    <div data-testid={`checkbox-${noteID}`}>
       {(optimisticCheck ? MdCheckBox : MdCheckBoxOutlineBlank)({
         className: 'w-6 h-6 text-green-300 hover:cursor-pointer',
         onClick: toggleCheck
       })}
-    </>
+    </div>
   )
 }
 
