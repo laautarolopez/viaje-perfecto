@@ -50,8 +50,8 @@ const trips = [
     id: trip4ID,
     user_id: user1ID,
     name: 'Sur argentino',
-    initial_date: '2024-06-15',
-    end_date: '2024-06-25'
+    initial_date: '2024-07-15',
+    end_date: '2024-07-25'
   }
 ]
 
@@ -60,27 +60,27 @@ const flys = [
     id: '002544b9-4001-4271-9855-fec4b6a6442a',
     fly_number: 'AR123',
     departure_address: 'Aeropuerto Ezeiza, Buenos Aires',
-    departure_date: '2024-06-15T00:00:00',
+    departure_date: '2024-07-15T00:00:00',
     arrival_address: 'Aeropuerto Bariloche',
-    arrival_date: '2024-06-15T01:35:00',
+    arrival_date: '2024-07-15T01:35:00',
     trip_id: trip4ID
   },
   {
     id: '002544b2-4001-4271-9855-fec4b6a6442a',
     fly_number: 'AR124',
     departure_address: 'Aeropuerto Bariloche',
-    departure_date: '2024-06-19T16:00:00',
+    departure_date: '2024-07-19T16:00:00',
     arrival_address: 'Aeropuerto Esquel',
-    arrival_date: '2024-06-19T18:00:00',
+    arrival_date: '2024-07-19T18:00:00',
     trip_id: trip4ID
   },
   {
     id: '003544b2-4001-4271-9855-fec4b6a6442a',
     fly_number: 'AR125',
     departure_address: 'Aeropuerto Esquel',
-    departure_date: '2024-06-25T14:00:00',
+    departure_date: '2024-07-25T14:00:00',
     arrival_address: 'Aeropuerto Ezeiza, Buenos Aires',
-    arrival_date: '2024-06-25T16:15:00',
+    arrival_date: '2024-07-25T16:15:00',
     trip_id: trip4ID
   },
   {
