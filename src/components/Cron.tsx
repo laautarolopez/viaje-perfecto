@@ -1,6 +1,6 @@
 import cron from 'node-cron'
-import { getUsersFromTripsThatStartInDays } from '/home/lautaro-ubuntu/Documentos/UNQ/viaje-perfecto/src/app/actions/subscriptions'
 import { sendNotification } from '../app/actions/notifications'
+import { getUsersFromTripsThatStartInDays } from '@/app/actions/subscriptions'
 
 export const job =
   cron.schedule('* * * * *', async () => {

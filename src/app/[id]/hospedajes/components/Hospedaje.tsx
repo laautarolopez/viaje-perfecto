@@ -9,11 +9,14 @@ import {
   MdAdd,
   MdRemove
 } from 'react-icons/md'
-import { FaWhatsapp, FaWaze } from 'react-icons/fa'
+import { FaWhatsapp, FaWaze, FaEdit } from 'react-icons/fa'
 import { FaCircleDollarToSlot } from 'react-icons/fa6'
 import { Hospedaje as HospedajeType } from '@/app/lib/types'
 import { format, parseISO, differenceInDays } from 'date-fns'
 import Blob from '@/components/blob/Blob'
+import Link from 'next/link'
+import DeleteElement from '../../vuelos/components/DeleteElement'
+import { deleteHospedaje } from '@/app/actions/hospedajes'
 
 const Hospedaje = ({
   id,
@@ -113,6 +116,19 @@ const Hospedaje = ({
         </div>
         <div className="col-span-8 text-lg ps-1 mt-5">Saldo a abonar: </div>
         <div className="col-span-3 text-lg font-bold mt-5">${total - paid}</div>
+      </div>
+      <div className="flex justify-end gap-4 mt-2">
+        <Link
+          href={`/${trip_id}/hospedajes/agregar?hospedajeId=${id}`}
+          className="text-green-300"
+        >
+          <FaEdit className="text-green-300 w-5 h-5 max-w-5 max-h-5" />
+        </Link>
+        <DeleteElement
+          deleteElement={async () => {
+            await deleteHospedaje({ hospedajeId: id, tripId: trip_id })
+          }}
+        />
       </div>
       <Blob trip_id={trip_id} folder={`${trip_id}/hospedajes/${id}`} />
     </>

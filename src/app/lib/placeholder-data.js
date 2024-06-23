@@ -140,33 +140,39 @@ const flys = [
 ]
 
 const hospedajes = [
-  // {
-  //   id: '001544b3-4001-4271-9855-fec4b6a6442a',
-  //   name: 'Hotel Hilton',
-  //   address: 'Miami, Florida',
-  //   phone: '123456789',
-  //   check_in_date: '2023-12-24T14:00:00',
-  //   check_out_date: '2023-12-31T10:00:00',
-  //   trip_id: trip1ID
-  // },
-  // {
-  //   id: '001544b3-4001-4271-9855-fec4b6a6442b',
-  //   name: 'Hotel Costa Galana',
-  //   address: 'Mar del Plata, Buenos Aires',
-  //   phone: '123456789',
-  //   check_in_date: '2024-12-24T14:00:00',
-  //   check_out_date: '2024-12-31T10:00:00',
-  //   trip_id: trip2ID
-  // },
-  // {
-  //   id: '001544b3-4001-4271-9855-fec4b6a6442c',
-  //   name: 'Hotel Diplomatic',
-  //   address: 'Mendoza, Mendoza',
-  //   phone: '123456789',
-  //   check_in_date: '2024-02-24T14:00:00',
-  //   check_out_date: '2024-03-07T10:00:00',
-  //   trip_id: trip3ID
-  // },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442a',
+    name: 'Hotel Hilton',
+    address: 'Miami, Florida',
+    phone: '123456789',
+    start_date: '2024-12-24T14:00:00',
+    end_date: '2024-12-26T10:00:00',
+    price_per_night: 100, // Agrega el precio por noche aquí
+    paid: 0, // Asume que no se ha pagado nada aún, ajusta según sea necesario
+    trip_id: trip2ID
+  },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442b',
+    name: 'Hotel Costa Galana',
+    address: 'Mar del Plata, Buenos Aires',
+    phone: '123456789',
+    start_date: '2024-12-27T14:00:00',
+    end_date: '2024-12-30T10:00:00',
+    price_per_night: 40, // Agrega el precio por noche aquín
+    paid: 0, // Asume que no se ha pagado nada aún, ajusta según sea necesario
+    trip_id: trip2ID
+  },
+  {
+    id: '001544b3-4001-4271-9855-fec4b6a6442c',
+    name: 'Hotel Diplomatic',
+    address: 'Mendoza, Mendoza',
+    phone: '123456789',
+    start_date: '2024-02-24T14:00:00',
+    end_date: '2024-03-07T10:00:00',
+    price_per_night: 40, // Agrega el precio por noche aquí
+    paid: 0, // Asume que no se ha pagado nada aún, ajusta según sea necesario
+    trip_id: trip2ID
+  },
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442d',
     name: 'Hotel Llao Llao',
