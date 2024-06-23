@@ -97,6 +97,7 @@ export async function updateFlifht(flight: Flight) {
   } = flight
 
   try {
+    //TODO: refactorizar esto, para que sea generico y poder reutilizarlo. Se repite en hospedaje.
     const res = await query(
       `
       SELECT * FROM trips WHERE id = $1
@@ -138,6 +139,7 @@ export async function updateFlifht(flight: Flight) {
   redirect(`/${flight.trip_id}/vuelos`)
 }
 
+//TODO: refactorizar esto, para que sea generico y poder reutilizarlo.
 function validateFlight({
   flight,
   trip

@@ -9,6 +9,7 @@ export type Input = {
   key: string
   label: string
   type: string
+  extraInputProps?: Record<string, any>
 }
 
 export type FormProps = {
@@ -61,24 +62,25 @@ const Form = ({
           })
         )}
       >
-        {inputs.map(({ key, label, type }) => (
+        {inputs.map(({ key, label, type, extraInputProps }) => (
           <div key={key} className="grid gap-1">
             <label htmlFor={key}>{label}</label>
             <input
               className="text-green-900 border border-green-900 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-300"
               type={type}
               id={key}
+              {...extraInputProps}
               {...register(key, { required: true })}
             />
           </div>
         ))}
-        {(state as FormState).message
-        ? <p className="bg-red-600 text-white p-2 font-bold mt-2 min-h-10 rounded-xl">
-          {(state as FormState).message}
-        </p>
-        : <p className="text-white font-bold mt-2 min-h-10 rounded-xl">
-      </p>
-        }
+        {(state as FormState).message ? (
+          <p className="bg-red-600 text-white p-2 font-bold mt-2 min-h-10 rounded-xl">
+            {(state as FormState).message}
+          </p>
+        ) : (
+          <p className="text-white font-bold mt-2 min-h-10 rounded-xl"></p>
+        )}
         <div className="flex gap-3 mt-3 ">
           <Button isLoading={pending} type="submit">
             {isEditing
