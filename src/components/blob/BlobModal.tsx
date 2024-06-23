@@ -10,6 +10,7 @@ interface BlobModalProps {
   pending: boolean
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  isImageModal?: boolean
 }
 
 const BlobModal: FC<BlobModalProps> = ({
@@ -17,7 +18,8 @@ const BlobModal: FC<BlobModalProps> = ({
   setFile,
   pending,
   setShowModal,
-  onSubmit
+  onSubmit,
+  isImageModal
 }) => {
   const modalRoot = document.getElementById('modals-root')
   if (!modalRoot) {
@@ -48,6 +50,7 @@ const BlobModal: FC<BlobModalProps> = ({
               onInputChange={(e) =>
                 setFile(e.target.files ? e.target.files[0] : null)
               }
+              isImageInput={isImageModal}
             />
           </div>
           <div className="bg-green-900 px-4 py-3 flex gap-3">

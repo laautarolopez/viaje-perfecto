@@ -8,10 +8,12 @@ import BlobModal from './BlobModal'
 
 const BlobForm = ({
   folder,
-  fetchFiles
+  fetchFiles,
+  isImageForm
 }: {
   folder: string
   fetchFiles: () => Promise<void>
+  isImageForm?: boolean
 }) => {
   const [file, setFile] = useState<File | null>(null)
   const [showModal, setShowModal] = useState(false)
@@ -42,6 +44,7 @@ const BlobForm = ({
           pending={pending}
           setShowModal={setShowModal}
           onSubmit={handleSubmit}
+          isImageModal={isImageForm}
         />
       )}
       <div
