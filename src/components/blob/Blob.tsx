@@ -7,11 +7,11 @@ import BlobFiles from './BlobFiles'
 import { useEffect, useState } from 'react'
 
 type BlobProps = {
-  trip_id: string
   folder: string
+  isImageBlob?: boolean
 }
 
-const Blob = ({ folder }: BlobProps) => {
+const Blob = ({ folder, isImageBlob }: BlobProps) => {
   const [files, setFiles] = useState<ListBlobResultBlob[]>([])
 
   const fetchFiles = async () => {
@@ -25,8 +25,17 @@ const Blob = ({ folder }: BlobProps) => {
 
   return (
     <>
-      <BlobFiles files={files} folder={folder} fetchFiles={fetchFiles} />
-      <BlobForm folder={folder} fetchFiles={fetchFiles} />
+      <BlobFiles
+        files={files}
+        folder={folder}
+        fetchFiles={fetchFiles}
+        isImageFiles={isImageBlob}
+      />
+      <BlobForm
+        folder={folder}
+        fetchFiles={fetchFiles}
+        isImageForm={isImageBlob}
+      />
     </>
   )
 }
