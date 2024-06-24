@@ -1,5 +1,4 @@
-import { differenceInDays } from 'date-fns'
-import { render } from 'react-dom'
+import { parseISO, differenceInDays } from 'date-fns'
 
 type DaysToTravelProps = {
   className?: string
@@ -7,26 +6,9 @@ type DaysToTravelProps = {
 }
 
 const DaysToTravel = ({ className, initialDate }: DaysToTravelProps) => {
-  const today = new Date(
-    new Date().toLocaleString('en-US', {
-      timeZone: 'America/Argentina/Buenos_Aires'
-    })
-  ) //esto puede romper, tuve que hacerlo porque tengo problemas con mi computadora con los dias! Chequear si a vos te funciona bien.
-  const initialDateParsed = new Date(initialDate)
-  const daysToTravel = differenceInDays(initialDateParsed, today)
-  const months = daysToTravel / 30
-  const years = months / 12
-  const renderDaysToTravel = () => {
-    if (years >= 1) {
-      const formattedYears = Math.floor(years)
-      return `${formattedYears} ${formattedYears === 1 ? 'año' : 'años'}`
-    } else if (months >= 1) {
-      const formattedMonths = Math.floor(months)
-      return `${formattedMonths} ${formattedMonths === 1 ? 'mes' : 'meses'}`
-    } else {
-      return `${daysToTravel} ${daysToTravel === 1 ? 'día' : 'días'}`
-    }
-  }
+  const initialDateParse = parseISO(initialDate)
+  const daysToTravel = differenceInDays(initialDateParse, new Date())
+  
   return (
     <div
       className={
@@ -34,7 +16,10 @@ const DaysToTravel = ({ className, initialDate }: DaysToTravelProps) => {
         (className ? ' ' + className : '')
       }
     >
-      Viajás en {renderDaysToTravel()}
+      {daysToTravel >= 0
+      ? <>En {daysToTravel} dias viajás</>
+      : <>Ya viajaste</>
+      }
     </div>
   )
 }
