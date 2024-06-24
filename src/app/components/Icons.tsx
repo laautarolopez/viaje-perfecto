@@ -29,6 +29,7 @@ const Icons = ({ tripId }: { tripId: string }) => (
         Icon={MdInsertPhoto}
         iconContainerClassName="bg-yellow-400 w-16 h-16"
         iconClassName="w-7 h-7"
+        url={tripId + '/fotos'}
       />
       <IconButton
         Icon={MdChecklistRtl}
