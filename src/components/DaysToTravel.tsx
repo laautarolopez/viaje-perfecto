@@ -16,7 +16,10 @@ const DaysToTravel = ({ className, initialDate }: DaysToTravelProps) => {
         (className ? ' ' + className : '')
       }
     >
-      En {daysToTravel} dias viajás
+      {daysToTravel >= 0
+      ? <>En {daysToTravel} dias viajás</>
+      : <>Ya viajaste</>
+      }
     </div>
   )
 }
