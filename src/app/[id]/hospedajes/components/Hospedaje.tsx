@@ -130,7 +130,7 @@ const Hospedaje = ({
           }}
         />
       </div>
-      <Blob trip_id={trip_id} folder={`${trip_id}/hospedajes/${id}`} />
+      <Blob folder={`${trip_id}/hospedajes/${id}`} />
     </>
   )
 }
