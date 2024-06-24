@@ -8,22 +8,20 @@ const HistorialPage = async () => {
 
     return (
         <div className="p-5">
-            <h1 className="text-4xl font-bold mb-5">Historial de viajes</h1>
-            <hr className="relative border-green-300 my-5" />
+            <h1 className="text-4xl font-bold mb-10">Historial de viajes</h1>
             <div className="mb-10">
-                <h1 className="text-xl font-bold mb-10">Viajes hechos</h1>
+                <h1 className="text-xl font-bold mb-5">Viajes hechos</h1>
                 {old_trips.length <= 0
-                ? <p className="text-green-200 text-center">No tienes viajes hechos</p>
+                ? <p className="text-green-200 text-center mt-10">No tienes viajes hechos</p>
                 : old_trips.map((trip) => (
                         <TripRow key={trip.id} trip={trip} />
                     ))
                 }
             </div>
-            <hr className="relative border-green-300 my-5" />
             <div>
-                <h1 className="text-xl font-bold mb-10">Futuros viajes</h1>
+                <h1 className="text-xl font-bold mb-5">Futuros viajes</h1>
                 {future_trips.length <= 0
-                ? <p className="text-green-200 text-center">No tienes futuros viajes</p>
+                ? <p className="text-green-200 text-center mt-10">No tienes futuros viajes</p>
                 : future_trips.map((trip) => (
                         <TripRow key={trip.id} trip={trip} />
                     ))

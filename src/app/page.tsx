@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import 'react-calendar/dist/Calendar.css'
 import NextTripCard from './components/NextTripCard'
 import CheckListContainer from '@/components/checklist/CheckListContainer'
@@ -9,6 +9,7 @@ import Dates from './components/Dates'
 import AirportTip from './components/AirportTip'
 import FutureTrips from './components/FutureTrips'
 import Link from 'next/link'
+import { MdRestore } from "react-icons/md";
 
 export default async function Home() {
   const {
@@ -46,6 +47,17 @@ export default async function Home() {
         />
         <CheckListContainer tripId={id} />
         <FutureTrips />
+        <div className="flex justify-between items-center mt-5 mb-10">
+          <Link
+              href='/historial'
+              className="flex items-center justify-center rounded-2xl p-3 font-bold border-green-600 bg-green-300 text-green-900"
+          >
+            <div className="flex justify-center items-center relative text-green-900 w-6 h-6 me-2">
+              <MdRestore className="w-6 h-6" />
+            </div>
+            <span className="text-green-900">Historial de viajes</span>
+          </Link>
+        </div>
         <Link
           href={'/agregar'}
           className="mt-10 text-center box-border rounded-lg p-4 w-full font-bold border-green-600 bg-green-300 text-green-900"
