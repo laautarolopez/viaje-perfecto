@@ -83,7 +83,7 @@ export async function getTripById(id: UUID): Promise<Trip> {
 
 export async function getAllMyTrips(): Promise<Trip[]> {
   const user_id = cookies().get('user_id')?.value
-  const res = await query(`SELECT * FROM trips WHERE user_id = $1`,[user_id])
+  const res = await query(`SELECT * FROM trips WHERE user_id = $1 ORDER BY initial_date ASC`,[user_id])
   
   const rawTrips = res.rows as RawTrip[]
   const trips = rawTrips.map((rawTrip: RawTrip) => {
