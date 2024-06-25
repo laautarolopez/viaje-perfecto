@@ -9,17 +9,17 @@ const trip4ID = '004544b2-4001-4271-9855-fec4b6a6442a'
 const users = [
   {
     id: user1ID,
-    email: 'prueba@gmail.com',
+    email: 'admin@gmail.com',
     password: '123456'
   },
   {
     id: user2ID,
-    email: 'prueba2@gmail.com',
+    email: 'lautaro@gmail.com',
     password: '123456'
   },
   {
     id: user3ID,
-    email: 'prueba3@gmail.com',
+    email: 'gonzalo@gmail.com',
     password: '123456'
   }
 ]
@@ -176,8 +176,8 @@ const hospedajes = [
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442d',
     name: 'Hotel Llao Llao',
-    start_date: '2024-05-15T08:00:00',
-    end_date: '2024-05-19T08:00:00',
+    start_date: '2024-07-15T08:00:00',
+    end_date: '2024-07-19T08:00:00',
     phone: '1194428530',
     address: 'Av. Ezequiel Bustillo Km. 25, Bariloche, Río Negro',
     price_per_night: 30000,
@@ -187,8 +187,8 @@ const hospedajes = [
   {
     id: '001544b3-4001-4271-9855-fec4b6a6442e',
     name: 'Sol del sur',
-    start_date: '2024-05-19T10:00:00',
-    end_date: '2024-05-25T10:00:00',
+    start_date: '2024-07-19T10:00:00',
+    end_date: '2024-07-25T10:00:00',
     phone: '1123441147',
     address: '9 de Julio 1086, Esquel, Chubut',
     price_per_night: 25000,
