@@ -5,6 +5,7 @@ import { SharedUserWithStatus } from '../lib/types'
 import { DatabaseError } from 'pg'
 import { cookies } from 'next/headers'
 import { sendNotification } from './notifications'
+import { redirect } from 'next/navigation'
 
 type CreateSharedTripProps = {
   userEmail: string
@@ -145,7 +146,7 @@ export async function declineInvitation(sharedId: string) {
       [sharedId]
     )
     const shared_trip = shared_trip_res.rows[0]
-    await deleteSharedTrip(sharedId)
+    await deleteSharedTripFromNotifications(sharedId)
 
     const trip_res = await query(
       'SELECT name, user_id FROM trips WHERE id = $1',
@@ -171,13 +172,32 @@ export async function declineInvitation(sharedId: string) {
   }
 }
 
-export async function deleteSharedTrip(sharedId: string) {
+export async function deleteSharedTripFromNotifications(sharedId: string) {
   try {
     await query('DELETE FROM shared_trips WHERE id = $1', [sharedId])
   } catch (error) {
     console.log('🚀 ~ deleteSharedTrip ~ error:', error)
   }
   revalidatePath(`/notifications`)
+}
+
+export async function deleteSharedTrip(sharedId: string) {
+  const user_id = cookies().get('user_id')?.value
+  const res = await query('SELECT * FROM shared_trips WHERE id = $1', [sharedId])
+  const shared_trip = res.rows[0]
+  const shared_user = shared_trip.user_id
+
+  try {
+    await query('DELETE FROM shared_trips WHERE id = $1', [sharedId])
+  } catch (error) {
+    console.log('🚀 ~ deleteSharedTrip ~ error:', error)
+  }
+
+  if (user_id == shared_user) {
+    revalidatePath(`/`)
+    redirect('/')
+  }
+  revalidatePath(`${shared_trip.trip_id}/compartir`)
 }
 
 export async function hasNotifications() {
