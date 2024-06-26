@@ -171,9 +171,13 @@ function validateHospedaje({
 }): { isValid: boolean; message: string } {
   const checkIn = new Date(hospedaje.start_date)
   const checkout = new Date(hospedaje.end_date)
+  console.log('🚀 ~ checkIn:', checkIn, checkout)
 
   const tripInitialDate = new Date(trip.initial_date)
   const tripEndDate = new Date(trip.end_date)
+  console.log('🚀 ~ tripInitialDate:', tripInitialDate, tripEndDate)
+  checkout.setHours(0, 0, 0, 0)
+  tripEndDate.setHours(0, 0, 0, 0)
 
   if (checkIn < tripInitialDate || checkout > tripEndDate) {
     return {
