@@ -14,7 +14,7 @@ Stack tecnológico:
 
 Casos de uso:
 
-![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/05ada612-a316-4dcb-a62e-a440486e6f63)
+![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/f8a5cc29-bf83-4c1a-b094-b82ac0a2bdb7)
 
 Referencias:
 - Verde: Nuevo caso de uso.
