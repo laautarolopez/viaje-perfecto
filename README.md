@@ -83,6 +83,45 @@ Como usuario quiero hacer uso de mi cuenta para administrar mis viajes
 -  El usuario pone sus credenciales y accede o primero se registra y accede.
 -  El sistema le muestra la home
 
+Como usuario quiero administrar mis notificaciones visuales
+- El usuario accede a su cuenta y entra a la home.
+- El usuario clickea en el boton del footer de notificaciones.
+- El sistema le redirecciona a la sección de notificaciones.
+- El usuario puede aceptar/rechazar una invitación y confirmar (marcar como leída) una notificación.
+- El sistema acepta/rechaza una invitación o confirma una notificación.
+
+Como usuario quiero administrar mis notificaciones push
+- El usuario entra a la url de Viaje Perfecto.
+- El sistema pide permisos de uso de notificaciones.
+- El usuario permite las notificaciones.
+- El sistema envía notificaciones push al usuario correspondiente en caso de tenerlas.
+- El usuario recibe la notificación push en el dispositivo correspondiente y si quiere clickearla, esta misma redirecciona a la sección de notificaciones.
+
+Como usuario quiero ver mi historial de viajes
+- El usuario accede a su cuenta y entra a la home.
+- El usuario clickea en el botón de historial de viajes
+- El sistema le redirecciona al historial de viajes.
+
+Como usuario quiero administrar fotos de un viaje
+- El usuario accede a su cuenta y entra a la home.
+- El usuario navega hasta la seccion de fotos de un viaje.
+- El usuario puede ver, descargar, eliminar o agregar las fotos relacionadas a ese viaje.
+- El sistema muestra, descarga, elimina o agrega la foto relacionada a ese viaje.
+
+Como usuario quiero administrar hospedajes de un viaje
+- El usuario accede a su cuenta y entra a la home.
+- El usuario navega hasta la seccion de hospedajes de un viaje.
+- El usuario clickea en el boton para agregar, editar o eliminar un hospedaje del viaje.
+- El sistema le muestra un formulario/modal de agregado, edicion o eliminacion de un hospedaje del viaje.
+- El usuario completa/modifica el formulario; o confima la eliminacion.
+- El sistema agrega, edita o elimina un hospedaje del viaje.
+
+Como usuario quiero compartir viajes a un usuario
+- El usuario accede a su cuenta y entra a la home.
+- El usuario navega hasta la seccion de compartir un viaje.
+- El usuario puede compartir o eliminar la invitación/posesión de un viaje a un usuario.
+- El sistema comparte o elimina la invitación/posesión de un viaje al otro usuario.
+
 Diagrama de arquitectura:
 
 ![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/ee2b0ae1-fa99-4eed-8e05-cb4888a7a945)
