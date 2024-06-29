@@ -142,4 +142,5 @@ Diagrama de arquitectura:
 
 Diagrama Entidad-Relacion:
 
-![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/aa190719-371d-46eb-9470-1f84827b882b)
+![image](https://github.com/laautarolopez/viaje-perfecto/assets/73248047/4c8d931a-fa51-4e60-b5be-5299cd42f947)
+
